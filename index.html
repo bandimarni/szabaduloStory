@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaimi Akadémia – Nyomozós szabadulójáték</title>
+<style>
+  :root{
+    --bg:#0e0b09; --bg2:#171210;
+    --paper:#efe6d0; --paper2:#e7dcc2;
+    --ink:#2b2318; --ink-soft:#4a3f30;
+    --red:#a83226; --red-dark:#7c2318;
+    --gold:#c9a24b; --muted:#9a8b76;
+    --card-border:#3a2f26;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(ellipse at 50% -10%, #241a13 0%, var(--bg) 60%);
+    color:#d8cdb8;
+    font-family:Georgia,'Times New Roman',serif;
+    line-height:1.65; min-height:100vh;
+  }
+  ::selection{background:var(--red);color:#fff}
+
+  header{
+    text-align:center; padding:48px 16px 20px;
+    border-bottom:1px solid var(--card-border);
+    background:linear-gradient(180deg, rgba(168,50,38,.08), transparent);
+  }
+  header h1{
+    font-family:'Courier New',Courier,monospace;
+    font-size:clamp(1.6rem,5vw,3rem);
+    letter-spacing:.35em; text-transform:uppercase;
+    color:var(--paper); text-shadow:0 0 24px rgba(168,50,38,.55);
+  }
+  header .sub{margin-top:10px;color:var(--muted);font-style:italic;font-size:1.02rem}
+  header .stamp{
+    display:inline-block;margin-top:16px;padding:4px 14px;
+    border:2px solid var(--red);color:var(--red);
+    font-family:'Courier New',monospace;font-weight:bold;
+    letter-spacing:.2em;transform:rotate(-3deg);
+    text-transform:uppercase;font-size:.85rem;
+    background:rgba(168,50,38,.06);
+  }
+
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,11,9,.95);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--card-border);
+    display:flex;flex-wrap:wrap;justify-content:center;gap:4px;
+    padding:10px 8px;
+  }
+  nav button{
+    background:transparent;color:#bfae94;
+    border:1px solid transparent;
+    font-family:'Courier New',monospace;font-size:.88rem;
+    letter-spacing:.06em;padding:8px 14px;cursor:pointer;
+    border-radius:4px;transition:.18s;
+  }
+  nav button:hover{color:var(--paper);border-color:var(--card-border)}
+  nav button.active{color:var(--paper);border-color:var(--red);background:rgba(168,50,38,.14)}
+  nav button .lock{font-size:.8em;opacity:.8}
+
+  main{max-width:1000px;margin:0 auto;padding:32px 16px 80px}
+  section{display:none;animation:fadein .35s ease}
+  section.active{display:block}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  h2{
+    font-family:'Courier New',monospace;color:var(--paper);
+    letter-spacing:.18em;text-transform:uppercase;font-size:1.35rem;
+    margin-bottom:6px;border-left:4px solid var(--red);padding-left:12px;
+  }
+  .lead{color:var(--muted);font-style:italic;margin-bottom:26px;padding-left:16px}
+  h3.pagehead{
+    font-family:'Courier New',monospace;color:var(--gold);
+    letter-spacing:.14em;text-transform:uppercase;font-size:1.02rem;
+    margin:34px 0 12px;border-bottom:1px dashed var(--card-border);padding-bottom:6px;
+  }
+
+  .narrative{
+    background:var(--bg2);border:1px solid var(--card-border);
+    border-radius:10px;padding:28px 30px;margin-bottom:26px;
+    box-shadow:0 6px 24px rgba(0,0,0,.45);
+  }
+  .narrative p{margin-bottom:14px}
+  .narrative p:last-child{margin-bottom:0}
+  .narrative .whisper{color:var(--red);font-style:italic;text-align:center;letter-spacing:.12em}
+  .narrative .radio{
+    font-family:'Courier New',monospace;background:rgba(0,0,0,.35);
+    border-left:3px solid var(--gold);padding:16px 18px;margin:18px 0;
+    color:#cfc2a5;font-size:.95rem;
+  }
+  .narrative .memory{
+    border-left:3px solid var(--red);padding:12px 16px;
+    background:rgba(168,50,38,.06);font-style:italic;margin:14px 0;
+  }
+  .task{
+    background:rgba(168,50,38,.10);border:1px dashed var(--red);
+    border-radius:8px;padding:14px 18px;margin-top:18px;
+    font-family:'Courier New',monospace;font-size:.95rem;
+  }
+  .task b{color:var(--paper)}
+  .task a{color:var(--gold)}
+  .choice-badge{
+    display:inline-block;background:#2e5a2e;color:#dff0d8;
+    font-family:'Courier New',monospace;letter-spacing:.15em;
+    padding:3px 12px;border-radius:3px;font-size:.85rem;text-transform:uppercase;
+  }
+
+  .doc{
+    background:var(--paper);color:var(--ink);border-radius:6px;
+    padding:34px 36px;margin:0 0 30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.55), inset 0 0 60px rgba(120,90,40,.12);
+    position:relative;
+  }
+  .doc::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(180deg, transparent 0 26px, rgba(90,70,40,.035) 26px 27px);
+    pointer-events:none;border-radius:6px;
+  }
+  .doc h3{
+    font-family:'Courier New',monospace;text-transform:uppercase;
+    letter-spacing:.22em;text-align:center;font-size:1.15rem;
+    margin-bottom:6px;color:var(--ink);
+  }
+  .doc .doc-sub{text-align:center;color:var(--ink-soft);font-style:italic;font-size:.9rem;margin-bottom:22px}
+  .doc hr{border:0;border-top:1px solid rgba(70,50,30,.35);margin:18px 0}
+  .doc p{margin-bottom:12px}
+  .doc ol{margin:0 0 12px 22px}
+  .doc ol li{margin-bottom:12px}
+  .doc .sig{text-align:right;font-family:'Segoe Print','Bradley Hand',cursive;font-size:1.05rem;color:var(--red-dark);margin-top:14px}
+  .doc .redstamp{
+    display:inline-block;border:3px double var(--red-dark);color:var(--red-dark);
+    padding:4px 12px;font-family:'Courier New',monospace;font-weight:bold;
+    letter-spacing:.18em;transform:rotate(-6deg);text-transform:uppercase;
+    font-size:.8rem;opacity:.85;
+  }
+
+  .newspaper{font-family:'Times New Roman',Georgia,serif}
+  .newspaper .masthead{
+    text-align:center;font-size:2rem;font-weight:bold;letter-spacing:.14em;
+    border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:4px;
+    font-variant:small-caps;
+  }
+  .newspaper .dateline{
+    text-align:center;font-size:.85rem;color:var(--ink-soft);
+    border-bottom:1px solid rgba(70,50,30,.4);padding-bottom:8px;margin-bottom:18px;
+    font-family:'Courier New',monospace;
+  }
+  .newspaper h4{font-size:1.25rem;margin-bottom:8px;line-height:1.3}
+  .newspaper .byline{font-size:.82rem;color:var(--ink-soft);font-style:italic;margin-bottom:10px}
+  .newspaper .cols{column-count:2;column-gap:26px;column-rule:1px solid rgba(70,50,30,.3)}
+  @media(max-width:640px){.newspaper .cols{column-count:1}}
+  .newspaper article{break-inside:avoid;margin-bottom:22px}
+  .newspaper article + article{border-top:1px solid rgba(70,50,30,.3);padding-top:16px}
+
+  .diary{background:var(--paper2);font-family:'Segoe Print','Bradley Hand',cursive}
+  .diary h3{font-family:'Segoe Print',cursive;letter-spacing:.1em}
+  .diary .entry{margin-bottom:20px}
+  .diary .entry .date{font-weight:bold;color:var(--red-dark);font-size:.95rem;margin-bottom:4px}
+  .diary .entry p{font-size:1.02rem}
+
+  .letter{margin-bottom:26px}
+  .letter .letterhead{
+    text-align:center;font-variant:small-caps;letter-spacing:.2em;
+    color:var(--red-dark);border-bottom:2px solid var(--red-dark);
+    padding-bottom:6px;margin-bottom:16px;font-size:.95rem;
+  }
+  .letter .backside{margin-top:16px;border-top:1px dashed rgba(70,50,30,.5);padding-top:14px}
+  .flipbtn{
+    display:inline-block;background:var(--red-dark);color:#f5ead2;
+    border:0;border-radius:4px;font-family:'Courier New',monospace;
+    letter-spacing:.08em;padding:8px 16px;cursor:pointer;font-size:.88rem;
+  }
+  .flipbtn:hover{background:var(--red)}
+  .hiddenpart{display:none}
+  .hiddenpart.revealed{display:block;animation:fadein .3s ease}
+
+  .phone{
+    background:#101418;border:10px solid #23282e;border-radius:28px;
+    max-width:420px;margin:0 auto 30px;padding:14px 12px 20px;
+    box-shadow:0 12px 34px rgba(0,0,0,.6);
+    font-family:'Segoe UI',Arial,sans-serif;
+  }
+  .phone .statusbar{display:flex;justify-content:space-between;color:#7d8a96;font-size:.72rem;padding:2px 8px 8px;font-family:'Courier New',monospace}
+  .phone .chat-title{text-align:center;color:#e8eef4;font-weight:600;font-size:.95rem;border-bottom:1px solid #2c333b;padding-bottom:8px;margin-bottom:10px}
+  .phone .day{text-align:center;color:#5d6a76;font-size:.72rem;margin:12px 0 6px}
+  .bubble{max-width:78%;padding:8px 12px;border-radius:14px;margin-bottom:8px;font-size:.87rem;line-height:1.45;clear:both}
+  .bubble .who{font-size:.68rem;color:#8fa0af;display:block;margin-bottom:2px}
+  .bubble.left{float:left;background:#232a31;color:#dbe4ec;border-bottom-left-radius:4px}
+  .bubble.right{float:right;background:#3d5a3d;color:#e8f2e4;border-bottom-right-radius:4px}
+  .phone .clearfix{clear:both}
+
+  .file-card{
+    background:var(--paper);color:var(--ink);
+    border:1px solid rgba(70,50,30,.4);border-radius:6px;
+    padding:20px 22px;margin-bottom:20px;position:relative;
+  }
+  .file-card h4{
+    font-family:'Courier New',monospace;letter-spacing:.14em;text-transform:uppercase;
+    border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px;font-size:1rem;
+  }
+  .file-card table{width:100%;border-collapse:collapse;font-size:.93rem}
+  .file-card td{border:1px solid rgba(70,50,30,.35);padding:6px 10px;vertical-align:top}
+  .file-card td.k{
+    width:34%;font-family:'Courier New',monospace;font-size:.8rem;
+    text-transform:uppercase;letter-spacing:.06em;background:rgba(120,90,40,.08);
+  }
+  .file-card .missing{
+    position:absolute;top:14px;right:16px;
+    border:3px double var(--red-dark);color:var(--red-dark);
+    padding:2px 10px;font-family:'Courier New',monospace;font-weight:bold;
+    letter-spacing:.15em;transform:rotate(8deg);text-transform:uppercase;
+    font-size:.78rem;background:rgba(168,50,38,.05);
+  }
+
+  .evidence-item{
+    border:1px solid var(--card-border);border-radius:10px;
+    margin-bottom:22px;background:var(--bg2);overflow:hidden;
+  }
+  .evidence-item > summary{
+    list-style:none;cursor:pointer;padding:16px 20px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    font-family:'Courier New',monospace;letter-spacing:.08em;
+    color:var(--paper);user-select:none;
+  }
+  .evidence-item > summary::-webkit-details-marker{display:none}
+  .evidence-item > summary:hover{background:rgba(168,50,38,.07)}
+  .evidence-item > summary .tag{
+    font-size:.7rem;border:1px solid var(--gold);color:var(--gold);
+    padding:2px 8px;border-radius:3px;letter-spacing:.12em;
+    text-transform:uppercase;white-space:nowrap;
+  }
+  .evidence-item > summary .tag.new{border-color:#6faf62;color:#8fce81}
+  .evidence-item > summary .arrow{margin-left:auto;color:var(--muted);transition:.2s}
+  .evidence-item[open] > summary .arrow{transform:rotate(90deg)}
+  .evidence-item .inner{padding:10px 20px 24px}
+  .readmark{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.8rem;color:var(--muted);font-family:'Courier New',monospace;
+    cursor:pointer;white-space:nowrap;
+  }
+  .readmark input{accent-color:var(--red);width:15px;height:15px;cursor:pointer}
+
+  /* képek */
+  .scan-thumb{
+    display:block;width:100%;max-width:340px;border-radius:6px;
+    cursor:zoom-in;border:1px solid var(--card-border);
+    transition:.2s;background:#1c1712;
+  }
+  .scan-thumb:hover{transform:scale(1.02);border-color:var(--gold)}
+  .thumb-row{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
+  .thumb-row figure{max-width:340px}
+  .thumb-row figcaption{font-size:.78rem;color:var(--muted);font-family:'Courier New',monospace;margin-top:6px}
+  .scan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .scan-card{background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;padding:14px}
+  .scan-card h4{font-family:'Courier New',monospace;font-size:.85rem;color:var(--paper);letter-spacing:.06em;margin-bottom:4px}
+  .scan-card .guess{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:10px;min-height:2.4em}
+  .scan-card img{width:100%;border-radius:6px;cursor:zoom-in;background:#1c1712}
+  .spoiler-scan{border-color:var(--red)}
+  .spoiler-scan .warn{color:var(--red);font-family:'Courier New',monospace;font-size:.8rem;letter-spacing:.1em;margin-bottom:8px}
+
+  /* lightbox */
+  #lightbox{
+    display:none;position:fixed;inset:0;z-index:200;
+    background:rgba(5,3,2,.94);
+    justify-content:center;align-items:flex-start;
+    overflow:auto;padding:30px 16px;cursor:zoom-out;
+  }
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:min(1400px,96vw);width:100%;height:auto;border-radius:6px;box-shadow:0 0 60px rgba(0,0,0,.9)}
+  #lightbox .lb-hint{
+    position:fixed;top:12px;right:20px;color:#cbb98f;
+    font-family:'Courier New',monospace;font-size:.85rem;
+    background:rgba(0,0,0,.55);padding:6px 12px;border-radius:5px;
+  }
+
+  .quiz-q{background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+  .quiz-q h4{color:var(--paper);font-family:'Courier New',monospace;letter-spacing:.06em;font-size:1rem;margin-bottom:12px}
+  .quiz-q label{display:block;padding:8px 12px;border:1px solid transparent;border-radius:6px;cursor:pointer;font-size:.95rem}
+  .quiz-q label:hover{border-color:var(--card-border);background:rgba(255,255,255,.02)}
+  .quiz-q input{accent-color:var(--red);margin-right:10px}
+  .quiz-q.correct{border-color:#4a7a41}
+  .quiz-q.wrong{border-color:var(--red)}
+  .quiz-result{font-family:'Courier New',monospace;text-align:center;padding:16px;letter-spacing:.1em;font-size:1.05rem}
+  .quiz-result.ok{color:#7fbf72}
+  .quiz-result.fail{color:var(--red)}
+
+  .btn{
+    display:inline-block;background:var(--red);color:#fff;border:0;
+    font-family:'Courier New',monospace;letter-spacing:.14em;text-transform:uppercase;
+    padding:13px 26px;border-radius:5px;cursor:pointer;font-size:.92rem;transition:.18s;
+  }
+  .btn:hover{background:var(--red-dark);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;border:1px solid var(--card-border);color:var(--muted)}
+  .btn.ghost:hover{color:var(--paper);border-color:var(--muted)}
+
+  .escape-box{
+    background:rgba(0,0,0,.3);border:1px solid var(--gold);
+    border-radius:10px;padding:20px 24px;margin-top:20px;
+  }
+  .escape-box h4{font-family:'Courier New',monospace;color:var(--gold);letter-spacing:.12em;margin-bottom:10px;text-transform:uppercase;font-size:.95rem}
+  .escape-box input{
+    background:#0a0806;color:var(--paper);border:1px solid var(--card-border);
+    border-radius:5px;padding:10px 14px;font-family:'Courier New',monospace;
+    font-size:1rem;width:min(320px,100%);letter-spacing:.05em;
+  }
+  .escape-box input:focus{outline:2px solid var(--red)}
+  .ending{
+    margin-top:16px;border-radius:8px;padding:18px 20px;
+    animation:fadein .4s ease;
+  }
+  .ending.good{background:rgba(74,122,65,.12);border:1px solid #4a7a41}
+  .ending.bad{background:rgba(168,50,38,.10);border:1px solid var(--red)}
+  .ending h5{font-family:'Courier New',monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .ending.good h5{color:#8fce81}
+  .ending.bad h5{color:var(--red)}
+  .ending p{margin-bottom:10px;font-size:.97rem}
+
+  .gate{
+    text-align:center;border:2px solid var(--red);border-radius:12px;
+    padding:44px 24px;background:rgba(168,50,38,.05);
+  }
+  .gate h3{font-family:'Courier New',monospace;color:var(--red);letter-spacing:.3em;margin-bottom:14px;text-transform:uppercase}
+  .gate p{color:var(--muted);max-width:560px;margin:0 auto 20px}
+
+  .timeline{border-left:2px solid var(--red);margin:20px 0 0 8px;padding-left:24px}
+  .timeline .tl-item{margin-bottom:20px;position:relative}
+  .timeline .tl-item::before{
+    content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;
+    border-radius:50%;background:var(--red);box-shadow:0 0 10px rgba(168,50,38,.8);
+  }
+  .timeline .year{font-family:'Courier New',monospace;color:var(--gold);font-weight:bold;letter-spacing:.1em}
+
+  #notes textarea{
+    width:100%;min-height:340px;background:var(--paper2);color:var(--ink);
+    border:0;border-radius:8px;padding:24px;
+    font-family:'Segoe Print','Bradley Hand',cursive;
+    font-size:1.05rem;line-height:1.8;
+    box-shadow:0 8px 26px rgba(0,0,0,.5);resize:vertical;
+  }
+  #notes textarea:focus{outline:2px solid var(--red)}
+  .notes-hint{font-size:.82rem;color:var(--muted);margin-top:8px;font-family:'Courier New',monospace}
+
+  .progressbar{
+    max-width:1000px;margin:0 auto;padding:8px 16px 0;
+    font-family:'Courier New',monospace;font-size:.78rem;
+    color:var(--muted);letter-spacing:.08em;
+  }
+  .progressbar .track{height:5px;background:var(--bg2);border-radius:3px;margin-top:5px;overflow:hidden}
+  .progressbar .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--red-dark),var(--red));transition:width .4s ease}
+
+  footer{
+    text-align:center;color:#5d5344;font-size:.8rem;
+    padding:30px 16px 40px;border-top:1px solid var(--card-border);
+    font-family:'Courier New',monospace;
+  }
+  .chapter-next{text-align:center;margin-top:30px}
+  .hint-inline{color:var(--muted);font-size:.85rem;font-style:italic}
+  .kbd-note{
+    background:rgba(201,162,75,.08);border:1px solid rgba(201,162,75,.4);
+    border-radius:8px;padding:14px 18px;margin-bottom:24px;
+    font-size:.9rem;color:#cdbd9c;
+  }
+  .cover-hero{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+  .cover-hero .cover-img{flex:0 0 240px;max-width:240px}
+  .cover-hero .cover-img img{width:100%;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.6);cursor:zoom-in}
+  .cover-hero .cover-txt{flex:1;min-width:280px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Gaimi Akadémia</h1>
+  <div class="sub">Infinite Escape Nightmare &mdash; nyomozós szabadulójáték &mdash; Gannan város, 2021. július</div>
+  <div class="stamp">Szigorúan bizalmas</div>
+</header>
+
+<div class="progressbar">
+  <span id="progress-label">Nyomozás állása: 0%</span>
+  <div class="track"><div class="fill" id="progress-fill"></div></div>
+</div>
+
+<nav id="mainnav">
+  <button data-target="home" class="active">Kezdőlap</button>
+  <button data-target="boy">A fiú naplója</button>
+  <button data-target="girl">A lány naplója</button>
+  <button data-target="evidence">Bizonyítékok</button>
+  <button data-target="scans">Eredeti szkennek</button>
+  <button data-target="quiz">Következtetés</button>
+  <button data-target="truth" id="truthnavbtn"><span class="lock">🔒</span> Az igazság</button>
+  <button data-target="notes">Jegyzetfüzet</button>
+</nav>
+
+<main>
+
+<!-- ============ KEZDŐLAP ============ -->
+<section id="home" class="active">
+  <h2>Üdvözöl a Gaimi Akadémia</h2>
+  <p class="lead">Egy hely, ahonnan minden diák „megjavulva” távozik. Vagy sehogy.</p>
+
+  <div class="narrative">
+    <div class="cover-hero">
+      <div class="cover-img">
+        <img src="scans/1000018572.jpg" onerror="this.onerror=null;this.src='1000018572.jpg'" alt="A játék borítója" onclick="openLightbox(this.src)">
+      </div>
+      <div class="cover-txt">
+        <p>Gannan városának peremén, magas falak mögött áll a hírhedt <b>Gaimi Akadémia</b> — a „problémás gyerekek” javítóintézete. Internetfüggők, szökött szerelmesek, magányos árvák… ide kerül mindenki, akiről a szülei lemondtak. A falakon belülre újságíró nem léphet, a diákokat a szüleik sem látogathatják. Aki innen kikerül, az hallgat.</p>
+        <p>Te az akadémia egyik szobájában ébredsz. Nem emlékszel a nevedre. Nem emlékszel arra sem, hogyan kerültél ide. Csak dokumentumok, naplók, levelek és fényképek maradtak — belőlük kell összeraknod, ki vagy, mi történik ezen a helyen… és mire készül az igazgató.</p>
+        <p class="whisper">„Jó gyermekem… jól viselkedtél ma?”</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc">
+    <h3>Kedves Nyomozó!</h3>
+    <div class="doc-sub">— az eredeti játék útmutatója —</div>
+    <p>Olvasd el figyelmesen az akadémia házirendjét, nehogy megszegd — és magánzárkában találd magad!</p>
+    <p>Válassz egyjátékos vagy kétjátékos módot, és az utasításokat követve tanulmányozd az anyagokat.</p>
+    <p><b>Kétjátékos mód:</b> mindkét játékos választ egy akciónaplót, és az utasításokat követve gyűjti a bizonyítékokat, majd közösen következtettek az igazságra.</p>
+    <p><b>Egyjátékos mód:</b> egy személy mindkét akciónaplót végigolvassa, elvégzi a bennük leírt feladatokat, bizonyítékot gyűjt, következtet — és felfedi az igazságot.</p>
+    <p style="font-family:'Courier New',monospace;font-size:.92rem"><b>▸ A FIÚ AKCIÓNAPLÓJA: a füzet 1–4. oldala.<br>▸ A LÁNY AKCIÓNAPLÓJA: a füzet 5–8. oldala.</b></p>
+    <hr>
+    <p class="hint-inline" style="color:var(--ink-soft)">A játékban szereplő minden intézmény, szervezet, személy és esemény kitalált, a valósághoz semmi köze. A karakterek mesterséges intelligencia segítségével készültek.</p>
+  </div>
+
+  <div class="kbd-note">
+    <b>Hogyan játssz ezen az oldalon?</b> Haladj végig <b>A fiú naplója</b>, majd <b>A lány naplója</b> fejezetein. A feladatok megmondják, mikor melyik dokumentumot nyisd ki a <b>Bizonyítékok</b> fül alatt — mindent magyarra fordítva találsz, az eredeti fényképes oldalak pedig kattintásra kinagyíthatók. Közben jegyzetelj a <b>Jegyzetfüzetbe</b>! Mindkét napló végén egy <b>menekülési pontot</b> kell megtalálnod. Ha úgy érzed, mindent megfejtettél, tedd próbára magad a <b>Következtetés</b> fülön — csak ezután nyílik ki <b>Az igazság</b>.
+    <br><br>
+    <span style="color:var(--red)">⚠ Spoilerveszély:</span> „Az igazság” fül és az utolsó két szken a teljes megoldást tartalmazza. Csak a végén nyisd ki!
+  </div>
+
+  <div style="text-align:center;margin-top:34px">
+    <button class="btn" onclick="showSection('boy')">A játék indítása →</button>
+  </div>
+</section>
+
+<!-- ============ A FIÚ NAPLÓJA ============ -->
+<section id="boy">
+  <h2>A fiú akciónaplója</h2>
+  <p class="lead">A füzet 1–4. oldala · Egy férfi növendék feljegyzései</p>
+
+  <h3 class="pagehead">1. oldal — Ébredés</h3>
+  <div class="narrative">
+    <p class="whisper">„Öld meg őket… öld meg őket… és király leszel…”</p>
+    <p>Ezek a szavak visszhangoznak a füledben, és nem akarnak elhallgatni. A sötétségben egy lezárt szobában találod magad, a falakat vérfoltok borítják. Az asztal felé indulsz, de a lábad alig mozdul — mintha ólomból lenne.</p>
+    <p>Kimerülten éred el az asztalt. Egy furcsa <b>sisak</b> hever rajta, némán. Nem tudsz ellenállni: a fejedre húzod — és abban a pillanatban szörnyek hordája ront rád, agyarakat és karmokat villantva. Csapkodsz feléjük, de hiába.</p>
+    <p>„Kegyelem! Kegyelem!” — könyörögsz térdre rogyva, de a démonok nem hátrálnak. Szélesre tárják karjukat, mintha el akarnának nyelni.</p>
+    <p class="whisper">„Add vissza az életem… add vissza az életem…”</p>
+    <p>„Ébresztő! Ébresztő!” — hangzavar ránt ki a rémálomból. Magadra nézel: régimódi kék köntöst viselsz, akár egy régi korok tudósa. Odakint hangszóró recseg — egy férfihang. A hang hallatán félelem hasít beléd, és önkéntelenül is hegyezni kezded a füled.</p>
+    <div class="radio">
+      📢 <b>HANGOSBEMONDÓ:</b> „Hé, ti ingyenélő társadalmi paraziták, ébresztő! Nyissátok ki a szemeteket és nézzetek körül! Ez itt az Akadémia — a hely, ahol újjászülethettek, és a társadalom hasznos tagjává válhattok. Itt nekem engedelmeskedtek. A szüleitek nem azért küldtek ide, hogy egyetek, igyatok és szórakozzatok, hanem hogy kigyógyuljatok a rossz szokásaitokból. Úgyhogy ne hozzátok ide az elkényeztetett úrifiú-allűröket, különben a házirend szerint bűnhődtök. Ja, és a házirend az asztalon van a szobátokban. Másoljátok le tízszer! Van ott néhány fénykép is az akadémia környezetéről — nézzétek meg alaposan, hová szabad mennetek és hová nem. Aztán ellenőrizzétek, nem hiányzik-e valami. Harminc perc múlva jelentkezés a tanári irodában. Aki késik, nagyon megbánja.”
+    </div>
+    <p>A hangosbemondó után gépiesen engedelmeskedsz, és az asztalra pillantasz. Ott hever a <b>„Gaimi Akadémia házirendje”</b>, a <b>Gannan Napilap</b> egy példánya, néhány <b>fénykép</b>, valamint egy füzet, a gerincén felirattal: <b>„Wen Zhibin naplója”</b>. Erőlködsz, hogy visszaemlékezz bármire — de rá kell jönnöd: a saját nevedre sem emlékszel. Úgy döntesz, <b>Wen Zhibin</b> szemszögéből kezdesz emlékezni, és megpróbálsz minél többet felidézni.</p>
+  </div>
+
+  <h3 class="pagehead">2. oldal — Feladatok és a választás</h3>
+  <div class="narrative">
+    <div class="task">
+      <b>▸ TEENDŐID:</b><br><br>
+      1. Olvasd el: <a href="#" onclick="openEvidence('ev-rules');return false;">A Gaimi Akadémia házirendje</a><br>
+      2. Olvasd el az asztalon heverő <a href="#" onclick="openEvidence('ev-daily');return false;">Gannan Napilapot</a><br>
+      3. Figyeld meg <a href="#" onclick="openEvidence('ev-photos');return false;">az asztalon lévő fényképeket</a><br>
+      4. Miután elolvastad <a href="#" onclick="openEvidence('ev-diary');return false;">Wen Zhibin naplóját</a>, rendezd a szereplők kapcsolatait, és válaszolj a kérdésre, hogy kiderítsd, mi történt Wen Zhibinnel:<br><br>
+      <b>Kérdés: Miért küldték Wen Zhibint az akadémiára?</b>
+    </div>
+    <p style="margin-top:18px">Az akadémia fotóit és hirdetményeit követve megérkezel a tanári szobához, hogy regisztrálj. Az emeleten <b>három tanári iroda</b> van, látszólag teljesen egyforma elrendezéssel — csak a bennük lévő tárgyak térnek el kissé. Tudod, hogy a szobák <b>Liu Zi tanáré</b>, <b>Li Yi tanáré</b> és <b>Gui („Szellem”) tanáré</b>. Mivel nem emlékszel, melyik osztályba jársz, magad választasz szobát a regisztrációhoz.</p>
+    <p><span class="choice-badge">【Választás】</span></p>
+    <p>Korábbi emlékeid alapján válaszd annak a tanárnak a szobáját, akihez megérzésed szerint <b>a legmélyebb kötelék</b> fűz. Lépj be, vizsgálódj, és próbáld feltérképezni a szereplők közötti kapcsolatokat!</p>
+    <div class="memory">
+      <p><b>Liu tanár szobája.</b> Belépsz, és ismerős érzés önt el. Körülnézel, mindent alaposan szemügyre veszel. A falon a <b>„szülőtisztelet”</b> írásjegye függ; az asztalon egy kicsi, <b>vérfoltos fafigura</b> — kísértetiesen hasonlít az álmodban látotthoz. Egy címke nélküli orvosságosüveget is találsz: kinyitod, beleszagolsz — az émelyítő szag mintha a lelkedet szippantaná ki. Emellett diákok házi feladatai hevernek az asztalon: a <b>„Huszonnégy példamutató gyermek”</b> történeteit másolják bennük újra meg újra. Nem nagyon érted őket, ezért leülsz, és várod, hogy jelentkezhess. Kisvártatva megjelenik <b>Zhang igazgató</b>. Amikor meglát, felsóhajt. A kezedbe nyomja az asztalon álló orvosságot, és megparancsolja, hogy idd meg. Csak engedelmeskedni tudsz. Az orvosság hatására fokozatosan elveszíted az eszméletedet, és mély álomba zuhansz…</p>
+    </div>
+  </div>
+
+  <h3 class="pagehead">3. oldal — A másik két szoba és az emlék</h3>
+  <div class="narrative">
+    <p><b>Li Yi professzor szobája.</b> Belépsz — a hely egyszerre idegen és furcsán ismerős. Hatalmas könyvespolc áll a falnál, tele kalandregényekkel. Az asztalon címke nélküli <b>orvosságosüveg</b>: kinyitod, beleszagolsz — az émelyítő szag szinte kiszippantja a lelked. Az asztalon heverő óravázlatokba pillantasz: részletesen taglalják, <i>„hogyan szerezzünk információt hallgatózással”</i>. Észreveszel egy <b>tanítási naplót</b> is; belelapozol, de szinte érthetetlen. Leülsz, és várod, hogy sorra kerülj. Hamarosan megjelenik Zhang igazgató. Rád néz, felsóhajt, a kezedbe nyomja az orvosságot — nincs választásod. A szer lassan elkábít, és mély álomba zuhansz.</p>
+    <div class="task">
+      <b>▸ TEENDŐD:</b> Nézd meg: <a href="#" onclick="openEvidence('ev-liyi');return false;">Li Yi tanítási naplója</a>
+    </div>
+    <p style="margin-top:20px"><b>A Szellemtanár szobája.</b> Belépsz, és ismerős érzés önti el az elméd. Körülnézel, mindent alaposan szemügyre veszel. A falakat <b>vérfoltok</b> borítják — hátborzongató látvány. Az asztalon itt is címke nélküli orvosságosüveg; az émelyítő szag majdnem elszédít. Az asztalon <b>rengeteg levél</b> — úgy döntesz, ezekben kutatsz az emlékeid után. Úgy érzed, ehhez a tanárhoz fűz a legmélyebb kötelék, és tovább akarsz nyomozni.</p>
+    <p>A levelekben úgynevezett <b>„teknőslevesek”</b> rejtőznek. Ez egy kérdezz-felelek következtetős játék: a mesélő elmond egy furcsa, hiányos történetet, a játékos pedig eldöntendő kérdéseket tesz fel, amelyekre csak „igen” vagy „nem” lehet a válasz. A válaszok alapján nyomokat gyűjt, módosítja a feltevéseit, és újabb kérdésekkel végül megfejti a történet titkát.</p>
+    <div class="task">
+      <b>▸ TEENDŐD:</b> Olvasd el: <a href="#" onclick="openEvidence('ev-letters');return false;">A Szellemtanár levelei</a> — és próbáld megfejteni a bennük rejlő „levesek” igazságát, mielőtt megfordítod a lapokat!
+    </div>
+    <div class="memory">
+      <p><b>Emlék.</b> A tanári szoba iratainak átnézése után emlékek árasztják el az elméd: <i>Félénk ember voltál, de a szerelemhez való jogodat sosem adtad fel. Bár a szüleid úgy döntöttek, hogy őt a bátyádhoz adják feleségül, ti ketten tudtátok: igazán szeretitek egymást. Az esküvő előtti éjszakán az utolsó közös, boldog pillanataitokat töltöttétek a szobában. Hirtelen csobbanást hallottál. Felnéztél — és láttad, ahogy az öcséd a kútba löki a bátyádat. Aztán megfordult… és meglátott téged, aki mindent végignézett. A bátyád halála miatt őt — a szerelmedet — a szüleid elzavarták otthonról. Azon az éjszakán az öcséd elmesélte neked a „három fivér” történetét. Majd elővett egy döglött csirkét, és a vérét szétkente az ágyon, rajtad, a szoba minden zugában — hogy úgy tűnjön, te ölted meg őt. Aztán elmenekült…</i></p>
+    </div>
+  </div>
+
+  <h3 class="pagehead">4. oldal — A kút emléke és a szökés</h3>
+  <div class="narrative">
+    <p><b>Vér… ez vér!</b> A gondolatba újra belehasít a fejfájás. Újabb emlékfoszlányok törnek fel a közelmúltból: <b>a kút… a kút…</b> Amikor az az elmosódott alak megtudta, hogy <b>ő maga volt a gyilkos</b>, felüvöltött: <i>„Megöltem azokat, akik életet adtak nekem és felneveltek!”</i> — és a kútba vetette magát… Lassan megnyugszol, és ráébredsz: ez az emlék szorosan összefügg a korábban látott „teknőslevesekkel”. De ennyi információból még kevésre jutsz. Úgy döntesz, az igazgatói irodában nyomozol tovább.</p>
+    <div class="task">
+      <b>▸ TEENDŐID:</b><br><br>
+      1. Vizsgáld át <a href="#" onclick="openEvidence('ev-chats');return false;">az igazgató telefonját</a>, és keress nyomokat!<br>
+      2. Derítsd ki, hogyan kapcsolódnak a „teknőslevesek” a valósághoz!
+    </div>
+    <p style="margin-top:18px;color:var(--red)"><b>Rettenetes igazságokat tudtál meg. Nem maradhatsz tovább az akadémián: azonnal menekülnöd kell!</b> Az igazgatói iroda szemeteskosarában papírfecniket veszel észre. Egy gyors pillantás után rájössz: <b>az akadémia térképe az</b>! Mivel nem ismered az épület elrendezését, az <a href="#" onclick="openEvidence('ev-map');return false;" style="color:var(--gold)">igazgatói iroda rejtvényével</a> keresel menekülőutat.</p>
+    <div class="escape-box">
+      <h4>🗝 Menekülési pont — a fiú útvonala</h4>
+      <p style="font-size:.9rem;margin-bottom:12px">Fejtsd meg az alaprajz-rejtvényt, és találd meg a helyes menekülési pontot! (Az eredeti játékban itt egy QR-kódot kell beolvasni — itt egyszerűen írd be a helyet. A menekülési pont <i>az emlékeidben</i> van…)</p>
+      <input type="text" id="escape-boy" placeholder="Hová menekülsz?" onkeydown="if(event.key==='Enter')checkEscape('boy')">
+      <button class="btn" style="padding:10px 18px;margin-left:8px" onclick="checkEscape('boy')">Menekülés!</button>
+      <div id="ending-boy"></div>
+    </div>
+    <div class="task" style="margin-top:22px">
+      <b>▸ VÁLASZOLD MEG az alábbi kérdéseket, hogy tisztázd a szereplők közötti kapcsolatokat:</b><br><br>
+      (1) Ki vagy te?<br>
+      (2) Mi a kapcsolat Wen Zhibin apja és az akadémia között?<br>
+      (3) Mi az igazság az utolsó teknősleves mögött?<br>
+      (4) Mi a kapcsolatod Wentinggel? Hol van ő most?<br><br>
+      <span style="color:var(--red)">Ha mindent összeraktál, jöhet a <a href="#" onclick="showSection('quiz');return false;">Következtetés</a> — és utána az igazság!</span>
+    </div>
+  </div>
+
+  <div class="chapter-next">
+    <button class="btn" onclick="showSection('girl')">Tovább a lány naplójára →</button>
+  </div>
+</section>
+
+<!-- ============ A LÁNY NAPLÓJA ============ -->
+<section id="girl">
+  <h2>A lány akciónaplója</h2>
+  <p class="lead">A füzet 5–8. oldala · Egy női növendék feljegyzései</p>
+
+  <h3 class="pagehead">5. oldal — „Jól viselkedett ma az én jó gyermekem?”</h3>
+  <div class="narrative">
+    <p class="whisper">„A férfi felsőbbrendű a nőnél… a három engedelmesség és a négy erény… A szülőtiszteletlen tettek közül a legsúlyosabb, ha valakinek nincs utódja…”</p>
+    <p>Ezek a szavak kavarognak a füledben, és nem akarnak elhallgatni. A sötétségben megpillantasz egy asztalt, és megpróbálod megközelíteni, de alig bírsz mozdulni. Kimerülten éred el végül — és egy kicsi, <b>vérfoltos fafigurát</b> látsz rajta. A szemei élettelenek, a szeme sarkában vér és könny gyűlik. Néma csend. A kis fafigura üres tekintettel mered rád, és elsöprő félelem fog el iránta.</p>
+    <p class="whisper">„Faragj fát, szolgáld szüleid… faragj fát, szolgáld szüleid…” — mordul fel mélyen, újra és újra ismételve e szavakat.</p>
+    <p>„Kegyelem, kegyelem!” — könyörögsz térden állva. De a fafigura megmozdul: fokozatosan megduzzad, és egyre közelebb húzódik hozzád. Hirtelen felnevet: <b>„Várni foglak Weifeng faluban…”</b></p>
+    <p>„Ébresztő! Ébresztő!” — hangzavar ránt ki a rémálomból. Magadra nézel: régimódi kék köntöst viselsz, akár egy régi korok tudósa. Odakint hangszóró recseg — egy férfihang. A hang hallatán félelem hasít beléd, és önkéntelenül is feszülten hallgatod a bemondást.</p>
+    <div class="radio">
+      📢 <b>HANGOSBEMONDÓ:</b> „Hé, ti ingyenélő társadalmi paraziták, ébresztő! Nyissátok ki a szemeteket és nézzetek körül! Ez itt a Gaimi Akadémia — a hely, ahol újjászülethettek, és a társadalom hasznos tagjává válhattok. Itt nekem engedelmeskedtek. […] A házirend az asztalon van — másoljátok le tízszer! A fényképeken nézzétek meg, hová szabad mennetek és hová nem, és ellenőrizzétek, nem hiányzik-e valami. Harminc perc múlva jelentkezés a tanári irodában!”
+    </div>
+  </div>
+
+  <h3 class="pagehead">6. oldal — Feladatok és a választás</h3>
+  <div class="narrative">
+    <p>A bemondás után gépiesen engedelmeskedsz, és az asztalra pillantasz. Ott hever a <b>„Gaimi Akadémia házirendje”</b>, a <b>Gannan Napilap</b> egy példánya, néhány <b>fénykép</b> — és egy boríték, rajta felirat: <b>„Wang Miaoling titka”</b>. Erőlködsz, hogy emlékezz, de a saját nevedre sem emlékszel. Úgy döntesz, <b>Wang Miaoling</b> szemszögéből próbálsz emlékezni, és minél többet felidézni.</p>
+    <div class="task">
+      <b>▸ TEENDŐID:</b><br><br>
+      1. Olvasd el: <a href="#" onclick="openEvidence('ev-rules');return false;">A Gaimi Akadémia házirendje</a><br>
+      2. Olvasd el az asztalon heverő <a href="#" onclick="openEvidence('ev-daily');return false;">Gannan Napilapot</a><br>
+      3. Figyeld meg <a href="#" onclick="openEvidence('ev-photos');return false;">az asztalon lévő fényképeket</a><br>
+      4. Olvasd el a <a href="#" onclick="openEvidence('ev-wml');return false;">„Wang Miaoling titka”</a> feliratú borítékot, rendezd a szereplők kapcsolatait, és válaszolj a kérdésekre, hogy kiderítsd, mi történt Wang Miaolinggal:<br><br>
+      <b>1. Ki a férfi, aki Wang Miaolinggal közös fotón szerepel?<br>
+      2. Kinek íródott Wang Miaoling cetlije?</b>
+    </div>
+    <p style="margin-top:18px">Az akadémia fotóit és hirdetményeit követve megérkezel a tanári szobához, hogy regisztrálj. Az emeleten három, látszólag egyforma tanári iroda van — <b>Liu Zi</b>, <b>Li Yi</b> és <b>Gui („Szellem”) tanár</b> szobái. Mivel nem emlékszel, melyik osztályba jársz, magad választasz szobát.</p>
+    <p><span class="choice-badge">【Választás】</span></p>
+    <p>Korábbi emlékeid alapján válaszd annak a tanárnak a szobáját, akihez megérzésed szerint <b>a legmélyebb kötelék</b> fűz — lépj be, és nyomozz!</p>
+  </div>
+
+  <h3 class="pagehead">7. oldal — A három szoba</h3>
+  <div class="narrative">
+    <div class="memory">
+      <p><b>Liu tanár szobája.</b> Belépsz, és ismerős érzés önt el. A falon a <b>„szülőtisztelet”</b> írásjegye; az asztalon kicsi, <b>vérfoltos fafigura</b> — kísértetiesen hasonlít az álmodbelihez. A címke nélküli orvosság émelyítő szaga szinte kiszippantja a lelked. A diákok beadott házi feladatai között megtalálod <b>Wang Miaoling munkáját</b>: újra és újra a <b>„fát faragott, hogy szüleit szolgálja”</b> történetét másolja a „Huszonnégy példamutató gyermek” gyűjteményből. Úgy érzed, ehhez a tanárhoz fűz a legmélyebb kötelék, és tovább vizsgálódsz. Kihúzol egy fiókot — és megtalálod az <b>akadémia személyi aktáit</b>. Úgy döntesz, ezeken keresztül próbálod visszanyerni az emlékeidet.</p>
+    </div>
+    <div class="task">
+      <b>▸ TEENDŐD:</b> Nézd át az akadémia személyi aktáit, és rendezd a szereplők kapcsolatait:<br><br>
+      1. <a href="#" onclick="openEvidence('ev-files');return false;">Diák-akták</a><br>
+      2. <a href="#" onclick="openEvidence('ev-staff');return false;">Dolgozói akták</a>
+    </div>
+    <p style="margin-top:20px"><b>Li Yi professzor szobája.</b> Kissé idegen, mégis furcsán ismerős. Hatalmas könyvespolc, tele kalandregényekkel; címke nélküli orvosság émelyítő szaggal; óravázlatok arról, <i>„hogyan szerezzünk információt hallgatózással”</i>. Észreveszel egy <b>tanítási naplót</b>, és belelapozol — de rendkívül nehéz megérteni. Leülsz várakozni; Zhang igazgató megjelenik, felsóhajt, a kezedbe nyomja az orvosságot — engedelmeskedsz, és mély álomba zuhansz…</p>
+    <div class="task">
+      <b>▸ TEENDŐD:</b> Nézd meg: <a href="#" onclick="openEvidence('ev-liyi');return false;">Li Yi tanítási naplója</a>
+    </div>
+    <p style="margin-top:20px"><b>A Szellemtanár szobája.</b> Idegen, mégis kísértetiesen ismerős. A falakat vérfoltok borítják — iszonyú látvány. Az asztalon címke nélküli orvosság és <b>rengeteg levél</b>. Kinyitsz egyet: „teknősleves”-feljegyzések vannak benne. Értetlenül leülsz várakozni. Hamarosan megjelenik Zhang igazgató, felsóhajt, a kezedbe nyomja az orvosságot — nincs választásod. Elveszíted az eszméleted…</p>
+    <div class="task">
+      <b>▸ TEENDŐD:</b> Olvasd el: <a href="#" onclick="openEvidence('ev-letters');return false;">A Szellemtanár levelei</a>
+    </div>
+  </div>
+
+  <h3 class="pagehead">8. oldal — A szerelem emléke és a szökés</h3>
+  <div class="narrative">
+    <div class="memory">
+      <p><b>Emlék.</b> A tanári szoba iratainak átnézése után emlékek árasztják el az elméd: <i>Te és egy elmosódott alak kéz a kézben ültök az ágy szélén. Valamiért — bár annyira ellenszenves tudsz lenni — mégis szóra bírtad őt, és olyan ismerősnek érezted, mintha előző életed szerelme lenne. Egy kicsi <b>fababát</b> nyomott a kezedbe, nevetett a bolondozásodon, és megfogadtátok: együtt mentek a világ végére is. De az akadémia tiltotta a kapcsolatotokat; egyikőtök sem távozhatott. A kapcsolatra <b>Zhang igazgató</b> fényt derített: téged szigorúan megróttak, őt viszont elvitték „meditációs elvonulásra”. A közelben egy <b>csecsemő sírását</b> hallottad… mi történt itt? Amikor újra láttad őt, már késő volt: a kútba vetette magát, és a vére a tanépület sarkát áztatta… Vér. Vér! A gondolatra ismét lüktetni kezd a fejed. <b>Zhang igazgató tette! Ő tette tönkre a szerelmedet!</b> Elhatározod: az igazgatói irodába mész — tilos, de bosszút akarsz állni a szerelmedért.</i></p>
+    </div>
+    <div class="task">
+      <b>▸ TEENDŐID:</b><br><br>
+      1. Vizsgáld át <a href="#" onclick="openEvidence('ev-chats');return false;">az igazgató telefonját</a>, és keress nyomokat!<br>
+      2. Derítsd ki, hol van a szeretted — és mi az igazság a halála mögött!
+    </div>
+    <p style="margin-top:18px;color:var(--red)"><b>Rettenetes igazságokat tudtál meg. Nem maradhatsz tovább az akadémián: azonnal menekülnöd kell!</b> Az igazgatói iroda szemeteskosarában papírfecniket veszel észre — az akadémia térképe! Az <a href="#" onclick="openEvidence('ev-map');return false;" style="color:var(--gold)">igazgatói iroda rejtvényével</a> keresel menekülőutat.</p>
+    <div class="escape-box">
+      <h4>🗝 Menekülési pont — a lány útvonala</h4>
+      <p style="font-size:.9rem;margin-bottom:12px">Fejtsd meg az alaprajz-rejtvényt, és találd meg a helyes menekülési pontot! (A menekülési pont <i>az emlékeidben</i> van… Hallgasd csak — mintha sírást hallanál valahonnan.)</p>
+      <input type="text" id="escape-girl" placeholder="Hová menekülsz?" onkeydown="if(event.key==='Enter')checkEscape('girl')">
+      <button class="btn" style="padding:10px 18px;margin-left:8px" onclick="checkEscape('girl')">Menekülés!</button>
+      <div id="ending-girl"></div>
+    </div>
+  </div>
+
+  <div class="chapter-next">
+    <button class="btn" onclick="showSection('quiz')">Készen állok a következtetésre →</button>
+  </div>
+</section>
+
+<!-- ============ BIZONYÍTÉKOK ============ -->
+<section id="evidence">
+  <h2>Bizonyítékok</h2>
+  <p class="lead">Az akadémián talált dokumentumok — magyarra fordítva. A kis képekre kattintva megnézheted az eredetit.</p>
+
+  <!-- Házirend -->
+  <details class="evidence-item" id="ev-rules">
+    <summary><span class="tag">Hivatalos irat</span> Az Akadémia házirendje <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="rules">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc">
+        <h3>• Az Akadémia házirendje •</h3>
+        <div class="doc-sub">Gaimi Akadémia — Igazgatói Iroda</div>
+        <ol>
+          <li>A növendék az akadémiára való belépés pillanatától kezdve a szülei által aláírt megállapodás hatálya alatt áll. A megállapodás időtartama alatt a növendék nem hagyhatja el az akadémiát, és köteles engedelmeskedni az akadémia személyzetének. Az engedetlenségből fakadó súlyos következményekért az akadémia felelősséget nem vállal.</li>
+          <li>Minden növendéknek a rendes tanítás megkezdése előtt át kell esnie az akadémiai <b>beavatáson</b>: fél napig kell meditálnia a meditációs szobában, és csak az igazgató jóváhagyása után nyerhet hivatalos felvételt. Ellenkező esetben a meditáció ideje korlátlanul meghosszabbodik, amíg a beavatás hatása be nem áll.</li>
+          <li>Az akadémián három osztály működik: a <b>Végzetes kapcsolatok gyógyítása</b> osztály, az <b>Internetfüggőség gyógyítása</b> osztály és a <b>Társas készségek gyakorlása</b> osztály. Az órarendek eltérőek: a Végzetes kapcsolatok gyógyítása osztály 8:00–10:00 óráig, a Társas készségek gyakorlása osztály 14:00–16:00 óráig, az Internetfüggőség gyógyítása osztály 20:00–22:00 óráig tart. Tanítási és étkezési időn kívül a növendékek a hálótermükben kötelesek tanulni, és engedély nélkül nem mozoghatnak szabadon. Aki ezt megszegi, három nap meditációra kötelezhető.</li>
+          <li>Az akadémia területén a növendékek közötti, valamint a tanár és növendék közötti szerelmi kapcsolat <b>szigorúan tilos</b>. A vétkesekkel szemben az akadémia szabályzata szerint járnak el.</li>
+          <li>Az akadémia nem a szépséget értékeli, hanem a józanságot és az engedelmességet. Ezért az akadémia <b>nem biztosít tükröt</b>, és tükör használata senkinek sem engedélyezett.</li>
+          <li>A jelen szabályzatot Zhang igazgató hagyta jóvá és írta alá; betartása minden oktatóra és növendékre nézve kötelező. A szabályzat végső értelmezésének joga Zhang igazgatót illeti.</li>
+        </ol>
+        <div class="sig">Zhang igazgató</div>
+        <div style="text-align:center;margin-top:10px"><span class="redstamp">Igazgatói Iroda</span></div>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018582.jpg" onerror="this.onerror=null;this.src='1000018582.jpg'" alt="Házirend – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Gannan Napilap -->
+  <details class="evidence-item" id="ev-daily">
+    <summary><span class="tag">Újság</span> Gannan Napilap <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="daily">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc newspaper">
+        <div class="masthead">Gannan Napilap</div>
+        <div class="dateline">2021. július 10. — Gannan város, Dél-Jiangxi tartomány</div>
+        <h4>Élen jár a Gaimi Akadémia — az oktatási módszerek azonban titkosak maradnak</h4>
+        <div class="byline">Lapunk tudósítójától</div>
+        <div class="cols">
+          <p>Tudósítóink ma a sokat emlegetett Gaimi Akadémiánál jártak. Az intézmény 2010-es alapítása óta valóságos legendának számít Dél-Jiangxi tartományban.</p>
+          <p>Ez a jellegtelen külsejű akadémia kizárólag „problémás gyerekeket” fogad, és a beiratkozás előtt aláírandó felelősségkizáró nyilatkozatok és titoktartási megállapodások rejtélyes homályba burkolják. Úgy tartják, minden itt végzett diák képes leküzdeni „rossz szokásait” — az internetfüggőséget, a korai szerelmi kapcsolatokat —, és feltűnően jólneveltté válik. A szülők tódulnak ide, és a magas tandíj sem vetette vissza a jelentkezők számának megugrását. A Gaimi Akadémia így vált híressé, egyúttal fellendítve Gannan város gazdaságát is. Tizenegy évvel az alapítás után az akadémia a város egyik jelképe lett. Hogyan éri el, hogy a gyerekek levetkőzzék rossz szokásaikat? Ez máig rejtély. Tudósítóink végzett diákokat és szüleiket is megkeresték — ám a gyerekek hallgatnak, a szülők pedig elmondták: soha nem volt alkalmuk meglátogatni gyermeküket. Az igazgató, Zhang úr azt közölte a szülőkkel, hogy a látogatás rontaná a nevelés hatásfokát.</p>
+          <p>Zhang úr, az akadémia igazgatója ritkán mutatkozik nyilvánosan. Tudósítóink csupán annyit tudtak meg, hogy eredeti neve <b>Liu Yongbo</b>, körülbelül ötvenéves, és szinte soha nem ad interjút. Értesüléseink szerint Zhang úr a családtagjait is az akadémián dolgoztatja: a menza dolgozója, <b>Chen Qin</b> a felesége. Tudósítóink megpróbáltak bejutni az akadémiára, de a kapunál <b>Shi Jian</b> biztonsági őr feltartóztatta és szigorúan rendreutasította őket. Az akadémiát övező falak rendkívül magasak, átmászni rajtuk szinte lehetetlen. A szülők — attól tartva, hogy az zavarná az oktatást — szövetségbe tömörülve tagadják meg a belépést a sajtótól, sőt egyes szülőktől is. Az idő múlásával az emberekben ugyan megmaradtak a kételyek az akadémia belső működésével kapcsolatban, mégsem kívánják megzavarni ezt a nyugodt szigetet.</p>
+          <p>Shi Jian biztonsági őr arról is tájékoztatta lapunkat, hogy az akadémia külső kerítésének egy szakasza megrongálódott; a tettes ismeretlen. Az akadémia embereket küldött a sürgős javításra, remélve, hogy az eset nem zavarja meg az intézmény rendjét. Bízunk benne, hogy a Gaimi Akadémia továbbra is virágzik, és még több tehetséges embert nevel a társadalomnak!</p>
+        </div>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018583.jpg" onerror="this.onerror=null;this.src='1000018583.jpg'" alt="Gannan Napilap – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Fényképek -->
+  <details class="evidence-item" id="ev-photos">
+    <summary><span class="tag new">Új!</span><span class="tag">Fényképek</span> Az akadémia fotói <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="photos">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc">
+        <h3>Fényképek az asztalon</h3>
+        <div class="doc-sub">„Nézzétek meg alaposan… és ellenőrizzétek, nem hiányzik-e valami.”</div>
+        <p>A fényképkollázson az akadémia helyszínei láthatók:</p>
+        <ol>
+          <li><b>Liu Zi tanár szobája</b> — az asztalon naptár és névtábla;</li>
+          <li><b>Li Yi tanár szobája</b> — névtáblával;</li>
+          <li><b>A Szellemtanár (Gui) szobája</b> — a falon vörös foltok…;</li>
+          <li><b>Zhang igazgató irodája</b> — az asztalán egy <b>régi családi fénykép</b>, rajta több alak;</li>
+          <li>A magas <b>drótkerítés</b>, a fal, az udvar — és sehol egyetlen tükör.</li>
+        </ol>
+        <p class="hint-inline">A három tanári szoba kísértetiesen egyforma… Miért tart az igazgató családi fotót az asztalán? És tényleg: mi az, ami az egész akadémiából hiányzik?</p>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018585.jpg" onerror="this.onerror=null;this.src='1000018585.jpg'" alt="Az akadémia fotói – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti fotókollázs — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Napló -->
+  <details class="evidence-item" id="ev-diary">
+    <summary><span class="tag">Napló</span> Wen Zhibin naplója <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="diary">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc diary">
+        <h3>Wen Zhibin naplója</h3>
+        <div class="doc-sub">(kézzel írott füzet — a bejegyzések sorrendje az eredeti alapján helyreállítva)</div>
+        <div class="entry"><div class="date">Február 1.</div><p>A „Super Mario” annyira jó játék! Nem is írok többet, megyek megmenteni a hercegnőt!</p></div>
+        <div class="entry"><div class="date">Április 12.</div><p>Amíg a szüleim nem voltak itthon, egész nap a „Moshou világában” játszottam — olyan jó volt, hogy mindenkit lekaszabolok!!!</p></div>
+        <div class="entry"><div class="date">Április 19.</div><p>Anya ma azt mondta, vörösre festette a haját. De a rövidlátásom mintha megint romlott volna — csak egy elmosódott árnyat látok belőle.</p></div>
+        <div class="entry"><div class="date">Május 3.</div><p>Apa hazajött. Minden nap a kórházi munkájával van elfoglalva, és amikor végre hazaér, engem ver. Na és, ha játszom egy kicsit???</p></div>
+        <div class="entry"><div class="date">Június 21.</div><p>Anya folyton mellettem sír. Valami akadémiát emlegetett apával — hová akarnak engem küldeni?! Idegesítő! Én csak játszani szeretek, miért hívtok „netfüggőnek”?!!</p></div>
+        <div class="entry"><div class="date">Július 1.</div><p>Napok óta az akadémián járok órákra. Ez a hely tényleg jó, és a tanárom folyton dicsér — tetszik itt. Ma nagyon boldog vagyok! Az igazgató megengedte, hogy VR-játékkal játsszak. A játékban minden olyan élethű! Leszúrtam a késemmel a <b>vörös hajú szörnyet</b>, nagyon menő volt. Tényleg szeretem ezt az akadémiát!</p></div>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018588.jpg" onerror="this.onerror=null;this.src='1000018588.jpg'" alt="Wen Zhibin naplója – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Szellemtanár levelei -->
+  <details class="evidence-item" id="ev-letters">
+    <summary><span class="tag">Levelek</span> A Szellemtanár levelei <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="letters">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+
+      <div class="doc letter">
+        <div class="letterhead">Gannan Központi Kórház</div>
+        <p><b>Kedves Liu úr!</b></p>
+        <p>Üdvözlöm! Ez az első levelem Önhöz. A történet, amelyet ma mesélek, a <b>„három fivérről”</b> szól.</p>
+        <p>A történet nagyjából így hangzik: Volt egyszer három fivér, akik együtt nőttek fel gyerekkoruk óta, és olyan jó volt a viszonyuk, hogy egy ágyban aludtak. Egy nap a legidősebb fivér balesetben meghalt. A középső fivér ezután sokáig álmatlanságban szenvedett — ám néhány nap múlva szokatlanul mélyen kezdett aludni.</p>
+        <p>A történet itt véget ér. Kitalálja, miért?</p>
+        <p>A választ a hátoldalra írtam; ha tényleg nem jön rá, megnézheti — hehe.</p>
+        <div class="sig">1. levél — 2010. június</div>
+        <button class="flipbtn" onclick="toggleReveal(this,'ans1')">A levél megfordítása 🔄</button>
+        <div class="backside hiddenpart" id="ans1">
+          <p><b>A válasz nagyon egyszerű!</b></p>
+          <p>Mielőtt a legidősebb meghalt, a középső a legidősebb és a legkisebb <i>között</i> aludt. A legidősebb halála után — mivel az egyik oldaláról hiányzott valaki — a középső nem tudott aludni. Később a középső <b>megölte a legkisebbet, kettévágta</b>, és alvás közben egy-egy felét tette maga mellé kétoldalt. Így soha többé nem szenvedett álmatlanságban.</p>
+          <p><i>Azt hiszem, ez a történet emlékezteti majd Önt valamire… A következő találkozásig!</i></p>
+        </div>
+      </div>
+
+      <div class="doc letter">
+        <div class="letterhead">Gannan Központi Kórház</div>
+        <p><b>Kedves Liu úr!</b></p>
+        <p>Rég találkoztunk! Ez a negyedik levelem Önhöz. A történet, amelyet ma mesélnék, az <b>„apáról és fiáról”</b> szól.</p>
+        <p>A történet nagyjából így hangzik: A híres férfisztárnak volt egy fia, akire kiskorától kezdve időnként föltett egy kalapot. Egy nap kórházba vitte a fiát — és a gyermek meghalt.</p>
+        <p>A történet itt véget ér. Kitalálja, miért?</p>
+        <p>A választ a hátoldalra írtam; ha tényleg nem jön rá, nyugodtan nézze meg — hehe.</p>
+        <div class="sig">4. levél — 2020. július</div>
+        <button class="flipbtn" onclick="toggleReveal(this,'ans2')">A levél megfordítása 🔄</button>
+        <div class="backside hiddenpart" id="ans2">
+          <p><b>A válasz nagyon egyszerű!</b></p>
+          <p>A férfisztár arca megsérült. A fiút csak azért nevelte, hogy <b>megfelelő arcbőrhöz</b> jusson. A kalap az övé volt: időnként azért próbálta a fiúra, hogy lemérje a gyermek fejméretét — amint tökéletesen passzolt, kórházba vihette <b>arcátültetésre</b>.</p>
+          <p><i>Érdekes történet, nem igaz? Apropó — mesélek a Gannan városában újonnan felbukkant szektáról, a <b>Yuanqi-kultuszról</b>. Biztosan hallott már róla: a Yuanqi-kultusz áldozatának meghatározott születési horoszkóp-elemekkel kell rendelkeznie, és csak a <b>megfelelő időpontban</b> bekövetkező halál érvényes.</i></p>
+          <p><i>A következő találkozásig!</i></p>
+        </div>
+      </div>
+
+      <div class="doc letter">
+        <div class="letterhead">Gannan Központi Kórház</div>
+        <p><b>Kedves Liu úr!</b></p>
+        <p>Rég találkoztunk! Ez a tizedik levelem Önhöz. Ma a <b>„születésnapról”</b> szeretnék mesélni.</p>
+        <p>A történet nagyjából így hangzik: Egy apa <b>egy nappal a születésnapja előtt</b> halt meg. A fia nagyon szomorú volt. Az apa azután halt meg, hogy kitakarította a fia szobáját — és békésen távozott…?</p>
+        <p>A történet itt véget ér. Kitalálja, miért?</p>
+        <p>Hehe — nem túl könnyű így, hogy mindig egyszerűen elárulom a választ? Ezúttal azt szeretném, ha saját maga gondolkodna el rajta. De ha már idáig eljutott, adok néhány támpontot: ez a történet <b>valamivel kapcsolatos, ami mostanában a városunkban terjed</b> — és hiszem, hogy ihletet ad majd Önnek. A következő találkozásig!</p>
+        <p>És még valami: ha helyesen fejti meg a választ, <b>olyan titkokat árulok el, amelyeket rajtam kívül senki sem ismer.</b> Kérem, hívja a telefonszámomat: <b style="letter-spacing:.1em">177****6808</b></p>
+        <div class="sig">10. levél — 2021. július</div>
+        <button class="flipbtn" onclick="toggleReveal(this,'ans3')">Gondolkodtál? Egy megfejtés 🔄</button>
+        <div class="backside hiddenpart" id="ans3">
+          <p><b>Ehhez a levélhez a feladó nem mellékelt választ.</b> A támpontok alapján egy lehetséges megfejtés:</p>
+          <p>A városban terjedő Yuanqi-kultusz szerint az áldozatnak <i>pontosan a születésnapján</i> kell meghalnia, hogy a rituálé érvényes legyen. Az apa a fia szobáját takarítva rájött, hogy a fia a kultusz tagja — és őt szemelte ki áldozatnak. Ezért <b>egy nappal a születésnapja előtt</b>, önként vetett véget az életének: így a halála <i>értéktelen</i> lett a rituálé számára, és „békésen” távozhatott — kijátszva a saját fiát.</p>
+          <p class="hint-inline">És vajon kié a 177****6808-as telefonszám? Nézd csak meg az eltűnt személyről szóló hirdetést…</p>
+        </div>
+      </div>
+
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018590.jpg" onerror="this.onerror=null;this.src='1000018590.jpg'" alt="A Szellemtanár levelei – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Li Yi tanítási naplója -->
+  <details class="evidence-item" id="ev-liyi">
+    <summary><span class="tag new">Új!</span><span class="tag">Napló</span> Li Yi tanítási naplója <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="liyi">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc diary">
+        <h3>Li Yi tanítási naplója</h3>
+        <div class="doc-sub">(a tanári szobában talált feljegyzések — nehezen olvasható kézírás)</div>
+        <div class="entry"><div class="date">2010. január 10., 9:00</div><p>Ma van a Gaimi Akadémia alapításának napja. Az igazgató megkért, hogy vezessek naplót, és jegyezzem fel a dátumokat. Mostanában kábulatban élek: teljesen elfelejtem a korábbi dolgokat, és képtelen vagyok bármit felidézni. Az igazgató megkért, hogy maradjak, és legyek tanár — nagyon hálás vagyok neki, bármit is mondott… Ó, és minden nap időben beveszem az orvosságot, amit az igazgató készít nekem.</p></div>
+        <div class="entry"><div class="date">2011. február 5., 11:00</div><p>Ezeknek a diákoknak fogalmuk sincs a hagyományos erényekről! Ezért hangosan felolvastattam velük a tankönyvet, és minden napra rengeteg házi feladatot adtam. Egész engedelmesek lettek. Hiszem, hogy néhány hónap múlva sikeresen végeznek.</p></div>
+        <div class="entry"><div class="date">2011. február 6., 16:00</div><p>Ezek a diákok… hát nem félelmetesek…? Nagyon régóta nem beszéltem ennyi emberrel. De az igazgató bátorított, hogy legyek bátor, és megtanította, mit tegyek. Először sikerült! Ez jó kezdet!</p></div>
+        <div class="entry"><div class="date">2013. július 7., 22:00</div><p>Általában semmire sem vagyok jó, de szerencsére mostanában rengeteg névtelen levelet kapok, és el tudom mesélni a diákjaimnak, mi áll bennük! Haha, még fizetést is kapok érte — igazán kényelmes!</p></div>
+        <div class="entry"><div class="date">2016. augusztus 10., 17:00</div><p>Van egy <b>Wu</b> nevű lány az osztályomban, aki hihetetlenül tehetséges — akárcsak én: kiválóan tud hallgatózni. Az igazgató nagyon kedveli, gyakran küldi „küldetésekre”. Még engem is megdicsért, hogy jól tanítom! Ez a Wu úgy néz ki, mint… csak nem az előző életbeli szerelmem? De hiszen olyan fiatal… Jaj, ne, megint fáj a fejem. Be kell vennem az orvosságot.</p></div>
+        <div class="entry"><div class="date">2016. december 6., 15:00</div><p>Mostanában valamiért mindig <b>furcsa cetlik</b> hevernek az asztalomon, amikor visszatérek az irodámba. Ilyenek: <i>„Weifeng falu”</i>, meg <i>„Holdisten-templom”</i>… Gondolom, valamelyik diák tréfál. Egyszerűen kidobom őket!</p></div>
+        <div class="entry"><div class="date">2017. június 10., 17:30</div><p>Nem lett volna szabad belemennem annak a lánynak a kérésébe… Úgy tűnik, az igazgató nagyon szigorúan megbüntette. De nem szólalhatok fel érte — elveszíteném az állásomat! Nem csinálhatok többé ilyen ostobaságot!</p></div>
+        <div class="entry"><div class="date">2020. május 4., 22:00</div><p>Új diák érkezett az osztályunkba, <b>Wen Zhibin</b> a neve. A Wen vezetéknév elég ritka… egy régi barátomra emlékeztet… Wen… nem, nem! Fáj a fejem, be kell vennem az orvosságot! …Miért nem jött ma válasz a levélre?! Ez megőrjít! Mostanában a diákok folyton nyaggatnak, hogy meséljek nekik történeteket — olyan zajosak! Mikor jön már a következő levél?!</p></div>
+      </div>
+      <p class="hint-inline">Egy tanár, aki semmire sem emlékszik… akinek az asztalán landolnak a Liu Zinek szánt szerelmes cetlik… és aki a Szellemtanárnak címzett levelekre vár. Hm.</p>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018589.jpg" onerror="this.onerror=null;this.src='1000018589.jpg'" alt="Li Yi tanítási naplója – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken (fektetett) — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Különjelentés -->
+  <details class="evidence-item" id="ev-special">
+    <summary><span class="tag">Újság</span> Különjelentés — négy cikk <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="special">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc newspaper">
+        <div class="masthead">Különjelentés</div>
+        <div class="dateline">Gannan város — 2021. július</div>
+        <div class="cols">
+          <article>
+            <h4>Óvakodjanak az illegális kultuszoktól!</h4>
+            <div class="byline">Lapunk tudósítója — 2021. július 5.</div>
+            <p>A közelmúltban egy szekta híre terjedt el Gannan városában. Bennfentesek szerint ez a <b>„Yuanqi-kultusz”</b> nevű szekta azt állítja, hogy képes <b>„halhatatlanságot”</b> adni az embereknek. A gyakorlónak <b>meghatározott születési dátumú és időpontú rokonokat</b> kell összegyűjtenie, <b>a születésnapjukon megölnie őket</b>, majd egy rituális elrendezéssel befejeznie a szertartást. A kultusz több tagja gyilkosságot követett el, és jelenleg is szökésben van. A rendőrség nyomozást indított. Kérünk mindenkit, aki információval rendelkezik, tegyen bejelentést, nehogy e bűnözők elkerüljék az igazságszolgáltatást és veszélyeztessék a társadalmi stabilitást!</p>
+          </article>
+          <article>
+            <h4>Egyre burjánzik az illegális béranyaság — ne lépjék át az orvosi vörös vonalat!</h4>
+            <div class="byline">Lapunk tudósítója — 2021. július 12.</div>
+            <p>A közelmúltban több polgár jelezte, hogy városunkban egyes üzletemberek titokban <b>béranyasági ügyleteket</b> bonyolítanak. Bár a béranyaság valóban megoldást jelenthet egyes gyermekre vágyó, terméketlenséggel küzdő családoknak, a kínai törvények szigorúan tiltják, és súlyos etikai kérdéseket vet fel. Kérjük a lakosságot, hogy ne kísérletezzen ilyen illegális tevékenységgel! Városunk orvosai emlékezzenek szent esküjükre, és maradjanak hűek eredeti hivatásukhoz. A lakosok ismerjék a törvényt: a béranyaság illegális — aktívan jelentsenek minden ilyen tevékenységet!</p>
+          </article>
+          <article>
+            <h4>Húszéves a Wuyou Árvaház — szüntelen gondoskodás a rászorulókról</h4>
+            <div class="byline">Lapunk tudósítója — 2021. július 10.</div>
+            <p>„A Gondtalan Árvaház az otthonom, nagyon boldog vagyok itt!” — vallja az árvaház egyik lakója. Ma ünnepli alapításának 20. évfordulóját a Wuyou („Gondtalan”) Árvaház, amely két évtizede rendíthetetlenül óvja a város utolsó békés menedékét, szünet nélkül gondoskodva az árvákról. Az árvaház nemcsak közjóléti intézmény, hanem sok család áldása is: számos gyermekvállalási nehézséggel küzdő család választja, hogy innen fogad örökbe gyermeket. Húsz év kemény munka — virágozzék tovább a Gondtalan Árvaház!</p>
+          </article>
+          <article>
+            <h4>Eltűnt személy — lakossági felhívás</h4>
+            <div class="byline">2021. július 10.</div>
+            <p>Július 2-án Liu úr bejelentette, hogy felesége, <b>Wen Ting</b> eltűnt. Szemtanúk állítása szerint Wen Tinget utoljára <b>július 1-jén</b>, a Gaimi Akadémia közelében látták. Wen Ting szomszédai azt is elmondták a rendőrségnek: az asszony az eltűnése napján úgy nyilatkozott, a Gaimi Akadémiára megy meglátogatni a fiát. A rendőrség átkutatta az akadémiát, de semmit sem talált. Liu úr elmondta lapunknak, hogy Wen Ting eltűnésének napja egyben megismerkedésük <b>11. évfordulója</b> volt. Wen Ting legjellegzetesebb ismertetőjegye <b>vörösre festett haja</b>. Aki látta Wen Tinget, haladéktalanul értesítse <b>dr. Liut</b> a Gannan Városi Kórházban!</p>
+            <p style="font-family:'Courier New',monospace;font-size:.85rem">Kapcsolat: dr. Liu, Gannan Városi Kórház — Tel.: <b>177****6808</b></p>
+          </article>
+        </div>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018584.jpg" onerror="this.onerror=null;this.src='1000018584.jpg'" alt="Különjelentés – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Diák-akták -->
+  <details class="evidence-item" id="ev-files">
+    <summary><span class="tag">Akták</span> Diák-akták — négy növendék <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="files">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc" style="background:transparent;box-shadow:none;padding:0">
+        <div class="file-card">
+          <div class="missing">Eltűnt</div>
+          <h4>Növendék adatlapja — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><i>(elmosódott / olvashatatlan)</i></td></tr>
+            <tr><td class="k">Nem</td><td>nő</td></tr>
+            <tr><td class="k">Beiratkozás</td><td>2016. szeptember</td></tr>
+            <tr><td class="k">Születésnap</td><td>szeptember 8.</td></tr>
+            <tr><td class="k">Osztály</td><td>Végzetes kapcsolatok gyógyítása</td></tr>
+            <tr><td class="k">Felvétel oka</td><td>Korai szerelmi kapcsolat; a szülők próbálták megfékezni, sikertelenül. Titokban, a szülei tudta nélkül meg akart szökni.</td></tr>
+            <tr><td class="k">Lakcím</td><td>Weifeng falu, Shiji köz 220.</td></tr>
+            <tr><td class="k">Hobbi</td><td>—</td></tr>
+            <tr><td class="k">Szülő aláírása</td><td style="font-family:'Segoe Print',cursive;color:var(--red-dark)">Wang Fugui</td></tr>
+          </table>
+        </div>
+        <div class="file-card">
+          <div class="missing">Eltűnt</div>
+          <h4>Növendék adatlapja — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><b>Wen Zhibin</b></td></tr>
+            <tr><td class="k">Nem</td><td>férfi</td></tr>
+            <tr><td class="k">Beiratkozás</td><td>2020. május</td></tr>
+            <tr><td class="k">Születésnap</td><td>október 5.</td></tr>
+            <tr><td class="k">Osztály</td><td>Internetfüggőség gyógyítása</td></tr>
+            <tr><td class="k">Felvétel oka</td><td>„Annyira függök az internettől, hogy nem tudom megkülönböztetni a virtuálist a valóságtól…”</td></tr>
+            <tr><td class="k">Lakcím</td><td>Lushui város, Yongxing utca 66.</td></tr>
+            <tr><td class="k">Hobbi</td><td>rajzolás, videójátékok</td></tr>
+            <tr><td class="k">Szülő aláírása</td><td style="font-family:'Segoe Print',cursive;color:var(--red-dark)">Wen Ting</td></tr>
+          </table>
+        </div>
+        <div class="file-card">
+          <h4>Növendék adatlapja — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><b>Liu Jiaming</b></td></tr>
+            <tr><td class="k">Nem</td><td><i>(nem kitöltött)</i></td></tr>
+            <tr><td class="k">Beiratkozás</td><td><i>(nem kitöltött)</i></td></tr>
+            <tr><td class="k">Születésnap</td><td><b>július 15.</b></td></tr>
+            <tr><td class="k">Osztály</td><td><i>(nem kitöltött)</i></td></tr>
+            <tr><td class="k">Felvétel oka</td><td style="font-family:'Courier New',monospace;color:var(--red-dark)"><b>SZIGORÚAN VÉDETT</b></td></tr>
+            <tr><td class="k">Lakcím</td><td style="font-family:'Courier New',monospace;color:var(--red-dark)"><b>SZIGORÚAN VÉDETT</b></td></tr>
+            <tr><td class="k">Hobbi</td><td><i>(nem kitöltött)</i></td></tr>
+            <tr><td class="k">Szülő aláírása</td><td><i>(üres)</i></td></tr>
+          </table>
+        </div>
+        <div class="file-card">
+          <div class="missing">Eltűnt</div>
+          <h4>Növendék adatlapja — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><b>Wu Shuan</b></td></tr>
+            <tr><td class="k">Nem</td><td>nő</td></tr>
+            <tr><td class="k">Beiratkozás</td><td>2015. július</td></tr>
+            <tr><td class="k">Születésnap</td><td>március 4.</td></tr>
+            <tr><td class="k">Osztály</td><td>Társas készségek gyakorlása</td></tr>
+            <tr><td class="k">Felvétel oka</td><td><i>(hiányos — az árvaházból küldték át „átnevelésre”)</i></td></tr>
+            <tr><td class="k">Lakcím</td><td>Wuyou („Gondtalan”) Árvaház</td></tr>
+            <tr><td class="k">Hobbi</td><td>—</td></tr>
+            <tr><td class="k">Szülő aláírása</td><td style="font-family:'Segoe Print',cursive;color:var(--red-dark)">Wang Wenting</td></tr>
+          </table>
+        </div>
+        <p class="hint-inline">Furcsa… Wen Zhibin aktáját „Wen Ting”, Wu Shuanét „Wang Wenting” írta alá. Két külön ember volna? És három „Eltűnt” pecsét…</p>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018586.jpg" onerror="this.onerror=null;this.src='1000018586.jpg'" alt="Diák-akták – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Dolgozói akták -->
+  <details class="evidence-item" id="ev-staff">
+    <summary><span class="tag new">Új!</span><span class="tag">Akták</span> Dolgozói akták — az alkalmazottak <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="staff">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc" style="background:transparent;box-shadow:none;padding:0">
+        <div class="file-card">
+          <h4>Alkalmazotti adatlap — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><b>Chen Qin</b></td></tr>
+            <tr><td class="k">Nem</td><td>nő</td></tr>
+            <tr><td class="k">Alkalmazás kezdete</td><td>2010. január</td></tr>
+            <tr><td class="k">Életkor belépéskor</td><td>49 év</td></tr>
+            <tr><td class="k">Születésnap</td><td>május 10.</td></tr>
+            <tr><td class="k">Egészségi állapot</td><td>Jó</td></tr>
+            <tr><td class="k">Családi állapot</td><td>házas</td></tr>
+            <tr><td class="k">Házastárs neve</td><td><b>Liu Yongbo</b></td></tr>
+            <tr><td class="k">Lakcím</td><td>Zouyu falu, Leiting köz 30.</td></tr>
+            <tr><td class="k">Beosztás</td><td>menzavezető</td></tr>
+            <tr><td class="k">Aláírás</td><td style="font-family:'Segoe Print',cursive;color:var(--red-dark)">Chen Qin</td></tr>
+          </table>
+        </div>
+        <div class="file-card">
+          <h4>Alkalmazotti adatlap — Gaimi Akadémia</h4>
+          <table>
+            <tr><td class="k">Név</td><td><b>Liu Yu</b></td></tr>
+            <tr><td class="k">Nem</td><td>férfi</td></tr>
+            <tr><td class="k">Alkalmazás kezdete</td><td>2010. január</td></tr>
+            <tr><td class="k">Életkor belépéskor</td><td>29 év</td></tr>
+            <tr><td class="k">Születésnap</td><td>június 6.</td></tr>
+            <tr><td class="k">Egészségi állapot</td><td style="color:var(--red-dark)"><b>Gyenge</b></td></tr>
+            <tr><td class="k">Családi állapot</td><td>nőtlen</td></tr>
+            <tr><td class="k">Házastárs neve</td><td>nincs</td></tr>
+            <tr><td class="k">Lakcím</td><td>Zouyu falu, Leiting köz 30.</td></tr>
+            <tr><td class="k">Beosztás</td><td style="color:var(--red-dark)"><b>tanár</b></td></tr>
+            <tr><td class="k">Aláírás</td><td style="font-family:'Segoe Print',cursive;color:var(--red-dark)">Liu Yu</td></tr>
+          </table>
+        </div>
+        <p class="hint-inline">Az akadémia teljes tanári kara az akták szerint: <b>egyetlen ember</b>. Liu Yu. Aki ugyanazon a címen lakik, mint az igazgató felesége… És hol van akkor Liu Zi, Li Yi és a Szellemtanár adatlapja?</p>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018587.jpg" onerror="this.onerror=null;this.src='1000018587.jpg'" alt="Dolgozói akták – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Csevegések -->
+  <details class="evidence-item" id="ev-chats">
+    <summary><span class="tag">Telefon</span> Csevegésnaplók — Zhang igazgató telefonja <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="chats">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+
+      <div class="phone">
+        <div class="statusbar"><span>圈圈</span><span>64% ▮ 12:25</span></div>
+        <div class="chat-title">💬 Doktor</div>
+        <div class="day">február 11., 13:06</div>
+        <div class="bubble left"><span class="who">Doktor</span>Megegyeztünk: ez az utolsó alkalom!</div>
+        <div class="bubble right"><span class="who">Zhang</span>Tudom, tudom… Azt hiszed, én akarom ezt? Ha a feleségem nem lenne képtelen szülni, és a három fiam nem halt volna meg vagy sérült volna meg az miatt a nő miatt, eszembe sem jutott volna ez a megoldás.</div>
+        <div class="bubble left"><span class="who">Doktor</span>Jó, jó, ne folytasd. Túl sokan vannak a kórházban, mindenféle szóbeszéd terjed; körülöttem mindenki a kollégám — meg ne lássanak téged!</div>
+        <div class="bubble right"><span class="who">Zhang</span>Ezzel a módszerrel a gyerek az enyém és a feleségemé lesz?</div>
+        <div class="bubble left"><span class="who">Doktor</span>Természetesen. Bár papíron a gyerekek ezeké a diáklányoké és a szeretőiké, valójában a ti spermátokat és… használjuk.</div>
+        <div class="bubble left"><span class="who">Doktor</span>Jó, jó — ha ez megvan, többé ne gyere hozzám! Az ilyesmit tiltja a törvény!</div>
+        <div class="day">február 12., 15:53</div>
+        <div class="bubble right"><span class="who">Zhang</span>Ilyesmiben már eddig is szép számmal segítettél…</div>
+        <div class="bubble right"><span class="who">Zhang</span>Csak most az egyszer! Többé biztosan nem zavarlak. Ha megszületik a kisfiam, kap a doktor egy nagy piros borítékot!</div>
+        <div class="bubble left"><span class="who">Doktor</span>Jó, jó… A kollégáim már gyanakodni kezdtek. Mostantól keress ritkábban; szólok, amint van eredmény.</div>
+        <div class="bubble right"><span class="who">Zhang</span>Rendben, türelmesen várom, hogy megszülessen a kisfiam, hahaha. 🧧 <i>[piros boríték]</i></div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="phone">
+        <div class="statusbar"><span>圈圈</span><span>64% ▮ 12:25</span></div>
+        <div class="chat-title">💬 Shixuan</div>
+        <div class="day">február 12.</div>
+        <div class="bubble right"><span class="who">Zhang</span>Shixuan, azért írok ma külön neked, hogy segíts az igazgató nagyapónak egy ügyben. Mit szólnál, ha a feladat végén nassolnivalóval jutalmaználak?</div>
+        <div class="bubble left"><span class="who">Shixuan</span>Rendben, igazgató úr, ahogy szeretné.</div>
+        <div class="bubble right"><span class="who">Zhang</span>Kérdezd ki Wang Miaolingot, mi történt vele mostanában. Nagyon közel áll Liu Zi tanár úrhoz.</div>
+        <div class="bubble left"><span class="who">Shixuan</span>Dr. Zhang, segítek tisztázni! Wang Miaoling nővérkém rengeteg történetet mesélt nekem magáról. Volt egy nővére, <b>Wang Wenting</b>, akit kiskorában elszakítottak a családtól. Wang Miaolingot pedig a szülei kapták rajta, hogy egy <b>Liu Lu</b> nevű orvosba szerelmes, és meg akart szökni vele — ezért került az akadémiára. Itt az akadémián úgy találta, hogy <b>Liu Zi tanár úr és Liu Lu nagyon hasonlítanak egymásra</b>. Be-beszaladtak egy szobába, és titokban fogták egymás kezét…</div>
+        <div class="bubble right"><span class="who">Zhang</span>Ügyes vagy.</div>
+        <div class="bubble left"><span class="who">Shixuan</span>Igazgató úr~~ A nassolnivalóról el ne feledkezzen!</div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="phone">
+        <div class="statusbar"><span>圈圈</span><span>64% ▮ 12:25</span></div>
+        <div class="chat-title">💬 Mester</div>
+        <div class="day">július 12., 14:57</div>
+        <div class="bubble right"><span class="who">Zhang</span>Mester, már csak <b>egyetlen áldozat</b> választ el a céltól, és még három napom van — mindjárt betölti a hármat!</div>
+        <div class="bubble left"><span class="who">Mester</span>Rendben. Mostanában feszült a helyzet — siess, gyűjtsd össze az összes áldozati kelléket, aztán gyere hozzám.</div>
+        <div class="day">július 12., 15:48</div>
+        <div class="bubble right"><span class="who">Zhang</span>Ez a kis jószág folyton csak sír, van rá valami jó megoldás?</div>
+        <div class="bubble left"><span class="who">Mester</span>Úgy látom, ennek a gyermeknek a születési képletéből hiányzik a <b>víz-elem</b>. Tégy így: altasd el, majd helyezd olyan helyre, ahol <b>bőven van víz</b> — így a környezetedben senki sem fog gyanakodni.</div>
+        <div class="bubble right"><span class="who">Zhang</span>Értettem, köszönöm, Mester!</div>
+        <div class="clearfix"></div>
+      </div>
+
+      <p class="hint-inline" style="margin-top:8px">Három nap múlva… ki tölti be a hármat? És hol van „bőven víz” az akadémián?</p>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018591.jpg" onerror="this.onerror=null;this.src='1000018591.jpg'" alt="Csevegésnaplók – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+  <!-- Wang Miaoling titka -->
+  <details class="evidence-item" id="ev-wml">
+    <summary><span class="tag">Személyes</span> Wang Miaoling titka <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="wml">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc">
+        <h3>Wang Miaoling titka</h3>
+        <div class="doc-sub">A boríték tartalma: egy régi mese, egy cetli, egy fénykép — és egy orvosi lelet</div>
+        <p><b>A mese — „Rokonom, akit fából faragtak”:</b></p>
+        <p><i>Ding Lan gyermekként elvesztette a szüleit, és nem tudta viszonozni gondoskodásukat. Hálája jeléül fából faragta ki szerettei képmását, és úgy bánt a szobrokkal, mintha élnének. Felesége, aki régóta tiszteletlenül bánt a szobrokkal, egy nap tűvel megszúrta a faszobor ujját — és abból vér serkent. Amikor a fafigura meglátta az asszonyt, könnyek gördültek le a szeméből. Ding Lan pedig elhagyta a feleségét, mert a szobor elárulta neki, mit érez.</i></p>
+        <hr>
+        <p><b>A cetli:</b></p>
+        <p style="font-family:'Segoe Print',cursive;font-size:1.05rem;color:var(--red-dark)">„Nem emlékszel? Weifeng falu Holdisten-templomában fogadtuk meg, hogy egy életre együtt maradunk…”</p>
+        <hr>
+        <p><b>A fénykép:</b> két alak egy templom előtt — az egyikük Wang Miaoling. <span class="hint-inline">(Az eredetit lásd lent.)</span></p>
+        <hr>
+        <p><b>Ultrahangvizsgálati lap — Gannan Népi Kórház</b></p>
+        <div class="file-card" style="margin-top:10px">
+          <table>
+            <tr><td class="k">Név</td><td>Wang Miaoling</td></tr>
+            <tr><td class="k">Nem / életkor</td><td>nő, 19 éves</td></tr>
+            <tr><td class="k">Vizsgálat helye</td><td>méh (nőgyógyászat, első vizsgálat)</td></tr>
+            <tr><td class="k">Lelet</td><td>A méhüregben terhességi zsákocska látható (kb. 10×11 mm), szikhólyag és embrió azonosítható, primitív szívcső-pulzáció megfigyelhető.</td></tr>
+            <tr><td class="k">Diagnózis</td><td><b>Korai terhesség, kb. 3 hetes.</b></td></tr>
+            <tr><td class="k">Vizsgálat dátuma</td><td><b>2017. november 22.</b></td></tr>
+            <tr><td class="k">Vizsgáló orvos</td><td>Chen ___ <i>(az aláírás elmosódott)</i></td></tr>
+          </table>
+        </div>
+        <p class="hint-inline">Kinek szólhatott a cetli? Miért pont egy olyan mesét őrzött Wang Miaoling, amelyben egy élettelen képmás valódi érzéseket árul el? És ki a gyermek apja…?</p>
+      </div>
+      <div class="thumb-row">
+        <figure><img class="scan-thumb" src="scans/1000018594.jpg" onerror="this.onerror=null;this.src='1000018594.jpg'" alt="Wang Miaoling titka – eredeti szken" onclick="openLightbox(this.src)"><figcaption>A boríték tartalma — eredeti szken</figcaption></figure>
+        <figure><img class="scan-thumb" src="scans/1000018593.jpg" onerror="this.onerror=null;this.src='1000018593.jpg'" alt="Ultrahang-lelet – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Az ultrahang-lelet — eredeti szken (fektetett)</figcaption></figure>
+      </div>
+    </div>
+  </details>
+
+  <!-- Alaprajz -->
+  <details class="evidence-item" id="ev-map">
+    <summary><span class="tag">Rejtvény</span> Az igazgatói iroda rejtvénye — alaprajz <label class="readmark" onclick="event.stopPropagation()"><input type="checkbox" data-read="map">elolvastam</label><span class="arrow">▶</span></summary>
+    <div class="inner">
+      <div class="doc">
+        <h3>Az igazgatói iroda rejtvénye</h3>
+        <div class="doc-sub">A szemeteskosárban talált, darabokból összeillesztett térkép</div>
+        <p>Az alaprajzon azonosítható helyek:</p>
+        <ol>
+          <li><b>Igazgatói iroda</b></li>
+          <li><b>A / B / C szobák</b> — a <b>Szellemtanár</b>, <b>Liu Zi</b> (és Li Yi) szobái, valamint <b>Chen Qin</b> (a menzás asszony) helyisége</li>
+          <li><b>Tantermi épület</b></li>
+          <li><b>Kút</b></li>
+          <li><b>Udvar</b>, <b>sportpálya</b>, <b>főkapu</b></li>
+          <li>Számjelzések és pontsorok az épületek mellett — és az eredeti lap jobb alsó sarkában egy <b>QR-kód</b>, amellyel a játékosok a menekülési pontot adhatják meg</li>
+        </ol>
+        <p class="hint-inline">Ezen az oldalon a QR-kód helyett a naplófejezetek végén lévő „Menekülési pont” mezőbe írhatod be a megfejtést. A rajz részleteit az eredeti szkennen böngészheted — ki lakik a kút közelében? Honnan hallatszik a sírás?</p>
+      </div>
+      <div class="thumb-row"><figure><img class="scan-thumb" src="scans/1000018592.jpg" onerror="this.onerror=null;this.src='1000018592.jpg'" alt="Alaprajz – eredeti szken" onclick="openLightbox(this.src)"><figcaption>Eredeti szken — kattints a nagyításhoz</figcaption></figure></div>
+    </div>
+  </details>
+
+</section>
+
+<!-- ============ SZKENNEK ============ -->
+<section id="scans">
+  <h2>Eredeti szkennek</h2>
+  <p class="lead">A játék mind a 25 eredeti oldala — feljavítva, élesítve. Kattints bármelyik képre a nagyításhoz!</p>
+
+  <div class="scan-grid" id="scangrid"><!-- JS tölti fel --></div>
+
+  <h2 style="margin-top:40px">⚠ Spoiler-szkennek</h2>
+  <p class="lead">Az alábbi két oldal a teljes megoldást tartalmazza — csak a játék végén nyisd ki!</p>
+  <div class="scan-grid">
+    <div class="scan-card spoiler-scan">
+      <div class="warn">⚠ SPOILER — IGAZSÁG ÉS BEFEJEZÉSEK</div>
+      <details><summary style="cursor:pointer;color:var(--gold);font-family:'Courier New',monospace;font-size:.85rem">Megjelenítés…</summary>
+        <img loading="lazy" src="scans/1000018595.jpg" onerror="this.onerror=null;this.src='1000018595.jpg'" alt="Igazság és befejezések" onclick="openLightbox(this.src)" style="margin-top:10px">
+      </details>
+    </div>
+    <div class="scan-card spoiler-scan">
+      <div class="warn">⚠ SPOILER — IGAZSÁG-ELEMZÉS ÉS IDŐVONAL</div>
+      <details><summary style="cursor:pointer;color:var(--gold);font-family:'Courier New',monospace;font-size:.85rem">Megjelenítés…</summary>
+        <img loading="lazy" src="scans/1000018596.jpg" onerror="this.onerror=null;this.src='1000018596.jpg'" alt="Igazság-elemzés" onclick="openLightbox(this.src)" style="margin-top:10px">
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KVÍZ ============ -->
+<section id="quiz">
+  <h2>Következtetés</h2>
+  <p class="lead">Rakd össze a történetet! Ha mind az öt kérdésre helyesen válaszolsz, feltárul az igazság.</p>
+
+  <div class="quiz-q" data-q="1">
+    <h4>1. Ki lökte a kútba Liu Fut, a legidősebb fivért — sok évvel ezelőtt, az esküvő előestéjén?</h4>
+    <label><input type="radio" name="q1" value="a">Liu Yongbo, az apa — mert a fia szembeszegült vele</label>
+    <label><input type="radio" name="q1" value="b">Liu Yu, a középső fivér — féltékenységből</label>
+    <label><input type="radio" name="q1" value="c">Liu Lu, a legkisebb fivér — a Wen Ting kezéért folyó vita hevében</label>
+    <label><input type="radio" name="q1" value="d">Wen Ting — hogy megszabaduljon a kényszerházasságtól</label>
+  </div>
+
+  <div class="quiz-q" data-q="2">
+    <h4>2. Ki rejtőzik valójában a három tanár — Liu Zi, Li Yi professzor és a Szellemtanár — mögött?</h4>
+    <label><input type="radio" name="q2" value="a">Három testvér, akik felosztották egymás közt a napot</label>
+    <label><input type="radio" name="q2" value="b">Egyetlen ember: Liu Yu, akinek a személyisége három részre hasadt</label>
+    <label><input type="radio" name="q2" value="c">Zhang igazgató álruhában</label>
+    <label><input type="radio" name="q2" value="d">Liu Lu, aki orvosból lett tanár</label>
+  </div>
+
+  <div class="quiz-q" data-q="3">
+    <h4>3. Mi történt valójában Wen Tinggel, aki július 1-jén eltűnt?</h4>
+    <label><input type="radio" name="q3" value="a">Megszökött a szeretőjével egy másik városba</label>
+    <label><input type="radio" name="q3" value="b">Zhang igazgató bezárta a meditációs szobába</label>
+    <label><input type="radio" name="q3" value="c">A saját fia, Wen Zhibin ölte meg — VR-játéknak hitte, és „vörös hajú szörnyet” látott benne</label>
+    <label><input type="radio" name="q3" value="d">A kútba esett, miközben a fiát kereste</label>
+  </div>
+
+  <div class="quiz-q" data-q="4">
+    <h4>4. Ki küldi évek óta a „teknősleves”-leveleket a Szellemtanárnak, és miért?</h4>
+    <label><input type="radio" name="q4" value="a">Zhang igazgató — hogy megőrjítse a tanárát</label>
+    <label><input type="radio" name="q4" value="b">Wang Miaoling — titkos szerelmes üzenetekként</label>
+    <label><input type="radio" name="q4" value="c">Egy volt diák — bosszúból</label>
+    <label><input type="radio" name="q4" value="d">Liu Lu, a kórházi orvos — hogy a rejtvényeken keresztül tovább rettegésben tartsa a bátyját</label>
+  </div>
+
+  <div class="quiz-q" data-q="5">
+    <h4>5. Mire készül Zhang igazgató (Liu Yongbo) július 15-én?</h4>
+    <label><input type="radio" name="q5" value="a">Eladja az akadémiát, és külföldre szökik a vagyonnal</label>
+    <label><input type="radio" name="q5" value="b">Fel akarja áldozni Liu Jiaminget a 3. születésnapján — vízbe fojtva, a halhatatlanságáért</label>
+    <label><input type="radio" name="q5" value="c">Új „beavatási szertartást” vezet be az összes diáknak</label>
+    <label><input type="radio" name="q5" value="d">Le akarja leplezni dr. Liut a rendőrség előtt</label>
+  </div>
+
+  <div style="text-align:center;margin-top:26px">
+    <button class="btn" onclick="checkQuiz()">Következtetés ellenőrzése</button>
+  </div>
+  <div class="quiz-result" id="quizresult"></div>
+</section>
+
+<!-- ============ AZ IGAZSÁG ============ -->
+<section id="truth">
+  <h2>Az igazság</h2>
+  <p class="lead">A Gaimi Akadémia teljes története</p>
+
+  <div class="gate" id="truthgate">
+    <h3>🔒 Lezárt akta</h3>
+    <p>Az igazság a <b>Következtetés</b> kvíz kitöltésével oldható fel. Ha elakadtál és mindenképp látni akarod a megoldást, használd az alábbi vészmegoldást — de figyelmeztetlek: <b>nincs visszaút.</b></p>
+    <button class="btn ghost" id="skipbtn" onclick="skipGate()">Feladom — mutasd a megoldást</button>
+  </div>
+
+  <div id="truthcontent" style="display:none">
+    <div class="narrative">
+      <p>Több mint egy évtizeddel ezelőtt, a Gaimi Akadémia alapítása előtt Gannan még egyszerű kisváros volt. Itt élt boldogan <b>Liu Yongbo</b> és felesége, <b>Chen Qin</b>, három fiukkal: a becsületes, kissé együgyű <b>Liu Fuval</b>, a félénk, gyerekkora óta hallgatózni szerető <b>Liu Yuval</b> és a vakmerő, sötét gondolatokat forgató <b>Liu Luval</b>. A család később magához vett egy kislányt, <b>Wen Tinget</b>, akit gyermekként szakítottak el a szüleitől.</p>
+      <p>Amikor a négy gyerek felnőtt, Liu Yongbo úgy döntött, Wen Tinget a legidősebb fiúhoz, Liu Fuhoz adja feleségül. Csakhogy a legkisebb fiú, Liu Lu eltökélte: rajta kívül senki sem veheti el Wen Tinget. Maga Wen Ting viszont a visszahúzódó középső fiút, <b>Liu Yut szerette</b> — évek óta titokban tervezték közös életüket.</p>
+      <p>Az esküvő előtti napon, míg a szülők a lakodalmi kellékekért jártak, a legidősebb és a legkisebb fivér összeveszett az eljegyzésen. A lobbanékony Liu Lu dühében <b>a kútba lökte Liu Fut</b>. A zajra odasiető Liu Yu mindent látott. Aznap éjjel Liu Lu — félve, hogy a bátyja beszélni fog — a „három fivér” teknősleves-történetével megfélemlítette Liu Yut, csirkevérrel gyilkosság látszatát keltette, halottnak tettette magát, és elmenekült. Liu Yongbo hazatérve Wen Tinget okolta a szerencsétlenségért: „balszerencsehozónak” nevezte és elzavarta. A félénk Liu Yu — rettegve, hogy titkos kapcsolatuk kiderül — meg sem mert szólalni a védelmében.</p>
+      <p>A megrázkódtatások hatására a gyáva Liu Yu elméje <b>meghasadt</b>: a nap különböző szakaszaiban fivérei személyiségeit öltötte magára. Liu Yongbo — akinek egy fia meghalt, egy megőrült, egy elszökött — minden megtakarítását egy iskolába fektette: megalapította a <b>Gaimi Akadémiát</b>. A tudathasadásos Liu Yuból lett az akadémia „három” tanára — <b>Liu Zi, Li Yi és a Szellemtanár</b> —, feleségéből, Chen Qinből pedig a menza asszonya. Ezért nincs tükör az akadémián — és ezért találsz a dolgozói aktákban egyetlen tanárt. Az igazgató „orvossága” tartotta a rendszert működésben.</p>
+      <p>Az elzavart Wen Ting hamarosan rájött, hogy Liu Yu gyermekét várja. Megszülte a kislányt, <b>Shixuant</b>, de felnevelni nem tudta — árvaházba adta. Shixuant később, mert folyton mások beszélgetéseit hallgatta ki (akárcsak vér szerinti apja…), a gyerekek kiközösítették, és a Gaimi Akadémiára került „átnevelésre” — ahol az igazgató kis besúgója lett. Ő az aktákban szereplő <b>Wu Shuan</b>.</p>
+      <p>A szökött Liu Lu orvos lett a városi kórházban, és éveken át kutatott Wen Ting után. Miután rátalált, összeházasodtak; megszületett fiuk, <b>Wen Zhibin</b>. A házasság azonban boldogtalan volt. A játékfüggő, erősen rövidlátó Wen Zhibint az akadémiára küldték „gyógyulni”. Liu Yongbo tudta, hogy a fiú Wen Ting gyermeke — és rajta keresztül állt bosszút: amikor Wen Ting meglátogatta a fiát, az igazgató szándékosan abba a terembe csalta, ahol Wen Zhibin VR-szemüvegben játszott. A fiú a valóságot a játéktól megkülönböztetni nem tudva, <b>„vörös hajú szörnyként” a saját anyját ölte meg</b> — anélkül, hogy tudta volna, kit. Liu Yongbo ezzel zsarolta hallgatásra. Amikor Wen Zhibin megtudta az igazságot, felkiáltott: „Megöltem azokat, akik életet adtak nekem!” — és a kútba vetette magát.</p>
+      <p>Wen Ting húga, <b>Wang Miaoling</b> évekkel korábban Weifeng faluban beleszeretett az ott pihenő dr. Liu Luba; szökés közben elfogták, és az akadémia „Végzetes kapcsolatok gyógyítása” osztályára került. Ott tanára, Liu Zi (vagyis Liu Yu) <b>kísértetiesen hasonlított</b> Liu Lura — Wang Miaoling cetliket kezdett neki csúsztatni a megbeszélt találkahelyükről (ezek Li Yi asztalán landoltak, aki értetlenül kidobta őket…), és lassan egymásba szerettek. Liu Yongbo Shixuannal kifigyeltette őket, majd szörnyű tervet szőtt: mivel nem maradt örököse, az orvos cinkosságával <b>elhitette Wang Miaolinggal, hogy szerelmétől vár gyereket — valójában béranyaként az igazgató gyermekét, Liu Jiaminget hordta ki</b> (lásd az ultrahang-leletet 2017 novemberéből). Amikor Wang Miaoling rájött, hogy szülőgéppé tették, a tantermi épület mellett végeztek vele.</p>
+      <p>Néhány hónapja Liu Yongbo megismerte a halhatatlanságot ígérő <b>Yuanqi-kultuszt</b>: a szertartáshoz meghatározott születési képletű rokonokat kell „áldozatként” elemészteni — pontosan a születésnapjukon. Az utolsó szükséges áldozat születési képlete <b>Liu Jiamingéval</b> egyezik, akinek július 15-én lesz a harmadik születésnapja. A kisfiú képletéből a víz-elem hiányzik — ezért a terv: elaltatni, és a <b>kútba</b> vetni. Liu Lu véletlenül tudomást szerzett a tervről, és teknősleves-leveleivel próbálta felrázni a bátyját.</p>
+      <p>Liu Yu végignézte két szeretett tanítványa — egykori kedvese, Wang Miaoling és legbüszkébb diákja, Wen Zhibin — halálát. Elméje újra meghasadt: immár <b>az ő személyiségük is benne él</b>. Gyakran ül a sötét kis szobában a holmijukat szorongatva, és ébredéskor hol Wang Miaolingnak, hol Wen Zhibinnek hiszi magát… <b>Te vagy Liu Yu.</b> Mindkét naplót te írtad. És már csak három napod van, hogy megmentsd Liu Jiaminget.</p>
+    </div>
+
+    <h2 style="margin-top:36px">Idővonal</h2>
+    <div class="timeline">
+      <div class="tl-item"><span class="year">2009</span><br>Liu Yongbo eljegyzi Wen Tinget legidősebb fiával, Liu Fuval. Liu Lu a kútba löki Liu Fut; Liu Yu végignézi. Liu Yongbo Wen Tinget okolja és elzavarja. Liu Lu a „három fivér” rejtvénnyel megfélemlíti Liu Yut, meghamisítja saját halálát, és elmenekül.</div>
+      <div class="tl-item"><span class="year">2010</span><br>Liu Yongbo megalapítja a Gaimi Akadémiát; Chen Qin a menzára kerül, a tudathasadásos Liu Yu „három tanárként” az osztályok élére (lásd a 2010. januári dolgozói aktákat és Li Yi naplójának első bejegyzését). Wen Ting megszüli Shixuant, és árvaházba adja. Megérkezik az első teknősleves-levél a kórházból.</div>
+      <div class="tl-item"><span class="year">2012</span><br>Megszületik Wen Zhibin, Wen Ting és Liu Lu fia.</div>
+      <div class="tl-item"><span class="year">2015</span><br>Shixuan (az aktákban: Wu Shuan) az akadémiára kerül, és az igazgató fülbesúgója lesz.</div>
+      <div class="tl-item"><span class="year">2016</span><br>Wang Miaoling — Wen Ting húga — beleszeret dr. Liu Luba; szökés közben elkapják, és az akadémia „Végzetes kapcsolatok gyógyítása” osztályára kerül, ahol a Liu Lura hasonlító Liu Zi tanárba (Liu Yu) szeret bele. Cetlijei Li Yi asztalán landolnak…</div>
+      <div class="tl-item"><span class="year">2017–2018</span><br>Liu Yongbo az orvos segítségével megtéveszti Wang Miaolingot (ultrahang: 2017. november 22.), aki béranyaként kihordja az igazgató gyermekét, Liu Jiaminget (születése: július 15.). Amikor Wang Miaoling rájön az igazságra, a tantermi épület mellett megölik.</div>
+      <div class="tl-item"><span class="year">2020</span><br>Wen Zhibint az akadémiára küldik internetfüggősége miatt (Li Yi naplója, május 4.). Liu Yongbo VR-rel „képezi”. A 4. teknősleves-levél már a Yuanqi-kultuszt emlegeti.</div>
+      <div class="tl-item"><span class="year">2021. július 1.</span><br>Wen Ting meglátogatja a fiát — Liu Yongbo a VR-terembe csalja, és Wen Zhibin tudtán kívül megöli a saját anyját. A fiú később megtudja az igazságot, és a kútba veti magát.</div>
+      <div class="tl-item"><span class="year">2021. július 12.</span><br>A jelen. Az igazgatónak már csak egyetlen áldozat kell a „halhatatlansághoz”: Liu Jiaming, aki három nap múlva tölti be a hármat. A kútnál fogják feláldozni — hacsak valaki meg nem állítja…</div>
+    </div>
+
+    <div class="narrative" style="margin-top:30px">
+      <p class="whisper">„Ébredj újra… Őt választod — vagy a saját életed?”</p>
+      <p style="text-align:center">A játék befejezései a naplófejezetek végén, a <b>menekülési pont</b> megadásával érhetők el: <a href="#" onclick="showSection('boy');return false;" style="color:var(--gold)">a fiú útvonala</a> · <a href="#" onclick="showSection('girl');return false;" style="color:var(--gold)">a lány útvonala</a></p>
+      <p style="text-align:center">Gratulálunk, nyomozó. Megfejtetted a Gaimi Akadémia titkát. 🕯️</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JEGYZETEK ============ -->
+<section id="notes">
+  <h2>Nyomozói jegyzetfüzet</h2>
+  <p class="lead">Ide írd a megfigyeléseidet — a jegyzeteid automatikusan mentődnek ebben a böngészőben.</p>
+  <textarea id="notepad" placeholder="Pl.: 177****6808 — ez a szám két helyen is szerepel…&#10;&#10;Kik írták alá az aktákat?&#10;&#10;Miért nincs tükör?…"></textarea>
+  <div class="notes-hint">💾 Automatikus mentés a böngésző tárhelyére (localStorage).</div>
+</section>
+
+</main>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <span class="lb-hint">Kattints bárhová a bezáráshoz (Esc)</span>
+  <img id="lightbox-img" src="" alt="Nagyított szken">
+</div>
+
+<footer>
+  GAIMI AKADÉMIA · Magánhasználatra készült magyar rajongói adaptáció a saját példányod dokumentumai alapján.<br>
+  A képek helyben, a weboldal melletti „scans” mappából töltődnek be — internet és bejelentkezés nélkül is működik.
+</footer>
+
+<script>
+/* ---------- navigáció ---------- */
+const sections = document.querySelectorAll('main section');
+const navbtns = document.querySelectorAll('nav button');
+function showSection(id){
+  sections.forEach(s=>s.classList.toggle('active', s.id===id));
+  navbtns.forEach(b=>b.classList.toggle('active', b.dataset.target===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+navbtns.forEach(b=>b.addEventListener('click',()=>showSection(b.dataset.target)));
+
+function openEvidence(evId){
+  showSection('evidence');
+  const el = document.getElementById(evId);
+  if(el){
+    el.open = true;
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  }
+}
+
+/* ---------- lightbox ---------- */
+const lb = document.getElementById('lightbox');
+const lbimg = document.getElementById('lightbox-img');
+function openLightbox(src){
+  lbimg.src = src;
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  lb.classList.remove('open');
+  lbimg.src='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
+
+/* ---------- flip ---------- */
+function toggleReveal(btn,id){
+  const el = document.getElementById(id);
+  el.classList.toggle('revealed');
+  btn.textContent = el.classList.contains('revealed') ? 'A levél visszafordítása 🔄' : 'A levél megfordítása 🔄';
+}
+
+/* ---------- olvasottsági jelölők + haladás ---------- */
+const readboxes = document.querySelectorAll('input[data-read]');
+function refreshProgress(){
+  let done = 0;
+  readboxes.forEach(cb=>{ if(cb.checked) done++; });
+  const quizDone = localStorage.getItem('gaimi_truth_unlocked')==='1' ? 1 : 0;
+  const total = readboxes.length + 1;
+  const pct = Math.round(((done+quizDone)/total)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-label').textContent = 'Nyomozás állása: '+pct+'%';
+}
+readboxes.forEach(cb=>{
+  cb.checked = localStorage.getItem('gaimi_read_'+cb.dataset.read)==='1';
+  cb.addEventListener('change',()=>{
+    localStorage.setItem('gaimi_read_'+cb.dataset.read, cb.checked?'1':'0');
+    refreshProgress();
+  });
+});
+
+/* ---------- menekülési pontok ---------- */
+function norm(s){
+  return (s||'').toLowerCase()
+    .replaceAll('á','a').replaceAll('é','e').replaceAll('í','i')
+    .replaceAll('ó','o').replaceAll('ö','o').replaceAll('ő','o')
+    .replaceAll('ú','u').replaceAll('ü','u').replaceAll('ű','u')
+    .trim();
+}
+const endings = {
+  boy: {
+    accept: ['haloterem','kollegium','halo','szoba','halошoba','haloszoba'],
+    good: `<div class="ending good"><h5>✔ Helyes menekülési pont — Wen Zhibin útja</h5>
+      <p>Megfejtetted a „teknősleves” rejtélyét, és a metaforáin keresztül megértetted az akadémia falai közt lappangó rettenetes igazságot. Az igazgató gyilkológéppé képezte ki az internetfüggővé tett fiút…</p>
+      <p>Visszatérsz a hálótermedbe, hogy összecsomagolj — közben a segélyhívót tárcsázod a telefonon. Az asztalon ott hever a szemüveged; felteszed, és gyorsan zsebre vágod a telefont.</p>
+      <p>A világ hirtelen <b>elmosódik</b> a szemed előtt… Ez a szemüveg nem hozzád tartozik. Sőt: amikor leveszed, <i>tisztábban</i> látsz. A fejedben villámként cikáznak a képek: a nyilvántartásban Wen Zhibin neve mellett ott áll — <b>„eltűnt”</b>. És hogy sétálhattál eddig szabadon az akadémián, anélkül, hogy bárki megállított volna…?</p>
+      <p><b>Valójában a Szellemtanár vagy — Liu Yu egyik személyisége.</b> A gondolataid ismét káoszba zuhannak, és a hálóteremben összeesel. A sarokból sötét árny lép elő, megcsóválja a fejét, és visszavonszol a kis sötét szobába.</p>
+      <p>Egy nappal később a Gaimi Akadémiát külső bejelentés alapján lekapcsolta a rendőrség. Zhang igazgató börtönbe került — téged pedig pszichiátriai kórházba szállítottak kezelésre.</p></div>`,
+  },
+  girl: {
+    accept: ['kut','a kut','kutnal','kuthoz'],
+    good: `<div class="ending good"><h5>✔ Helyes menekülési pont — Wang Miaoling útja</h5>
+      <p>Elérted a kutat, és kihúztad a vödröt, amely a víz színén lebegett. Valóban a gyermeked az, <b>Liu Jiaming</b> — még mindig békésen alszik. Megkönnyebbülten felsóhajtasz: örülsz, hogy időben ideértél! A térkép útmutatása szerint máris menekülnél vele az iskolából, hogy hívd a rendőrséget — persze el nem felejtenéd megnézni, hogy a kicsi jól van-e.</p>
+      <p>Végül lepillantasz a vödörbe, amelyben még mindig van egy kevés víz… és a kanalad… <i>az arcod olyan nyúzott</i>… Megint belenézel — és nem bírod levenni a szemed: <b>a víz tükröződésében nem Wang Miaoling néz vissza rád.</b></p>
+      <p>E pillanatban jelenetek villannak át az agyadon: a diák-nyilvántartásban Wang Miaoling neve mellett ott áll — <b>„eltűnt”</b>. És hogyan bolyonghattál eddig szabadon az akadémián anélkül, hogy bárki megállított volna…?</p>
+      <p><b>Kiderül: Liu Zi vagy — Liu Yu egyik személyisége.</b> A gondolataid ismét káoszba zuhannak, és a kút mellett összeesel. Egy sötét árny lép elő a sarokból, megcsóválja a fejét, és visszavonszol a kis sötét szobába.</p>
+      <p>Egy nappal később a Gaimi Akadémiát külső bejelentés alapján lekapcsolta a rendőrség. Zhang igazgató börtönbe került — téged pedig pszichiátriai kórházba szállítottak kezelésre.</p></div>`,
+  }
+};
+const badEnding = `<div class="ending bad"><h5>✘ Nincs helyes menekülési pont</h5>
+  <p>Elveszve és összezavarodva bolyongsz az akadémián — nem találod a kiutat, és újabb emlékek sem jönnek. E pillanatban <b>Zhang igazgató</b> sétál feléd. Megpillant, és mély jelentéssel teli mosollyal néz rád. Ez a mosoly olyan meleg… és olyan ismerős. Szinte atyai megnyugvást ad.</p>
+  <p>„Gyermekem, ideje bevenni az orvosságot” — mondja. Zhang úr kérésével szemben nincs választásod: beveszed a pirulát, amit a kezedbe ad, és hamarosan elalszol.</p>
+  <p>„Ne gondold túl — a Gaimi Akadémia a legjobb menedék.”</p>
+  <p>Évekkel később a Gaimi Akadémiát külső bejelentés alapján lekapcsolta a rendőrség; Zhang igazgató börtönbe került, téged pedig pszichiátriai kórházba szállítottak kezelésre.</p>
+  <p class="hint-inline">Próbáld újra — hallgass az emlékeidre…</p></div>`;
+
+function checkEscape(route){
+  const input = document.getElementById('escape-'+route);
+  const out = document.getElementById('ending-'+route);
+  const val = norm(input.value);
+  if(!val){ out.innerHTML=''; return; }
+  const hit = endings[route].accept.some(a=>val.includes(norm(a)));
+  out.innerHTML = hit ? endings[route].good : badEnding;
+}
+
+/* ---------- kvíz ---------- */
+const answers = {q1:'c', q2:'b', q3:'c', q4:'d', q5:'b'};
+function checkQuiz(){
+  let allAnswered = true, allCorrect = true;
+  for(const q in answers){
+    const sel = document.querySelector('input[name="'+q+'"]:checked');
+    const card = document.querySelector('.quiz-q[data-q="'+q.slice(1)+'"]');
+    card.classList.remove('correct','wrong');
+    if(!sel){ allAnswered = false; continue; }
+    if(sel.value===answers[q]){ card.classList.add('correct'); }
+    else { card.classList.add('wrong'); allCorrect = false; }
+  }
+  const res = document.getElementById('quizresult');
+  if(!allAnswered){
+    res.className = 'quiz-result fail';
+    res.textContent = '⚠ Válaszolj mind az öt kérdésre!';
+    return;
+  }
+  if(allCorrect){
+    res.className = 'quiz-result ok';
+    res.textContent = '✔ KIVÁLÓ, NYOMOZÓ! AZ IGAZSÁG FELTÁRULT.';
+    unlockTruth();
+    setTimeout(()=>showSection('truth'),1200);
+  } else {
+    res.className = 'quiz-result fail';
+    res.textContent = '✘ Valami nem stimmel… A pirossal jelölt kérdéseket gondold újra!';
+  }
+}
+
+/* ---------- igazság-kapu ---------- */
+let skipArmed = false;
+function skipGate(){
+  const btn = document.getElementById('skipbtn');
+  if(!skipArmed){
+    skipArmed = true;
+    btn.textContent = 'Biztos vagy benne? Kattints még egyszer!';
+    btn.style.color = 'var(--red)';
+    btn.style.borderColor = 'var(--red)';
+    return;
+  }
+  unlockTruth();
+}
+function unlockTruth(){
+  localStorage.setItem('gaimi_truth_unlocked','1');
+  applyTruthState();
+  refreshProgress();
+}
+function applyTruthState(){
+  const unlocked = localStorage.getItem('gaimi_truth_unlocked')==='1';
+  document.getElementById('truthgate').style.display = unlocked?'none':'block';
+  document.getElementById('truthcontent').style.display = unlocked?'block':'none';
+  document.getElementById('truthnavbtn').innerHTML = unlocked ? 'Az igazság' : '<span class="lock">🔒</span> Az igazság';
+}
+applyTruthState();
+refreshProgress();
+
+/* ---------- jegyzetek ---------- */
+const pad = document.getElementById('notepad');
+pad.value = localStorage.getItem('gaimi_notes')||'';
+pad.addEventListener('input',()=>localStorage.setItem('gaimi_notes',pad.value));
+
+/* ---------- szken-galéria ---------- */
+const scans = [
+  ['1000018572','A doboz borítója — „Infinite Escape Nightmare”'],
+  ['1000018573','Üdvözlő oldal és játékmódok (lefordítva a Kezdőlapon)'],
+  ['1000018574','A fiú naplója — 1. oldal: Ébredés'],
+  ['1000018575','A fiú naplója — 2. oldal: Feladatok és a választás'],
+  ['1000018576','A fiú naplója — 3. oldal: Li Yi és a Szellemtanár szobája'],
+  ['1000018577','A fiú naplója — 4. oldal: A kút emléke és a szökés'],
+  ['1000018578','A lány naplója — 5. oldal: A fafigura rémálma'],
+  ['1000018579','A lány naplója — 6. oldal: Feladatok és a választás'],
+  ['1000018580','A lány naplója — 7. oldal: A három szoba'],
+  ['1000018581','A lány naplója — 8. oldal: A szerelem emléke és a szökés'],
+  ['1000018582','Az Akadémia házirendje (lefordítva a Bizonyítékokban)'],
+  ['1000018583','Gannan Napilap (lefordítva a Bizonyítékokban)'],
+  ['1000018584','Különjelentés — 4 cikk (lefordítva a Bizonyítékokban)'],
+  ['1000018585','Az akadémia fotói — helyszínek kollázsa'],
+  ['1000018586','Diák-akták (lefordítva a Bizonyítékokban)'],
+  ['1000018587','Dolgozói akták: Chen Qin és Liu Yu (lefordítva a Bizonyítékokban)'],
+  ['1000018588','Wen Zhibin naplója (lefordítva a Bizonyítékokban)'],
+  ['1000018589','Li Yi tanítási naplója (lefordítva a Bizonyítékokban)'],
+  ['1000018590','A Szellemtanár levelei (lefordítva a Bizonyítékokban)'],
+  ['1000018591','Csevegésnaplók (lefordítva a Bizonyítékokban)'],
+  ['1000018592','Az igazgatói iroda rejtvénye — alaprajz QR-kóddal'],
+  ['1000018593','Ultrahang-lelet — Wang Miaoling titka II. (lefordítva)'],
+  ['1000018594','Wang Miaoling titka (lefordítva a Bizonyítékokban)'],
+];
+const grid = document.getElementById('scangrid');
+scans.forEach(([name,desc])=>{
+  const card = document.createElement('div');
+  card.className = 'scan-card';
+  const src = 'scans/'+name+'.jpg';
+  card.innerHTML =
+    '<h4>'+name+'</h4><div class="guess">'+desc+'</div>'+
+    '<img loading="lazy" src="'+src+'" onerror="this.onerror=null;this.src=\''+name+'.jpg\'" alt="'+desc+'" onclick="openLightbox(this.src)">';
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
