@@ -418,6 +418,67 @@
     .readmark,.arrow,.tag{display:none!important}
     .photo-grid img,.photo-hero img{border:1px solid #999}
   }
+
+  /* ===== NYOMOZATI REJTVENYEK ===== */
+  .puzzle-intro{background:rgba(201,162,75,.07);border:1px solid rgba(201,162,75,.4);border-radius:10px;padding:16px 20px;margin-bottom:22px;color:#cdbd9c;font-size:.92rem}
+  .puzzle-intro b{color:var(--gold)}
+  .fraginv{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;padding:18px 16px;margin-bottom:26px}
+  .fraginv .lab{width:100%;text-align:center;font-family:'Courier New',monospace;color:var(--gold);letter-spacing:.1em;font-size:.82rem;text-transform:uppercase;margin-bottom:6px}
+  .fragslot{width:52px;height:68px;border-radius:6px;border:2px dashed var(--card-border);display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;color:var(--muted);font-size:1.1rem;background:rgba(0,0,0,.25);transition:.3s}
+  .fragslot.filled{border-style:solid;border-color:var(--gold);color:var(--gold);background:rgba(201,162,75,.14);box-shadow:0 0 14px rgba(201,162,75,.25)}
+  .puzzle{background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;padding:20px 24px;margin-bottom:20px;transition:.3s}
+  .puzzle.solved{border-color:var(--gold);background:linear-gradient(180deg,rgba(201,162,75,.06),rgba(0,0,0,.15))}
+  .puzzle .ptype{display:inline-block;font-family:'Courier New',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:2px 8px;margin-bottom:10px}
+  .puzzle h4{color:var(--paper);font-family:'Courier New',monospace;letter-spacing:.04em;font-size:1.05rem;margin-bottom:10px}
+  .puzzle .body{font-size:.95rem;margin-bottom:14px}
+  .puzzle .body .riddle{border-left:3px solid var(--red);background:rgba(168,50,38,.06);padding:10px 14px;margin:10px 0;font-style:italic;color:#e2d6bd}
+  .puzzle .cipher{font-family:'Courier New',monospace;color:var(--gold);letter-spacing:.35em;font-size:1.35rem;text-align:center;margin:10px 0}
+  .puzzle input.txt{background:#0a0806;color:var(--paper);border:1px solid var(--card-border);border-radius:5px;padding:10px 14px;font-family:'Courier New',monospace;font-size:1rem;width:min(320px,100%)}
+  .puzzle input.code{letter-spacing:.3em;text-align:center;color:var(--gold);width:min(200px,100%);font-size:1.2rem}
+  .puzzle input:focus{outline:2px solid var(--red)}
+  .puzzle .opts label{display:block;padding:9px 12px;border:1px solid transparent;border-radius:6px;cursor:pointer;font-size:.93rem}
+  .puzzle .opts label:hover{border-color:var(--card-border);background:rgba(255,255,255,.02)}
+  .puzzle .opts input{accent-color:var(--red);margin-right:10px}
+  .puzzle .pfb{margin-top:12px;font-family:'Courier New',monospace;font-size:.9rem;min-height:1.2em}
+  .puzzle .pfb.ok{color:var(--green)}
+  .puzzle .pfb.no{color:var(--red)}
+  .puzzle .reward{display:none;margin-top:14px;border-top:1px dashed var(--gold);padding-top:12px}
+  .puzzle .reward.show{display:block;animation:fadein .4s ease}
+  .puzzle .reward .rt{font-family:'Courier New',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+  .puzzle .reward .frag{background:rgba(201,162,75,.08);border:1px solid rgba(201,162,75,.4);border-radius:8px;padding:12px 16px;font-style:italic;color:#efe6d0;font-family:'Segoe Print','Bradley Hand',cursive;font-size:1.08rem;line-height:1.5}
+  .prow{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .prow select{background:#0a0806;color:var(--paper);border:1px solid var(--card-border);border-radius:5px;padding:7px 8px;font-family:'Courier New',monospace;font-size:.85rem}
+  .prow .ev{flex:1;min-width:200px;background:rgba(0,0,0,.2);border:1px solid var(--card-border);border-radius:6px;padding:8px 10px;font-size:.88rem}
+  .prow.right select{border-color:var(--green)}
+  .prow.wrong select{border-color:var(--red)}
+  .assembled{display:none;margin-top:8px}
+  .assembled.show{display:block;animation:fadein .5s ease}
+
+  /* ===== HALADO REJTVENYEK ===== */
+  .adv-head{margin-top:42px;border-top:2px solid var(--card-border);padding-top:28px}
+  .keyinv{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--card-border);border-radius:10px;padding:16px;margin-bottom:24px}
+  .keyinv .lab{width:100%;text-align:center;font-family:'Courier New',monospace;color:var(--gold);letter-spacing:.1em;font-size:.82rem;text-transform:uppercase;margin-bottom:4px}
+  .keyslot{padding:9px 14px;border:2px dashed var(--card-border);border-radius:6px;font-family:'Courier New',monospace;color:var(--muted);font-size:.8rem;letter-spacing:.05em}
+  .keyslot.filled{border-style:solid;border-color:var(--gold);color:var(--gold);background:rgba(201,162,75,.12);box-shadow:0 0 12px rgba(201,162,75,.2)}
+  .maskwrap{display:inline-block;background:var(--paper2);padding:14px;border-radius:8px;margin:8px 0 14px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+  .maskgrid{display:grid;grid-template-columns:repeat(4,46px);gap:6px}
+  .maskcell{width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:1.3rem;color:var(--ink);background:#ddd0b0;border-radius:4px;transition:.25s}
+  .maskgrid.masked .maskcell:not(.hole){background:#241c12;color:#241c12}
+  .maskgrid.masked .maskcell.hole{background:#f7edd2;color:var(--red-dark);font-weight:bold;box-shadow:0 0 0 2px var(--gold)}
+  .scene{position:relative;width:100%;max-width:520px;margin:10px 0;border:1px solid var(--card-border);border-radius:10px;overflow:hidden;background:#171009}
+  .scene svg{display:block;width:100%;height:auto}
+  .hot{position:absolute;cursor:pointer;font-size:1.6rem;transform:translate(-50%,-50%);filter:drop-shadow(0 0 3px #000);transition:.15s;user-select:none}
+  .hot:hover{transform:translate(-50%,-50%) scale(1.25)}
+  .hot.found{filter:drop-shadow(0 0 7px var(--gold))}
+  .objcount{font-family:'Courier New',monospace;color:var(--gold);font-size:.85rem;margin:8px 0}
+  .objclue{font-size:.86rem;color:#cdbd9c;background:rgba(0,0,0,.25);border-left:3px solid var(--gold);padding:7px 12px;margin:6px 0;border-radius:4px;display:none}
+  .objclue.show{display:block;animation:fadein .3s ease}
+  .qbtn{display:block;width:100%;text-align:left;background:rgba(0,0,0,.22);border:1px solid var(--card-border);color:#d8cdb8;border-radius:6px;padding:10px 14px;margin-bottom:6px;cursor:pointer;font-family:Georgia,serif;font-size:.92rem}
+  .qbtn:hover{border-color:var(--gold)}
+  .ans{display:none;padding:8px 14px 12px 26px;font-style:italic;color:#e2d6bd;border-left:2px solid var(--red);margin:0 0 10px 10px}
+  .ans.show{display:block;animation:fadein .3s ease}
+  .verdict{display:none;margin-top:12px}
+  .verdict.show{display:block;animation:fadein .5s ease}
 </style>
 </head>
 <body>
@@ -497,96 +558,187 @@
 <!-- ============ 1. AKTA · BEN ============ -->
 <section id="case1">
   <h2>1. akta — Ben Winter emléke</h2>
-  <p class="lead">A csapat első nyoma · egy férfi növendék feljegyzései</p>
+  <p class="lead">A csapat első nyoma · egy férfi növendék feljegyzései. Minden állomáson egy fejtörő nyitja a következő emléket.</p>
 
-  <!-- Szakasz 1 -->
+  <!-- c1s1 -->
   <div class="stage" data-stage="c1s1">
-    <h3 class="pagehead">1 · Ébredés</h3>
+    <h3 class="pagehead">1 · Ébredés a zárt szobában</h3>
     <div class="narrative">
       <p class="whisper">„Öld meg őket… öld meg őket… és király leszel…”</p>
-      <p>A szavak visszhangoznak, és nem akarnak elhallgatni. Egy lezárt, vérfoltos szobában ébredtek. Az asztalon egy furcsa <b>sisak</b> hever — valaki a fejére húzza, és abban a pillanatban szörnyek hordája ront rá. „Kegyelem!” — de a démonok nem hátrálnak.</p>
-      <p class="whisper">„Add vissza az életem… add vissza az életem…”</p>
-      <p>„Ébresztő!” — hangzavar ránt ki a rémálomból. Régimódi kék köntöst viseltek. Odakint hangszóró recseg.</p>
-      <div class="radio">
-        📢 <b>HANGOSBEMONDÓ:</b> „Hé, ti ingyenélő társadalmi paraziták, ébresztő! Ez itt az Akadémia — a hely, ahol újjászülethettek. Itt nekem engedelmeskedtek. A házirend az asztalon van — másoljátok le tízszer! Van ott néhány fénykép is az akadémia környezetéről — nézzétek meg alaposan, hová szabad mennetek és hová nem. Aztán ellenőrizzétek, nem hiányzik-e valami. Harminc perc múlva jelentkezés a tanári irodában. Aki késik, nagyon megbánja.”
-      </div>
-      <p>Az asztalon ott hever a <b>Ravenhill Akadémia házirendje</b>, a <b>Ashford Napilap</b> egy példánya, néhány <b>fénykép</b>, és egy füzet, a gerincén: <b>„Ben Winter naplója”</b>. A csapat egyik tagja sem emlékszik a saját nevére — úgy döntötök, <b>Ben Winter</b> szemszögéből próbáltok emlékezni.</p>
+      <p>Egy lezárt, vérfoltos szobában ébredtek. Az asztalon egy furcsa <b>sisak</b> — valaki a fejére húzza, és szörnyek hordája ront rá. „Ébresztő!” — hangzavar ránt ki a rémálomból. A hangosbemondó recseg.</p>
+      <div class="radio">📢 „Hé, ti ingyenélő paraziták! A házirend az asztalon — másoljátok le tízszer! Nézzétek meg a fényképeket, és ellenőrizzétek, nem hiányzik-e valami. Harminc perc múlva jelentkezés a tanári irodában!”</div>
+      <p>Az asztalon: a <b>házirend</b>, az <b>Ashford Napilap</b>, néhány <b>fénykép</b>, és egy füzet: <b>„Ben Winter naplója”</b>. A saját neveteket sem tudjátok — Ben szemszögéből próbáltok emlékezni.</p>
     </div>
-
     <div class="team">
       <h4>▸ A csapat feladata</h4>
-      1. Olvassátok el: <a href="#" onclick="openEvidence('ev-rules');return false;">A Ravenhill Akadémia házirendje</a><br>
-      2. Olvassátok el az asztalon heverő <a href="#" onclick="openEvidence('ev-daily');return false;">Ashford Napilapot</a><br>
-      3. Figyeljétek meg <a href="#" onclick="openEvidence('ev-photos');return false;">az asztalon lévő fényképeket</a><br>
-      4. Olvassátok el <a href="#" onclick="openEvidence('ev-diary');return false;">Ben Winter naplóját</a> — majd válaszoljatok együtt:
+      Olvassátok el: <a href="#" onclick="openEvidence('ev-rules');return false;">házirend</a> · <a href="#" onclick="openEvidence('ev-daily');return false;">Ashford Napilap</a> · <a href="#" onclick="openEvidence('ev-photos');return false;">fényképek</a> · <a href="#" onclick="openEvidence('ev-diary');return false;">Ben naplója</a>
     </div>
-
-    <div class="gatebox" data-gate="c1s1" data-answer="internet|jatek|jatsz|net|fugg|gep|video|gaming|gamer|mario|beastworld">
-      <h4>🗝 Rejtvény-kapu 1</h4>
-      <div class="q"><b>Miért küldték Ben Wintert az akadémiára?</b></div>
-      <input type="text" placeholder="Írjátok be a választ…">
+    <div class="gatebox" data-gate="c1s1" data-pkey="gaimi_gate_c1s1" data-answer="internet|jatek|jatsz|net|fugg|gep|video|gaming|gamer|mario|beastworld">
+      <h4>🗝 Első nyom — a napló</h4>
+      <div class="q"><b>Miért küldték Ben Wintert az akadémiára?</b> (A napló egyetlen szenvedélyről szól.)</div>
+      <input type="text" placeholder="A válasz…">
       <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkGate('c1s1')">Ellenőrzés</button>
       <button class="hintbtn" onclick="toggleHint('c1s1')">tipp</button>
-      <div class="hinttext" id="hint-c1s1">A napló tele van egyetlen szenvedéllyel — a szülők ezt nevezték „betegségnek”.</div>
+      <div class="hinttext" id="hint-c1s1">A szülők ezt a szenvedélyt nevezték „betegségnek”. Mi az, amivel a fiú éjjel-nappal játszott?</div>
       <div class="feedback" id="fb-c1s1"></div>
     </div>
   </div>
+  <div class="lockmsg" data-lock="c1s2"><span class="key">🔒</span>Oldjátok meg az első nyomot a folytatáshoz.</div>
 
-  <div class="lockmsg" data-lock="c1s2"><span class="key">🔒</span>Oldjátok meg az 1. rejtvény-kaput a folytatáshoz.</div>
-
-  <!-- Szakasz 2 -->
+  <!-- c1s2 -->
   <div class="stage locked" data-stage="c1s2">
-    <h3 class="pagehead">2 · A három tanári iroda</h3>
+    <h3 class="pagehead">2 · A vérfoltos falak — a Szellemtanár szobája</h3>
     <div class="narrative">
-      <p>Az akadémia fotóit követve megérkeztek a tanári szobához. Az emeleten <b>három tanári iroda</b> van, látszólag teljesen egyforma elrendezéssel — csak a tárgyak térnek el. A szobák <b>Reed tanáré</b>, <b>Lee tanáré</b> és a <b>Szellemtanáré</b>. Mivel nem tudjátok, melyik osztályba jártok, magatok választotok szobát a regisztrációhoz.</p>
-      <p><span class="choice-badge">【Csapatdöntés】</span> Válasszátok azt a szobát, amelyikhez megérzésetek szerint a legmélyebb kötelék fűz — lépjetek be, és nyomozzatok!</p>
-      <div class="memory">
-        <p><b>Reed tanár szobája.</b> Ismerős érzés. A falon a <b>„szülőtisztelet”</b> írásjegye; az asztalon kicsi, <b>vérfoltos fafigura</b> — akár az álomban. Egy címke nélküli orvosságosüveg émelyítő szaga majdnem kiszippantja a lelketeket. Diákok házi feladatai hevernek szanaszét: a <b>„Huszonnégy példamutató gyermek”</b> történeteit másolják újra meg újra.</p>
-      </div>
-      <p><b>Lee tanár szobája.</b> Hatalmas könyvespolc, tele kalandregényekkel. Óravázlatok arról, <i>„hogyan szerezzünk információt hallgatózással”</i>. Az asztalon egy nehezen olvasható <b>tanítási napló</b>.</p>
-      <div class="team">
-        <h4>▸ A csapat feladata</h4>
-        Nézzétek át: <a href="#" onclick="openEvidence('ev-liyi');return false;">Lee tanár tanítási naplója</a>
-      </div>
-      <p style="margin-top:18px"><b>A Szellemtanár szobája.</b> A falakat <b>vérfoltok</b> borítják. Az asztalon rengeteg <b>levél</b> — bennük úgynevezett <b>„teknőslevesek”</b>. Ez egy kérdezz-felelek következtetős játék: a mesélő elmond egy furcsa, hiányos történetet, a hallgató pedig eldöntendő kérdésekkel fejti meg a titkát.</p>
-      <div class="team">
-        <h4>▸ A csapat feladata</h4>
-        Olvassátok el: <a href="#" onclick="openEvidence('ev-letters');return false;">A Szellemtanár levelei</a>, majd olvassátok el a <a href="#" onclick="openEvidence('ev-special');return false;">Különjelentés</a> négy cikkét és az <a href="#" onclick="openEvidence('ev-missing');return false;">eltűnt személyről szóló felhívást</a>. <i>A leveleket most fejtsétek meg magatok — nincs hozzájuk „hátoldal”.</i>
-      </div>
+      <p>Beléptek a Szellemtanár szobájába. A falakat <b>vörös foltok</b> borítják, az asztalon rengeteg <b>levél</b> — bennük az úgynevezett <b>„teknőslevesek”</b>: furcsa, hiányos történetek, amelyeket ki kell következtetni. Az egyik levél egy telefonszámot rejt. A vérfoltok között pedig egy számsor…</p>
+      <p class="hint-inline">Segít: <a href="#" onclick="openEvidence('ev-letters');return false;">a Szellemtanár levelei</a> · <a href="#" onclick="openEvidence('ev-special');return false;">a Különjelentés</a></p>
     </div>
 
-    <div class="gatebox" data-gate="c1s2" data-answer="leo|orvos|doktor|doctor|dr reed|dr. reed">
-      <h4>🗝 Rejtvény-kapu 2</h4>
-      <div class="q">A Szellemtanár évek óta rejtélyes „teknősleves”-leveleket kap a kórházból. A 10. levél alján egy telefonszám áll: <b>177****6808</b>. Ugyanez a szám az eltűnt személyről szóló felhívásban is felbukkan.<br><br><b>Ki írja a leveleket — vagyis kié a telefonszám?</b> (Add meg a nevét!)</div>
-      <input type="text" placeholder="Név…">
-      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkGate('c1s2')">Ellenőrzés</button>
-      <button class="hintbtn" onclick="toggleHint('c1s2')">tipp</button>
-      <div class="hinttext" id="hint-c1s2">Hasonlítsátok össze a levél végén és a felhívásban szereplő telefonszámot. A felhívást egy orvos adta fel — a Reed családból.</div>
-      <div class="feedback" id="fb-c1s2"></div>
+    <div class="puzzle" data-puzzle="p1" data-frag="1" data-pkey="gaimi_frag_1" data-answer="adam">
+      <span class="ptype">Rejtjel</span>
+      <h4>A vérrel írt számsor</h4>
+      <div class="body"><p>A falon egy számsor. Minden szám egy betű sorszáma az ábécében (A=1, B=2, C=3 …):</p>
+        <div class="cipher">1 · 4 · 1 · 13</div><p>Kinek a nevét adja ki?</p></div>
+      <input class="txt" type="text" placeholder="A megfejtett név…">
+      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solvePuzzleText('p1',1)">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('p1')">tipp</button>
+      <div class="hinttext" id="phint-p1">Minden szám az ábécé megfelelő sorszámú betűje (1 → A). Fordítsátok le mind a négyet, és olvassátok össze.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 1. levéltöredék megszerezve</div>
+        <div class="frag">„Bátyám, Adam! Ha ezt olvasod, már mindent tudsz. A „három fivér" meséje rólunk szólt: Finnről, rólad és rólam."</div></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="p3" data-frag="3" data-pkey="gaimi_frag_3" data-answer="b">
+      <span class="ptype">Teknősleves</span>
+      <h4>A három fivér</h4>
+      <div class="body">
+        <div class="riddle">„Három fivér együtt aludt egy ágyban. Egy nap a legidősebb meghalt. A középső fivér sokáig nem tudott elaludni — néhány nap múlva viszont már mélyen, nyugodtan aludt."</div>
+        <p><b>Hogyan lett újra nyugodt a középső fivér álma?</b></p>
+        <div class="opts">
+          <label><input type="radio" name="p3opt" value="a">Altatót kezdett szedni.</label>
+          <label><input type="radio" name="p3opt" value="b">Megölte a legkisebb fivért, kettévágta, és a két felét maga mellé fektette — így egyik oldaláról sem hiányzott senki.</label>
+          <label><input type="radio" name="p3opt" value="c">Elköltözött egy csendes faluba.</label>
+        </div>
+      </div>
+      <button class="btn" style="padding:10px 18px" onclick="solvePuzzleChoice('p3',3)">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('p3')">tipp</button>
+      <div class="hinttext" id="phint-p3">Középen aludt — két oldalról is kellett mellé valaki. Kíméletlen megoldás.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 3. levéltöredék megszerezve</div>
+        <div class="frag">„Az „apa és a kalap" története Victorról szól. Ő sosem gyógyítani akart minket — a fiaira mindig csak eszközként tekintett."</div></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="p4" data-frag="4" data-pkey="gaimi_frag_4" data-answer="b">
+      <span class="ptype">Teknősleves</span>
+      <h4>Az apa és a kalap</h4>
+      <div class="body">
+        <div class="riddle">„A híres férfisztár kiskorától fogva időnként egy kalapot próbált a fia fejére. Egy napon kórházba vitte a gyermeket — és a fiú meghalt."</div>
+        <p><b>Miért nevelte fel egyáltalán a fiát?</b></p>
+        <div class="opts">
+          <label><input type="radio" name="p4opt" value="a">Örökösnek szánta a vagyonához.</label>
+          <label><input type="radio" name="p4opt" value="b">A megfelelő méretű arcbőréért — a kalappal a fejméretét mérte, hogy majd arcátültetéshez használja.</label>
+          <label><input type="radio" name="p4opt" value="c">A szívére volt szüksége egy átültetéshez.</label>
+        </div>
+      </div>
+      <button class="btn" style="padding:10px 18px" onclick="solvePuzzleChoice('p4',4)">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('p4')">tipp</button>
+      <div class="hinttext" id="phint-p4">A kalap a fejméretet méri. Mit ültetnek át, amihez a fej mérete számít?</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 4. levéltöredék megszerezve</div>
+        <div class="frag">„A „születésnap" meséje figyelmeztetés volt: az Aeon-kultusz a születésnapon öl. Victor a saját vér szerinti unokáját, Jamie-t készül feláldozni."</div></div>
     </div>
   </div>
+  <div class="lockmsg" data-lock="c1s3"><span class="key">🔒</span>Fejtsétek meg a Szellemtanár szobájának mindhárom rejtvényét.</div>
 
-  <div class="lockmsg" data-lock="c1s3"><span class="key">🔒</span>Oldjátok meg a 2. rejtvény-kaput a folytatáshoz.</div>
-
-  <!-- Szakasz 3 -->
+  <!-- c1s3 -->
   <div class="stage locked" data-stage="c1s3">
-    <h3 class="pagehead">3 · A kút emléke és a szökés</h3>
+    <h3 class="pagehead">3 · Az igazgatói iroda</h3>
     <div class="narrative">
-      <div class="memory">
-        <p><b>Emlék.</b> Félénk ember voltatok, de a szerelemhez való jogotokat sosem adtátok fel. Egy éjjel láttátok, ahogy az öcsétek a <b>kútba löki</b> a bátyátokat — aztán megfordult, és meglátott titeket. A bátya halála miatt a szerelmeteket a szülők elzavarták. Az öcs a „három fivér” történetével fenyegetett meg, döglött csirke vérével gyilkosság látszatát keltette, és elmenekült.</p>
-      </div>
-      <p><b>Vér… ez vér!</b> Újabb emlékfoszlány: amikor az elmosódott alak megtudta, hogy <b>ő maga volt a gyilkos</b>, felüvöltött — <i>„Megöltem azokat, akik életet adtak nekem!”</i> —, és a kútba vetette magát. Rettenetes igazságokat tudtatok meg. <b>Nem maradhattok tovább: azonnal menekülnötök kell!</b></p>
-      <p>Az igazgatói iroda szemeteskosarában papírfecniket találtok — <b>az akadémia térképe</b>. Mivel nem ismeritek az épületet, a <a href="#" onclick="openEvidence('ev-map');return false;" style="color:var(--gold)">térkép rejtvényével</a> kerestek menekülőutat.</p>
-      <div class="team">
-        <h4>▸ A csapat feladata</h4>
-        1. Vizsgáljátok át <a href="#" onclick="openEvidence('ev-chats');return false;">az igazgató telefonját</a>, és keressetek nyomokat!<br>
-        2. Fejtsétek meg a <a href="#" onclick="openEvidence('ev-map');return false;">térkép rejtvényét</a>, és találjátok meg a helyes menekülési pontot!
-      </div>
+      <p>Rettenetes gyanú érlelődik bennetek. Az igazgatói irodába osontok — tilos, de nincs más út. Az asztal fiókja zárva, a falakon jegyzetek, a szemetesben papírfecnik. <b>Kutassatok!</b></p>
+      <p class="hint-inline">Segít: <a href="#" onclick="openEvidence('ev-chats');return false;">az igazgató telefonja</a></p>
     </div>
 
-    <div class="gatebox" data-gate="c1s3" data-answer="hálóterem|haloterem|háló|halo|szoba|kollégium|kollegium|hálószoba">
+    <div class="puzzle" data-puzzle="adv-a" data-pkey="gaimi_key_a">
+      <span class="ptype">Lyukmaszk-papír</span>
+      <h4>A rejtett szó a jegyzeten</h4>
+      <div class="body">
+        <p>Az igazgató jegyzetében értelmetlen betűrács áll. A fiókban egy <b>lyukas papírlap</b> — ha ráhelyezitek, csak pár betű látszik ki. Nyomjátok meg a gombot, és olvassátok össze a réseken kilátszó betűket <b>fentről lefelé!</b></p>
+        <div class="maskwrap"><div class="maskgrid" id="maskgrid">
+          <div class="maskcell">K</div><div class="maskcell">Z</div><div class="maskcell hole">A</div><div class="maskcell">P</div>
+          <div class="maskcell">W</div><div class="maskcell hole">E</div><div class="maskcell">V</div><div class="maskcell">T</div>
+          <div class="maskcell">R</div><div class="maskcell">Q</div><div class="maskcell">D</div><div class="maskcell hole">O</div>
+          <div class="maskcell hole">N</div><div class="maskcell">M</div><div class="maskcell">B</div><div class="maskcell">S</div>
+        </div></div>
+        <div><button class="btn ghost" id="maskbtn" style="padding:9px 16px" onclick="toggleMask()">Maszk rátétele</button></div>
+        <p style="margin-top:12px">Milyen szó rajzolódik ki? <span class="hint-inline">(Ez mozgatja Victort a háttérből.)</span></p>
+      </div>
+      <input class="txt" type="text" placeholder="A kirajzolódó szó…">
+      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkMask()">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('adva')">tipp</button>
+      <div class="hinttext" id="phint-adva">Helyezzétek rá a maszkot, és olvassátok össze a réseken kilátszó betűket fentről lefelé. A szó egy szekta neve — a Különjelentésben is szerepel.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">🔑 „A" kulcsbizonyíték · a MIÉRT</div>
+        <div class="frag">A maszk alatt a kultusz neve rajzolódik ki: <b>AEON</b>. Victort a halhatatlanságot ígérő Aeon-kultusz hajtja.</div></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="p2" data-frag="2" data-pkey="gaimi_frag_2" data-answer="0715|17707156808">
+      <span class="ptype">Számzár</span>
+      <h4>A fiók számzárja</h4>
+      <div class="body">
+        <p>A fiókon négyjegyű számzár. A kód annak a napnak a dátuma <b>HHNN alakban</b>, amikor az utolsó áldozatot fel akarják áldozni — és pontosan ez a négy számjegy hiányzik a levelek telefonszámából is:</p>
+        <div class="cipher">1 7 7 – # # # # – 6 8 0 8</div>
+        <p>Nézzétek meg a <a href="#" onclick="openEvidence('ev-files');return false;" style="color:var(--gold)">diák-aktákban</a> Jamie Reed születésnapját.</p>
+      </div>
+      <input class="txt code" type="text" maxlength="4" inputmode="numeric" placeholder="_ _ _ _">
+      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solvePuzzleText('p2',2)">Feloldás</button>
+      <button class="hintbtn" onclick="togglePHint('p2')">tipp</button>
+      <div class="hinttext" id="phint-p2">Keressétek ki Jamie születésnapját a diák-aktákból, és írjátok HHNN alakban: előbb a hónap két jegye, aztán a napé.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 2. levéltöredék · a zár kinyílt → a teljes szám: 177-0715-6808</div>
+        <div class="frag">„Én löktem a kútba Finnt — nem te. Aznap éjjel a csirkevérrel és a mesével azért rémítettelek meg, hogy hallgass. Bocsásd meg."</div></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="adv-b" data-pkey="gaimi_key_b">
+      <span class="ptype">Tárgykutatás</span>
+      <h4>Kutassátok át az irodát</h4>
+      <div class="body">
+        <p><b>Kattintsatok a gyanús tárgyakra!</b> Három igazi nyom rejtőzik (a többi zsákutca).</p>
+        <div class="objcount">Megtalált nyomok: <span id="objcount">0 / 3</span></div>
+        <div class="scene">
+          <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
+            <rect width="520" height="300" fill="#211a12"/><rect x="0" y="196" width="520" height="104" fill="#3a2c1c"/>
+            <rect x="30" y="150" width="150" height="46" fill="#4a3826"/><rect x="360" y="120" width="130" height="76" fill="#12100c"/>
+            <rect x="368" y="128" width="114" height="60" fill="#1d2a2a"/><rect x="210" y="60" width="90" height="70" fill="#5a4632"/>
+            <text x="255" y="40" text-anchor="middle" fill="#7c6a4f" font-family="monospace" font-size="12">IGAZGATÓI IRODA</text>
+          </svg>
+          <span class="hot" data-id="plan" data-real="1" style="left:20%;top:64%" onclick="findObj(this,true)">📜</span>
+          <span class="hot" data-id="cal" data-real="1" style="left:50%;top:30%" onclick="findObj(this,true)">🗓️</span>
+          <span class="hot" data-id="med" data-real="1" style="left:82%;top:70%" onclick="findObj(this,true)">🧪</span>
+          <span class="hot" data-id="cup" data-real="0" style="left:64%;top:66%" onclick="findObj(this,false)">☕</span>
+          <span class="hot" data-id="frame" data-real="0" style="left:82%;top:45%" onclick="findObj(this,false)">🖼️</span>
+        </div>
+        <div class="objclue" id="clue-plan">📜 <b>Összetépett terv:</b> „Jamie → a KÚT, július 15., hajnal." <i>(igazi nyom)</i></div>
+        <div class="objclue" id="clue-cal">🗓️ <b>Falinaptár:</b> július 15. pirossal bekarikázva. <i>(igazi nyom)</i></div>
+        <div class="objclue" id="clue-med">🧪 <b>Címke nélküli „orvosság":</b> ezzel kábítják a tanárt. <i>(igazi nyom)</i></div>
+        <div class="objclue" id="clue-cup">☕ Kihűlt kávé. Nem visz előre.</div>
+        <div class="objclue" id="clue-frame">🖼️ Régi családi fotó — most zsákutca.</div>
+      </div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">🔑 „B" kulcsbizonyíték · a HOL és MIKOR</div>
+        <div class="frag">A tárgyak elárulják a helyszínt és az időt: a merénylet a <b>KÚTNÁL</b>, <b>július 15-én</b> hajnalban történne.</div></div>
+    </div>
+  </div>
+  <div class="lockmsg" data-lock="c1s4"><span class="key">🔒</span>Oldjátok fel a maszkot, a számzárat és találjátok meg a nyomokat.</div>
+
+  <!-- c1s4 -->
+  <div class="stage locked" data-stage="c1s4">
+    <h3 class="pagehead">4 · A kút emléke és a szökés</h3>
+    <div class="narrative">
+      <div class="memory"><p><b>Emlék.</b> Egy éjjel láttátok, ahogy az öcsétek a <b>kútba löki</b> a bátyátokat — aztán megfordult, és meglátott titeket. Amikor az elmosódott alak megtudta, hogy <b>ő maga a gyilkos</b>, felüvöltött: „Megöltem azokat, akik életet adtak nekem!" — és a kútba vetette magát.</p></div>
+      <p style="color:var(--red)"><b>Nem maradhattok tovább: azonnal menekülnötök kell!</b> A szemetesben az <a href="#" onclick="openEvidence('ev-map');return false;" style="color:var(--gold)">akadémia térképét</a> találjátok.</p>
+    </div>
+    <div class="gatebox" data-gate="c1esc" data-pkey="gaimi_escape_boy" data-answer="hálóterem|haloterem|háló|halo|szoba|kollégium|kollegium|hálószoba">
       <h4>🗝 Menekülési pont — Ben útvonala</h4>
-      <div class="q">Rettegve pakoltok, és tárcsáznátok a segélyhívót. <b>Hová menekültök először, hogy összecsomagoljatok és hívjátok a segítséget?</b> <span class="hint-inline">(A menekülési pont az emlékeitekben van — ott, ahol felébredtetek.)</span></div>
+      <div class="q">Rettegve pakoltok, és tárcsáznátok a segélyhívót. <b>Hová menekültök először?</b> <span class="hint-inline">(Ott, ahol felébredtetek.)</span></div>
       <input type="text" placeholder="Hová menekültök?">
       <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkEscape('boy')">Menekülés!</button>
       <div id="ending-boy" class="feedback"></div>
@@ -601,76 +753,172 @@
 <!-- ============ 2. AKTA · MIA ============ -->
 <section id="case2">
   <h2>2. akta — Mia Walsh emléke</h2>
-  <p class="lead">A csapat második nyoma · egy női növendék feljegyzései</p>
+  <p class="lead">A csapat második nyoma · egy női növendék feljegyzései. Itt áll össze a Szellemtanár levele és a vádirat.</p>
 
+  <div class="fraginv" id="fraginv">
+    <div class="lab">Levéltöredékek — <span id="fragcount">0 / 6</span> (a nyomozás során gyűjtitek)</div>
+    <div class="fragslot" id="fragslot-1"><span>1</span></div><div class="fragslot" id="fragslot-2"><span>2</span></div>
+    <div class="fragslot" id="fragslot-3"><span>3</span></div><div class="fragslot" id="fragslot-4"><span>4</span></div>
+    <div class="fragslot" id="fragslot-5"><span>5</span></div><div class="fragslot" id="fragslot-6"><span>6</span></div>
+  </div>
+  <div class="keyinv">
+    <div class="lab">Kulcsbizonyítékok — <span id="keycount">0 / 3</span></div>
+    <div class="keyslot" id="keyslot-a">A · MIÉRT</div><div class="keyslot" id="keyslot-b">B · HOL &amp; MIKOR</div><div class="keyslot" id="keyslot-c">C · KI</div>
+  </div>
+
+  <!-- c2s1 -->
   <div class="stage" data-stage="c2s1">
-    <h3 class="pagehead">4 · „Jól viselkedett ma az én jó gyermekem?”</h3>
+    <h3 class="pagehead">5 · Mia titka</h3>
     <div class="narrative">
-      <p class="whisper">„A férfi felsőbbrendű a nőnél… a három engedelmesség és a négy erény… A legsúlyosabb szülőtiszteletlenség, ha valakinek nincs utódja…”</p>
-      <p>A sötétben egy kicsi, <b>vérfoltos fafigura</b> mered rátok. „Faragj fát, szolgáld szüleid…” — mordul fel újra meg újra, majd felnevet: <b>„Várni foglak Millbrook faluban…”</b></p>
-      <p>„Ébresztő!” — ugyanaz a hangosbemondó. Az asztalon a <b>házirend</b>, a <b>Ashford Napilap</b>, néhány <b>fénykép</b> — és egy boríték: <b>„Mia Walsh titka”</b>. A saját neveteket sem tudjátok — úgy döntötök, <b>Mia Walsh</b> szemszögéből emlékeztek.</p>
+      <p class="whisper">„Faragj fát, szolgáld szüleid…”</p>
+      <p>A sötétben egy kicsi, <b>vérfoltos fafigura</b> mered rátok, majd felnevet: „Várni foglak Millbrook faluban…" Az asztalon a <b>házirend</b>, az <b>Ashford Napilap</b>, <b>fényképek</b> — és egy boríték: <b>„Mia Walsh titka”</b>. Mia szemszögéből emlékeztek.</p>
     </div>
-    <div class="team">
-      <h4>▸ A csapat feladata</h4>
-      1. Olvassátok el újra a <a href="#" onclick="openEvidence('ev-rules');return false;">házirendet</a> és a <a href="#" onclick="openEvidence('ev-daily');return false;">Ashford Napilapot</a><br>
-      2. Figyeljétek meg <a href="#" onclick="openEvidence('ev-photos');return false;">a fényképeket</a><br>
-      3. Bontsátok fel <a href="#" onclick="openEvidence('ev-wml');return false;">„Mia Walsh titka”</a> borítékot, és válaszoljatok:
-    </div>
-
-    <div class="gatebox" data-gate="c2s1" data-answer="leo|orvos|doktor|doctor|dr reed|dr. reed|leora">
-      <h4>🗝 Rejtvény-kapu 3</h4>
-      <div class="q">Mia az akadémián egy tanárba szeretett bele, aki <b>kísértetiesen hasonlított</b> valakire a múltjából — arra a férfira, akiért az akadémiára került. <br><br><b>Kire emlékeztette őt a tanár? (Ki volt Mia igazi szerelme?)</b></div>
+    <div class="team"><h4>▸ A csapat feladata</h4>
+      Bontsátok fel: <a href="#" onclick="openEvidence('ev-wml');return false;">„Mia Walsh titka”</a> · nézzétek meg újra a <a href="#" onclick="openEvidence('ev-photos');return false;">fényképeket</a></div>
+    <div class="gatebox" data-gate="c2s1" data-pkey="gaimi_gate_c2s1" data-answer="leo|orvos|doktor|doctor|dr reed|dr. reed|leo reed">
+      <h4>🗝 Nyom — a boríték</h4>
+      <div class="q">Mia egy tanárba szeretett bele, aki <b>kísértetiesen hasonlított</b> arra a férfira, akiért az akadémiára került. <b>Ki volt Mia igazi szerelme?</b></div>
       <input type="text" placeholder="Név…">
       <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkGate('c2s1')">Ellenőrzés</button>
       <button class="hintbtn" onclick="toggleHint('c2s1')">tipp</button>
-      <div class="hinttext" id="hint-c2s1">Egy orvos, aki Millbrook faluban pihent, és a Reed családhoz tartozik. Ugyanaz, aki a kórházból a leveleket írja.</div>
+      <div class="hinttext" id="hint-c2s1">Egy orvos, aki Millbrook faluban pihent, és a Reed családhoz tartozik. Ugyanő írja a kórházból a leveleket.</div>
       <div class="feedback" id="fb-c2s1"></div>
     </div>
   </div>
+  <div class="lockmsg" data-lock="c2s2"><span class="key">🔒</span>Oldjátok meg a boríték nyomát a folytatáshoz.</div>
 
-  <div class="lockmsg" data-lock="c2s2"><span class="key">🔒</span>Oldjátok meg a 3. rejtvény-kaput a folytatáshoz.</div>
-
+  <!-- c2s2 -->
   <div class="stage locked" data-stage="c2s2">
-    <h3 class="pagehead">5 · A három szoba és az akták</h3>
+    <h3 class="pagehead">6 · Az akták és a besúgó</h3>
     <div class="narrative">
-      <p><b>Reed tanár szobája.</b> A diákok házi feladatai közt megtaláljátok <b>Mia munkáját</b>: újra és újra a „fát faragott, hogy szüleit szolgálja” történetét másolja. Egy fiókból előkerülnek az <b>akadémia személyi aktái</b>.</p>
-      <div class="team">
-        <h4>▸ A csapat feladata</h4>
-        Nézzétek át és vessétek össze:
-        1. <a href="#" onclick="openEvidence('ev-files');return false;">Diák-akták</a> ·
-        2. <a href="#" onclick="openEvidence('ev-staff');return false;">Dolgozói akták</a>
-      </div>
+      <p>Reed tanár fiókjából előkerülnek az <b>akadémia személyi aktái</b>. És ott van Sophie, a besúgó kislány — őt is ki lehet faggatni.</p>
+      <p class="hint-inline">Segít: <a href="#" onclick="openEvidence('ev-files');return false;">diák-akták</a> · <a href="#" onclick="openEvidence('ev-staff');return false;">dolgozói akták</a> · <a href="#" onclick="openEvidence('ev-chats');return false;">chat-naplók</a></p>
     </div>
 
-    <div class="gatebox" data-gate="c2s2" data-answer="tina|tina winter|tina walsh|winter|walsh">
-      <h4>🗝 Rejtvény-kapu 4</h4>
-      <div class="q">Az egyik aktát <b>„Tina Winter”</b>, egy másikat <b>„Tina Walsh”</b> írta alá — a kézírás ugyanaz. <br><br><b>Ki Mia Walsh eltűnt nővére, aki két néven is aláírt?</b></div>
+    <div class="gatebox" data-gate="c2sig" data-pkey="gaimi_gate_c2sig" data-answer="tina|tina winter|tina walsh|winter|walsh">
+      <h4>🗝 Az aláírások rejtélye</h4>
+      <div class="q">Az egyik aktát <b>„Tina Winter”</b>, egy másikat <b>„Tina Walsh”</b> írta alá — a kézírás ugyanaz. <b>Ki Mia eltűnt nővére, aki két néven is aláírt?</b></div>
       <input type="text" placeholder="Név…">
-      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkGate('c2s2')">Ellenőrzés</button>
-      <button class="hintbtn" onclick="toggleHint('c2s2')">tipp</button>
-      <div class="hinttext" id="hint-c2s2">A közös keresztnév a kulcs. A „Walsh” a lányok születési neve — a „Winter” a névházasság utáni neve.</div>
-      <div class="feedback" id="fb-c2s2"></div>
+      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkGate('c2sig')">Ellenőrzés</button>
+      <button class="hintbtn" onclick="toggleHint('c2sig')">tipp</button>
+      <div class="hinttext" id="hint-c2sig">A közös keresztnév a kulcs. A „Walsh" a lányok születési neve, a „Winter" a másik neve.</div>
+      <div class="feedback" id="fb-c2sig"></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="adv-c" data-pkey="gaimi_key_c">
+      <span class="ptype">Kihallgatás</span>
+      <h4>Faggassátok ki Sophie-t (Sara Wood)</h4>
+      <div class="body">
+        <p><b>Kattintsatok a kérdésekre</b>, hallgassátok meg a válaszait — majd a <a href="#" onclick="openEvidence('ev-chats');return false;" style="color:var(--gold)">chat-naplókkal</a> összevetve <b>szűrjétek ki a hazugságot!</b></p>
+        <button class="qbtn" onclick="revealAns('q1')">❓ „Ismerted Mia Walsht?"</button>
+        <div class="ans" id="ans-q1">„Persze. Nővérként tekintettem rá — sok mindent elmesélt magáról."</div>
+        <button class="qbtn" onclick="revealAns('q2')">❓ „Beszéltél valaha az igazgatóval?"</button>
+        <div class="ans" id="ans-q2">„Nem, dehogy! Soha semmi dolgom nem volt Grant igazgatóval."</div>
+        <button class="qbtn" onclick="revealAns('q3')">❓ „Honnan tudsz Mia és Reed tanár titkáról?"</button>
+        <div class="ans" id="ans-q3">„Én csak… véletlenül hallottam, ahogy sugdolóztak."</div>
+        <p style="margin-top:12px"><b>Melyik állítása hazugság?</b> <span class="hint-inline">(Vessétek össze a válaszait a chat-naplókkal — az egyik állítása nem állhat.)</span></p>
+        <div class="opts">
+          <label><input type="radio" name="advClie" value="a">Hogy Miára nővérként tekintett.</label>
+          <label><input type="radio" name="advClie" value="b">Hogy soha nem beszélt az igazgatóval.</label>
+          <label><input type="radio" name="advClie" value="c">Hogy véletlenül hallotta a sugdolózást.</label>
+        </div>
+      </div>
+      <button class="btn" style="padding:10px 18px" onclick="checkLie()">Leleplezés</button>
+      <button class="hintbtn" onclick="togglePHint('advc')">tipp</button>
+      <div class="hinttext" id="phint-advc">Nyissátok meg a chat-naplókat, és nézzétek meg, kivel is levelezik Sophie. Aztán térjetek vissza a válaszaihoz.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">🔑 „C" kulcsbizonyíték · a KI</div>
+        <div class="frag">Sophie elszólja magát: az igazgató <b>személyesen</b> irányította a kémkedést. A háttérben mindent mozgató tettes: <b>Grant igazgató = Victor Reed</b>.</div></div>
+    </div>
+
+    <div class="puzzle" data-puzzle="p5" data-frag="5" data-pkey="gaimi_frag_5" data-answer="jamie">
+      <span class="ptype">Logikai dedukció</span>
+      <h4>Ki a következő áldozat?</h4>
+      <div class="body">
+        <p>Az Aeon-kultusz szabálya szerint az áldozatnak <b>mindhárom</b> feltételt teljesítenie kell:</p>
+        <ol style="margin:8px 0 12px 22px">
+          <li>Victor Reed <b>vér szerinti rokona</b>.</li>
+          <li>Pontosan a <b>születésnapján</b> hal meg.</li>
+          <li>A rituálé a mai naptól (<b>július 12.</b>) számított <b>3 napon belül</b> esedékes.</li>
+        </ol>
+        <div style="font-family:'Courier New',monospace;font-size:.86rem;background:rgba(0,0,0,.2);border:1px solid var(--card-border);border-radius:6px;padding:10px 14px;margin-bottom:10px">
+          Sara Wood (Sophie) — márc. 4. — besúgó, nem vérrokon<br>
+          Ben Winter — okt. 5. — Tina és Leo fia <i>(már nem él)</i><br>
+          Mia Walsh — szept. 8. <i>(már nem él)</i><br>
+          Jamie Reed — <b>júl. 15.</b> — Victor vér szerinti unokája
+        </div>
+        <p><b>Ki az egyetlen, aki mindhárom feltételnek megfelel?</b></p>
+      </div>
+      <input class="txt" type="text" placeholder="A név…">
+      <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solvePuzzleText('p5',5)">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('p5')">tipp</button>
+      <div class="hinttext" id="phint-p5">Vegyétek sorra a három feltételt, és húzzátok ki azokat a jelölteket, akikre nem igaz mind. A végén egyvalaki marad.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 5. levéltöredék megszerezve</div>
+        <div class="frag">„Tina — a te Tinád — a fiunk, Ben keze által halt meg, Victor cselétől. Én túl későn jöttem rá. Ezt sosem bocsátom meg magamnak."</div></div>
     </div>
   </div>
+  <div class="lockmsg" data-lock="c2s3"><span class="key">🔒</span>Fejtsétek meg az aláírásokat, leplezzétek le Sophie-t és a következő áldozatot.</div>
 
-  <div class="lockmsg" data-lock="c2s3"><span class="key">🔒</span>Oldjátok meg a 4. rejtvény-kaput a folytatáshoz.</div>
-
+  <!-- c2s3 -->
   <div class="stage locked" data-stage="c2s3">
-    <h3 class="pagehead">6 · A szerelem emléke és a szökés</h3>
-    <div class="narrative">
-      <div class="memory">
-        <p><b>Emlék.</b> Egy elmosódott alakkal ültetek az ágy szélén; egy kicsi <b>fababát</b> nyomott a kezetekbe, és megfogadtátok: együtt mentek a világ végére. De az akadémia tiltotta a kapcsolatot. <b>Grant igazgató</b> fényt derített rá: titeket megróttak, őt „meditációs elvonulásra” vitték. A közelben egy <b>csecsemő sírását</b> hallottátok… Amikor újra láttátok őt, már késő volt: a kútba vetette magát. <b>Grant igazgató tette tönkre a szerelmeteket.</b> Bosszút akartok állni — és az igazgatói irodába indultok.</p>
+    <h3 class="pagehead">7 · Az idővonal — és a levél összeáll</h3>
+    <div class="narrative"><p>A töredékek a helyükre kerülnek. Már csak az események sorrendje hiányzik ahhoz, hogy a teljes kép — és a Szellemtanár levele — összeálljon.</p></div>
+
+    <div class="puzzle" data-puzzle="p6" data-frag="6" data-pkey="gaimi_frag_6" data-answer="order">
+      <span class="ptype">Idővonal-sorrend</span>
+      <h4>Rakjátok időrendbe az eseményeket</h4>
+      <div class="body">
+        <p>Rendezzétek időrendbe (1 = legkorábbi, 4 = legkésőbbi)!</p>
+        <div class="prow"><select data-correct="1"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="ev">Leo a kútba lökte a legidősebb fivért, Finnt, majd meghamisította saját halálát és elmenekült.</div></div>
+        <div class="prow"><select data-correct="2"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="ev">Victor Reed megalapította a Ravenhill Akadémiát, és „Grant igazgató" lett.</div></div>
+        <div class="prow"><select data-correct="3"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="ev">Mia Walsh az akadémiára került, és beleszeretett a Leóra hasonlító Reed tanárba.</div></div>
+        <div class="prow"><select data-correct="4"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><div class="ev">Ben tudtán kívül megölte az édesanyját, Tinát a VR-teremben, majd a kútba vetette magát.</div></div>
       </div>
-      <div class="team">
-        <h4>▸ A csapat feladata</h4>
-        1. Vizsgáljátok át <a href="#" onclick="openEvidence('ev-chats');return false;">az igazgató telefonját</a>!<br>
-        2. Fejtsétek meg a <a href="#" onclick="openEvidence('ev-map');return false;">térkép rejtvényét</a> — hol van „bőven víz”, és honnan hallatszik a sírás?
+      <button class="btn" style="padding:10px 18px" onclick="solveOrder('p6',6)">Ellenőrzés</button>
+      <button class="hintbtn" onclick="togglePHint('p6')">tipp</button>
+      <div class="hinttext" id="phint-p6">Minden a kútnál kezdődött (a régmúltban), és a jelenben ér véget. Az akadémia csak a tragédia után épült.</div>
+      <div class="pfb"></div>
+      <div class="reward"><div class="rt">📜 6. levéltöredék megszerezve</div>
+        <div class="frag">„Ébredj fel, bátyám. Nem vagy gyilkos. Mentsd meg Jamie-t, mielőtt július 15-én a kúthoz viszik. Már csak te maradtál. — Leo"</div></div>
+    </div>
+
+    <div class="assembled" id="assembled">
+      <div class="doc letter">
+        <div class="letterhead">Ashford Városi Kórház — Dr. Leo Reed</div>
+        <h3 style="letter-spacing:.1em">A Szellemtanár összeragasztott levele</h3>
+        <div class="doc-sub">Hat töredékből összeállítva</div>
+        <p>Bátyám, Adam! Ha ezt olvasod, már mindent tudsz. A „három fivér" meséje rólunk szólt: Finnről, rólad és rólam.</p>
+        <p>Én löktem a kútba Finnt — nem te. Aznap éjjel a csirkevérrel és a mesével azért rémítettelek meg, hogy hallgass. Bocsásd meg.</p>
+        <p>Az „apa és a kalap" története Victorról szól. Ő sosem gyógyítani akart minket — a fiaira mindig csak eszközként tekintett.</p>
+        <p>A „születésnap" meséje figyelmeztetés volt: az Aeon-kultusz a születésnapon öl. Victor a saját vér szerinti unokáját, Jamie-t készül feláldozni.</p>
+        <p>Tina — a te Tinád — a fiunk, Ben keze által halt meg, Victor cselétől. Én túl későn jöttem rá. Ezt sosem bocsátom meg magamnak.</p>
+        <p>Ébredj fel, bátyám. Nem vagy gyilkos. Mentsd meg Jamie-t, mielőtt július 15-én a kúthoz viszik. Már csak te maradtál.</p>
+        <div class="sig">— Leo</div>
       </div>
     </div>
 
-    <div class="gatebox" data-gate="c2s3" data-answer="kút|kut|kútnál|kutnal|kúthoz|kuthoz|kútba">
+    <div class="verdict" id="verdict">
+      <div class="doc">
+        <h3 style="letter-spacing:.14em">Vádirat</h3>
+        <div class="doc-sub">A három kulcsbizonyíték összeállt</div>
+        <p style="text-align:center;font-size:1.05rem"><b>KI:</b> Victor Reed — „Grant igazgató"<br><b>MIÉRT:</b> az <b>Aeon-kultusz</b> halhatatlanság-ígéretéért<br><b>HOL:</b> a <b>kútnál</b> · <b>MIKOR:</b> <b>július 15-én</b> hajnalban<br><b>ÁLDOZAT:</b> Jamie Reed, a hároméves kisfiú</p>
+        <div style="text-align:center;margin-top:6px"><span class="redstamp">Bizonyítva</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lockmsg" data-lock="c2s4"><span class="key">🔒</span>Rakjátok időrendbe az eseményeket — hogy a levél összeálljon.</div>
+
+  <!-- c2s4 -->
+  <div class="stage locked" data-stage="c2s4">
+    <h3 class="pagehead">8 · A szerelem emléke és a szökés</h3>
+    <div class="narrative">
+      <div class="memory"><p><b>Emlék.</b> Egy kicsi <b>fababát</b> nyomott a kezetekbe, és megfogadtátok: együtt mentek a világ végére. De <b>Grant igazgató</b> fényt derített a kapcsolatra. A közelben egy <b>csecsemő sírását</b> hallottátok… Amikor újra láttátok őt, már késő volt: a kútba vetette magát.</p></div>
+      <p style="color:var(--red)"><b>Meg kell mentenetek a gyermeket — most!</b> Hallgassátok csak, honnan hallatszik a sírás.</p>
+    </div>
+    <div class="gatebox" data-gate="c2esc" data-pkey="gaimi_escape_girl" data-answer="kút|kut|kútnál|kutnal|kúthoz|kuthoz|kútba">
       <h4>🗝 Menekülési pont — Mia útvonala</h4>
-      <div class="q">Hallgassátok csak — mintha sírást hallanátok valahonnan, ahol <b>bőven van víz</b>. <b>Hová siettek, hogy megmentsétek a gyermeket?</b></div>
+      <div class="q">Mintha sírást hallanátok onnan, ahol <b>bőven van víz</b>. <b>Hová siettek, hogy megmentsétek a gyermeket?</b></div>
       <input type="text" placeholder="Hová siettek?">
       <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkEscape('girl')">Menekülés!</button>
       <div id="ending-girl" class="feedback"></div>
@@ -678,7 +926,7 @@
   </div>
 
   <div class="chapter-next">
-    <button class="btn" onclick="showSection('board')">Tovább: rakjátok össze a kapcsolati hálót →</button>
+    <button class="btn" onclick="showSection('board')">Tovább: a kapcsolati háló →</button>
   </div>
 </section>
 
@@ -1300,23 +1548,27 @@ function norm(s){
 function isSolved(g){ return localStorage.getItem('gaimi_gate_'+g)==='1'; }
 function setSolved(g){ localStorage.setItem('gaimi_gate_'+g,'1'); }
 
-// melyik kapu melyik szakaszt oldja fel
-const unlockMap = { c1s1:'c1s2', c1s2:'c1s3', c2s1:'c2s2', c2s2:'c2s3' };
+// tortenet-lancok: egy szakasz akkor nyilik, ha az elozo minden feladata kesz
+const storyChain = [ ['c1s1','c1s2','c1s3','c1s4'], ['c2s1','c2s2','c2s3','c2s4'] ];
+function stageSolved(stageId){
+  const st=document.querySelector('.stage[data-stage="'+stageId+'"]'); if(!st) return true;
+  const keys=[...st.querySelectorAll('[data-pkey]')]; if(keys.length===0) return true;
+  return keys.every(el=>localStorage.getItem(el.dataset.pkey)==='1');
+}
 
 function applyStageState(){
-  document.querySelectorAll('.stage[data-stage]').forEach(st=>{
-    const id = st.dataset.stage;
-    // egy szakasz akkor nyílik, ha nincs feloldó kapuja VAGY a feloldó kapu megoldott
-    let lockedBy = null;
-    for(const g in unlockMap){ if(unlockMap[g]===id) lockedBy=g; }
-    const unlocked = !lockedBy || isSolved(lockedBy);
-    st.classList.toggle('locked', !unlocked);
-    const lm = document.querySelector('.lockmsg[data-lock="'+id+'"]');
-    if(lm) lm.style.display = unlocked ? 'none' : 'block';
-    // a megoldott kapu dobozának állapota
+  storyChain.forEach(chain=>{
+    chain.forEach((id,i)=>{
+      const st=document.querySelector('.stage[data-stage="'+id+'"]'); if(!st) return;
+      const unlocked = (i===0) || stageSolved(chain[i-1]);
+      st.classList.toggle('locked', !unlocked);
+      const lm = document.querySelector('.lockmsg[data-lock="'+id+'"]');
+      if(lm) lm.style.display = unlocked ? 'none' : 'block';
+    });
   });
   document.querySelectorAll('.gatebox[data-gate]').forEach(gb=>{
-    if(isSolved(gb.dataset.gate)){
+    const pk = gb.dataset.pkey;
+    if((pk && localStorage.getItem(pk)==='1') || isSolved(gb.dataset.gate)){
       gb.classList.add('solved');
       const fb = gb.querySelector('.feedback');
       if(fb && !fb.textContent){ fb.textContent='✔ Megoldva!'; fb.className='feedback ok'; }
@@ -1339,8 +1591,6 @@ function checkGate(g){
     setSolved(g);
     applyStageState();
     refreshProgress();
-    const next = unlockMap[g];
-    if(next){ const st=document.querySelector('.stage[data-stage="'+next+'"]'); setTimeout(()=>st&&st.scrollIntoView({behavior:'smooth',block:'start'}),120); }
   } else {
     fb.textContent='✘ Nem stimmel. Nézzétek át újra a bizonyítékokat!';
     fb.className='feedback no';
@@ -1373,13 +1623,13 @@ const badEnding = `<div class="ending bad"><h5>✘ Nincs helyes menekülési pon
 
 function checkEscape(route){
   const out = document.getElementById('ending-'+route);
-  const gb = document.querySelector('.gatebox[data-gate="'+(route==='boy'?'c1s3':'c2s3')+'"]');
+  const gb = document.querySelector('.gatebox[data-gate="'+(route==='boy'?'c1esc':'c2esc')+'"]');
   const input = gb.querySelector('input');
   const val = norm(input.value);
   if(!val){ out.innerHTML=''; return; }
   const hit = endings[route].accept.some(a=>val.includes(norm(a)));
   out.innerHTML = hit ? endings[route].good : badEnding;
-  if(hit){ localStorage.setItem('gaimi_escape_'+route,'1'); refreshProgress(); }
+  if(hit){ localStorage.setItem('gaimi_escape_'+route,'1'); refreshProgress(); applyStageState(); }
 }
 
 /* ---------- kapcsolati háló ---------- */
@@ -1445,12 +1695,14 @@ const readboxes = document.querySelectorAll('input[data-read]');
 function refreshProgress(){
   let done = 0;
   readboxes.forEach(cb=>{ if(cb.checked) done++; });
-  const gates = ['c1s1','c1s2','c2s1','c2s2'].filter(isSolved).length;
+  const gates = ['c1s1','c2s1','c2sig'].filter(isSolved).length;
   const esc = (localStorage.getItem('gaimi_escape_boy')==='1'?1:0)+(localStorage.getItem('gaimi_escape_girl')==='1'?1:0);
   const board = localStorage.getItem('gaimi_board')==='1'?1:0;
   const truth = localStorage.getItem('gaimi_truth_unlocked')==='1'?1:0;
-  const total = readboxes.length + 4 + 2 + 1 + 1;
-  const pct = Math.round(((done+gates+esc+board+truth)/total)*100);
+  const frags = fragCount();
+  const keys = keyCount();
+  const total = readboxes.length + 3 + 2 + 1 + 1 + 6 + 3;
+  const pct = Math.round(((done+gates+esc+board+truth+frags+keys)/total)*100);
   document.getElementById('progress-fill').style.width = pct+'%';
   document.getElementById('progress-label').textContent = 'Nyomozás állása: '+pct+'%';
 }
@@ -1464,9 +1716,98 @@ const pad = document.getElementById('notepad');
 pad.value = localStorage.getItem('gaimi_notes')||'';
 pad.addEventListener('input',()=>localStorage.setItem('gaimi_notes',pad.value));
 
+/* ---------- NYOMOZATI REJTVENYEK ---------- */
+const TOTAL_FRAG = 6;
+function hasFrag(n){ return localStorage.getItem('gaimi_frag_'+n)==='1'; }
+function fragCount(){ let c=0; for(let i=1;i<=TOTAL_FRAG;i++) if(hasFrag(i)) c++; return c; }
+function awardFragment(n){ localStorage.setItem('gaimi_frag_'+n,'1'); renderFragInv(); refreshProgress(); }
+function renderFragInv(){
+  for(let i=1;i<=TOTAL_FRAG;i++){ const s=document.getElementById('fragslot-'+i); if(s) s.classList.toggle('filled', hasFrag(i)); }
+  const lab=document.getElementById('fragcount'); if(lab) lab.textContent=fragCount()+' / '+TOTAL_FRAG;
+  const asm=document.getElementById('assembled'); if(asm) asm.classList.toggle('show', fragCount()===TOTAL_FRAG);
+  document.querySelectorAll('.puzzle[data-frag]').forEach(p=>{
+    if(hasFrag(+p.dataset.frag)){ p.classList.add('solved'); const r=p.querySelector('.reward'); if(r) r.classList.add('show'); }
+  });
+}
+function finishPuzzle(hit,p,fb,frag){
+  if(hit){ fb.textContent='✔ Helyes! Megszereztetek egy levéltöredéket.'; fb.className='pfb ok'; awardFragment(frag); applyStageState(); }
+  else { fb.textContent='✘ Nem stimmel. Nézzétek át újra a bizonyítékokat!'; fb.className='pfb no'; }
+}
+function solvePuzzleText(id, frag){
+  const p=document.querySelector('.puzzle[data-puzzle="'+id+'"]');
+  const fb=p.querySelector('.pfb'); const val=norm(p.querySelector('input').value);
+  if(!val){ fb.textContent='Írjatok be egy választ!'; fb.className='pfb no'; return; }
+  const hit=p.dataset.answer.split('|').map(norm).some(o=> o && val.includes(o));
+  finishPuzzle(hit,p,fb,frag);
+}
+function solvePuzzleChoice(id, frag){
+  const p=document.querySelector('.puzzle[data-puzzle="'+id+'"]');
+  const fb=p.querySelector('.pfb'); const sel=p.querySelector('input[type=radio]:checked');
+  if(!sel){ fb.textContent='Válasszatok egy lehetőséget!'; fb.className='pfb no'; return; }
+  finishPuzzle(sel.value===p.dataset.answer, p, fb, frag);
+}
+function solveOrder(id, frag){
+  const p=document.querySelector('.puzzle[data-puzzle="'+id+'"]');
+  const fb=p.querySelector('.pfb'); let all=true, ok=true; const used={};
+  p.querySelectorAll('.prow').forEach(r=>{
+    r.classList.remove('right','wrong');
+    const sel=r.querySelector('select'); if(!sel.value){ all=false; return; }
+    used[sel.value]=(used[sel.value]||0)+1;
+    if(sel.value===sel.dataset.correct) r.classList.add('right'); else { r.classList.add('wrong'); ok=false; }
+  });
+  if(!all){ fb.textContent='Állítsatok be minden eseményhez sorszámot!'; fb.className='pfb no'; return; }
+  if(Object.values(used).some(v=>v>1)){ fb.textContent='Minden sorszámot csak egyszer használjatok!'; fb.className='pfb no'; return; }
+  finishPuzzle(ok,p,fb,frag);
+}
+function togglePHint(id){ const h=document.getElementById('phint-'+id); if(h) h.classList.toggle('show'); }
+
+/* ---------- HALADO REJTVENYEK ---------- */
+function toggleMask(){ const g=document.getElementById('maskgrid'); const on=g.classList.toggle('masked'); const b=document.getElementById('maskbtn'); if(b) b.textContent=on?'Maszk levétele':'Maszk rátétele'; }
+function hasKey(k){ return localStorage.getItem('gaimi_key_'+k)==='1'; }
+function keyCount(){ return ['a','b','c'].filter(hasKey).length; }
+function finishAdv(hit,p,fb,key){
+  if(hit){ fb.textContent='✔ Helyes! Megszereztetek egy kulcsbizonyítékot.'; fb.className='pfb ok'; localStorage.setItem('gaimi_key_'+key,'1'); renderKeys(); refreshProgress(); applyStageState(); }
+  else { fb.textContent='✘ Nem stimmel. Nézzétek át újra a bizonyítékokat!'; fb.className='pfb no'; }
+}
+function checkMask(){
+  const p=document.querySelector('.puzzle[data-puzzle="adv-a"]'); const fb=p.querySelector('.pfb');
+  const val=norm(p.querySelector('input').value);
+  if(!val){ fb.textContent='Írjátok be a maszk alatt kirajzolódó szót!'; fb.className='pfb no'; return; }
+  finishAdv(val.includes('aeon'),p,fb,'a');
+}
+function findObj(el, real){
+  if(el.classList.contains('found')) return;
+  el.classList.add('found');
+  const clue=document.getElementById('clue-'+el.dataset.id); if(clue) clue.classList.add('show');
+  if(real){
+    const p=el.closest('.puzzle');
+    const found=p.querySelectorAll('.hot.found[data-real="1"]').length;
+    const cnt=document.getElementById('objcount'); if(cnt) cnt.textContent=found+' / 3';
+    if(found>=3){ finishAdv(true,p,p.querySelector('.pfb'),'b'); }
+  }
+}
+function revealAns(id){ const a=document.getElementById('ans-'+id); if(a) a.classList.toggle('show'); }
+function checkLie(){
+  const p=document.querySelector('.puzzle[data-puzzle="adv-c"]'); const fb=p.querySelector('.pfb');
+  const sel=p.querySelector('input[type=radio]:checked');
+  if(!sel){ fb.textContent='Válasszátok ki a hazug állítást!'; fb.className='pfb no'; return; }
+  finishAdv(sel.value==='b',p,fb,'c');
+}
+function renderKeys(){
+  ['a','b','c'].forEach(k=>{
+    const s=document.getElementById('keyslot-'+k); if(s) s.classList.toggle('filled',hasKey(k));
+    const p=document.querySelector('.puzzle[data-puzzle="adv-'+k+'"]');
+    if(p&&hasKey(k)){ p.classList.add('solved'); const r=p.querySelector('.reward'); if(r) r.classList.add('show'); }
+  });
+  const lab=document.getElementById('keycount'); if(lab) lab.textContent=keyCount()+' / 3';
+  const v=document.getElementById('verdict'); if(v) v.classList.toggle('show', keyCount()===3);
+}
+
 /* ---------- init ---------- */
 applyStageState();
 applyTruthState();
+renderFragInv();
+renderKeys();
 refreshProgress();
 </script>
 </body>
