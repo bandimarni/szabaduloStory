@@ -569,6 +569,40 @@
     color:var(--muted);font-family:'Courier New',monospace;font-size:.72rem;letter-spacing:.06em;
     padding:9px 8px;border-radius:6px;cursor:pointer;transition:.15s}
   .restartbtn:hover{color:var(--red);border-color:var(--red);background:rgba(168,50,38,.08)}
+
+  /* ===== FOOTER + UJRAKEZDES ===== */
+  .footwrap{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+  .foottext{text-align:left}
+  @media(max-width:640px){.footwrap{flex-direction:column;gap:12px}.foottext{text-align:center}}
+  .restartbtn{flex:0 0 auto;width:auto;margin:0;background:transparent;border:1px solid var(--card-border);
+    color:var(--muted);font-family:'Courier New',monospace;font-size:.74rem;letter-spacing:.06em;
+    padding:9px 16px;border-radius:6px;cursor:pointer;transition:.15s;white-space:nowrap}
+  .restartbtn:hover{color:var(--red);border-color:var(--red);background:rgba(168,50,38,.08)}
+  .restartbtn.arm{color:#fff;background:var(--red);border-color:var(--red);font-weight:bold}
+
+  /* ===== OSSZEKEVERT BETUK ===== */
+  .scrambled{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;
+    background:repeating-linear-gradient(135deg,rgba(0,0,0,.34) 0 9px,rgba(255,255,255,.014) 9px 18px);
+    border:1px solid var(--card-border);border-radius:8px;padding:26px 18px;margin:14px 0}
+  .scrambled span{display:inline-block;font-family:'Courier New',monospace;font-size:2.3rem;font-weight:bold;
+    color:var(--gold);line-height:1;
+    text-shadow:0 1px 0 #6b5320, 0 2px 7px rgba(0,0,0,.75);
+    transition:filter .2s}
+  .scrambled span:hover{filter:brightness(1.45) drop-shadow(0 0 8px rgba(201,162,75,.55))}
+
+  /* ===== 4. OLDAL UJ FELADATAI ===== */
+  .codenote{background:var(--paper2);color:var(--ink);border-radius:6px;padding:16px 20px;margin:12px 0;
+    box-shadow:0 6px 18px rgba(0,0,0,.45)}
+  .codeline{font-family:'Courier New',monospace;font-size:1.5rem;letter-spacing:.3em;color:var(--ink);margin:6px 0}
+  .codeline .cl{color:var(--red-dark);font-size:.9rem;letter-spacing:0;margin-right:12px}
+  .binrow{font-size:1.9rem;letter-spacing:.28em;text-align:center;color:var(--gold);margin:14px 0;
+    background:rgba(0,0,0,.3);border:1px solid var(--card-border);border-radius:8px;padding:16px 10px}
+  .loctable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.88rem}
+  .loctable th{background:rgba(201,162,75,.12);color:var(--gold);font-family:'Courier New',monospace;
+    font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;text-align:left;
+    border:1px solid var(--card-border)}
+  .loctable td{border:1px solid var(--card-border);padding:7px 10px;color:#d8cdb8}
+  .loctable tr:hover td{background:rgba(255,255,255,.03)}
 </style>
 </head>
 <body>
@@ -687,8 +721,8 @@
   <div class="puzzle" data-puzzle="p1" data-frag="1" data-pkey="gaimi_frag_1" data-answer="adam">
     <span class="ptype">Rejtjel</span>
     <h4>A vérrel írt számsor</h4>
-    <div class="body"><p>A falon egy számsor. Minden szám egy betű sorszáma az ábécében (A=1, B=2, C=3 …):</p>
-      <div class="cipher">1 · 4 · 1 · 13</div><p>Kinek a nevét adja ki?</p></div>
+    <div class="body"><p>A falon egy számsor. Vajon mit jelenthet?</p>
+      <div class="cipher">1 · 4 · 1 · 13</div></div>
     <input class="txt" type="text" placeholder="A megfejtett név…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solvePuzzleText('p1',1)">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('p1')">tipp</button>
@@ -740,13 +774,21 @@
   <div class="puzzle" data-puzzle="x-anagram" data-pkey="gaimi_x_anagram" data-answer="szellem">
     <span class="ptype">Anagramma</span>
     <h4>A felborult betűk</h4>
-    <div class="body"><p>Az egyik levél hátulján kilenc betű, összekeverve. Rakjátok helyes sorrendbe — annak a tanárnak a „neve”, akinek a szobájában álltok:</p>
-      <div class="symcode">M · E · L · L · E · Z · S</div>
+    <div class="body"><p>Az egyik levél hátulján hét betűt karcoltak a papírba — de valaki összekeverte őket: van, amelyik fejjel lefelé áll, van, amelyik tükrözve, elforgatva, vagy mindkettő egyszerre.</p>
+      <div class="scrambled" aria-label="hét összekevert betű">
+        <span style="transform:rotate(180deg)">E</span>
+        <span style="transform:scaleX(-1)">L</span>
+        <span style="transform:rotate(-34deg)">S</span>
+        <span style="transform:scaleX(-1) rotate(22deg)">M</span>
+        <span style="transform:scaleY(-1)">Z</span>
+        <span style="transform:rotate(115deg)">E</span>
+        <span style="transform:scaleX(-1) rotate(180deg)">L</span>
+      </div>
       <p><b>Melyik szót adják ki?</b></p></div>
     <input class="txt" type="text" placeholder="A válasz…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-anagram')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-anagram')">tipp</button>
-    <div class="hinttext" id="phint-x-anagram">Hét betű. A szoba gazdáját az akadémián egy jelzővel hívják — nem a valódi nevén.</div>
+    <div class="hinttext" id="phint-x-anagram">Előbb fejtsétek meg, melyik betű micsoda — forgassátok, tükrözzétek vissza őket gondolatban (vigyázat: a fejjel lefelé fordított M könnyen W-nek látszik). Utána rakjátok sorba: a szoba gazdáját az akadémián egy jelzővel hívják, nem a valódi nevén.</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">✔ Megfejtve</div><div class="frag">„SZELLEM”. A tanár, akit senki sem lát rendesen — mert nem is létezik önálló emberként…</div></div>
   </div>
@@ -759,36 +801,34 @@
   </div>
   <div class="evhint">📁 Az igazgató telefonja és a diák-akták a jobb oldali sávban →</div>
 
-  <div class="puzzle" data-puzzle="adv-a" data-pkey="gaimi_key_a">
-    <span class="ptype">Lyukmaszk-papír</span>
-    <h4>A rejtett szó a jegyzeten</h4>
+  <div class="puzzle" data-puzzle="adv-a" data-pkey="gaimi_key_a" data-answer="aeon">
+    <span class="ptype">Rejtjel</span>
+    <h4>A kódolt jegyzet</h4>
     <div class="body">
-      <p>Az igazgató jegyzetében értelmetlen betűrács áll. A fiókban egy <b>lyukas papírlap</b> — ha ráhelyezitek, csak pár betű látszik ki. Nyomjátok meg a gombot, és olvassátok össze a réseken kilátszó betűket <b>fentről lefelé!</b></p>
-      <div class="maskwrap"><div class="maskgrid" id="maskgrid">
-        <div class="maskcell">K</div><div class="maskcell">Z</div><div class="maskcell hole">A</div><div class="maskcell">P</div>
-        <div class="maskcell">W</div><div class="maskcell hole">E</div><div class="maskcell">V</div><div class="maskcell">T</div>
-        <div class="maskcell">R</div><div class="maskcell">Q</div><div class="maskcell">D</div><div class="maskcell hole">O</div>
-        <div class="maskcell hole">N</div><div class="maskcell">M</div><div class="maskcell">B</div><div class="maskcell">S</div>
-      </div></div>
-      <div><button class="btn ghost" id="maskbtn" style="padding:9px 16px" onclick="toggleMask()">Maszk rátétele</button></div>
-      <p style="margin-top:12px">Milyen szó rajzolódik ki?</p>
+      <p>Az igazgató jegyzetfüzetébe két értelmetlen szót körmölt. Valaki minden betűt <b>ugyanannyival</b> tolt el az ábécében:</p>
+      <div class="codenote">
+        <div class="codeline"><span class="cl">1.</span> U D Y H Q K L O O</div>
+        <div class="codeline"><span class="cl">2.</span> D H R Q</div>
+      </div>
+      <p>Az <b>első szó</b> egy nevet rejt, amit már jól ismertek — ebből kiderül, hány betűvel tolták el. Ugyanennyivel fejtsétek vissza a <b>másodikat</b> is.</p>
+      <p><b>Mi a második szó?</b></p>
     </div>
-    <input class="txt" type="text" placeholder="A kirajzolódó szó…">
-    <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkMask()">Ellenőrzés</button>
-    <button class="hintbtn" onclick="togglePHint('adva')">tipp</button>
-    <div class="hinttext" id="phint-adva">Helyezzétek rá a maszkot, és olvassátok össze a réseken kilátszó betűket fentről lefelé. A szó egy szekta neve — a Különjelentésben is szerepel.</div>
+    <input class="txt" type="text" placeholder="A megfejtett szó…">
+    <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('adv-a')">Ellenőrzés</button>
+    <button class="hintbtn" onclick="togglePHint('adv-a')">tipp</button>
+    <div class="hinttext" id="phint-adv-a">Az első szó kilenc betűs, és annak a helynek a neve, ahol most vagytok. Számoljátok meg, hány betűvel kell <i>visszafelé</i> lépni az ábécében, hogy kijöjjön — aztán lépjetek ugyanannyit vissza a második szónál is.</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">🔑 „A" kulcsbizonyíték · a MIÉRT</div>
-      <div class="frag">A maszk alatt a kultusz neve rajzolódik ki: <b>AEON</b>. Victort a halhatatlanságot ígérő Aeon-kultusz hajtja.</div></div>
+      <div class="frag">A megfejtés: <b>AEON</b>. Victort a halhatatlanságot ígérő Aeon-kultusz hajtja — ezért gyűjti a „megfelelő" áldozatokat.</div></div>
   </div>
 
   <div class="puzzle" data-puzzle="p2" data-frag="2" data-pkey="gaimi_frag_2" data-answer="0715|17707156808">
     <span class="ptype">Számzár</span>
     <h4>A fiók számzárja</h4>
     <div class="body">
-      <p>A fiókon négyjegyű számzár. A kód annak a napnak a dátuma <b>HHNN alakban</b>, amikor az utolsó áldozatot fel akarják áldozni — és pontosan ez a négy számjegy hiányzik a levelek telefonszámából is:</p>
-      <div class="cipher">1 7 7 – # # # # – 6 8 0 8</div>
-      <p>Nézzétek meg a diák-aktákban Jamie Reed születésnapját.</p>
+      <p>Az asztalfiókon négyjegyű számzár. A fiók fölé egyetlen kérdést véstek a fába:</p>
+      <div class="riddle">„Mikor jön el az áldozati bárány szerepe?"</div>
+      <p>Négy számjegy, <b>HHNN</b> alakban (hónap, majd nap).</p>
     </div>
     <input class="txt code" type="text" maxlength="4" inputmode="numeric" placeholder="_ _ _ _">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solvePuzzleText('p2',2)">Feloldás</button>
@@ -799,61 +839,73 @@
       <div class="frag">„Én löktem a kútba Finnt — nem te. Aznap éjjel a csirkevérrel és a mesével azért rémítettelek meg, hogy hallgass. Bocsásd meg."</div></div>
   </div>
 
-  <div class="puzzle" data-puzzle="adv-b" data-pkey="gaimi_key_b">
-    <span class="ptype">Tárgykutatás</span>
-    <h4>Kutassátok át az irodát</h4>
+  <div class="puzzle" data-puzzle="adv-b" data-pkey="gaimi_key_b" data-answer="kut">
+    <span class="ptype">Logikai dedukció</span>
+    <h4>Hol lesz a szertartás?</h4>
     <div class="body">
-      <p><b>Kattintsatok a gyanús tárgyakra!</b> Három igazi nyom rejtőzik (a többi zsákutca).</p>
-      <div class="objcount">Megtalált nyomok: <span id="objcount">0 / 3</span></div>
-      <div class="scene">
-        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
-          <rect width="520" height="300" fill="#211a12"/><rect x="0" y="196" width="520" height="104" fill="#3a2c1c"/>
-          <rect x="30" y="150" width="150" height="46" fill="#4a3826"/><rect x="360" y="120" width="130" height="76" fill="#12100c"/>
-          <rect x="368" y="128" width="114" height="60" fill="#1d2a2a"/><rect x="210" y="60" width="90" height="70" fill="#5a4632"/>
-          <text x="255" y="40" text-anchor="middle" fill="#7c6a4f" font-family="monospace" font-size="12">IGAZGATÓI IRODA</text>
-        </svg>
-        <span class="hot" data-id="plan" data-real="1" style="left:20%;top:64%" onclick="findObj(this,true)">📜</span>
-        <span class="hot" data-id="cal" data-real="1" style="left:50%;top:30%" onclick="findObj(this,true)">🗓️</span>
-        <span class="hot" data-id="med" data-real="1" style="left:82%;top:70%" onclick="findObj(this,true)">🧪</span>
-        <span class="hot" data-id="cup" data-real="0" style="left:64%;top:66%" onclick="findObj(this,false)">☕</span>
-        <span class="hot" data-id="frame" data-real="0" style="left:82%;top:45%" onclick="findObj(this,false)">🖼️</span>
+      <p>Az igazgató és a Mester üzenetváltásából három feltétel derül ki a helyszínről:</p>
+      <div class="clues">
+        <b>1.</b> „Ahol bőven van víz."<br>
+        <b>2.</b> „A szabad ég alatt — fedett helyiség nem felel meg."<br>
+        <b>3.</b> „A főkapuból ne lehessen látni."
       </div>
-      <div class="objclue" id="clue-plan">📜 <b>Összetépett terv:</b> „Jamie → a KÚT, július 15., hajnal." <i>(igazi nyom)</i></div>
-      <div class="objclue" id="clue-cal">🗓️ <b>Falinaptár:</b> július 15. pirossal bekarikázva. <i>(igazi nyom)</i></div>
-      <div class="objclue" id="clue-med">🧪 <b>Címke nélküli „orvosság":</b> ezzel kábítják a tanárt. <i>(igazi nyom)</i></div>
-      <div class="objclue" id="clue-cup">☕ Kihűlt kávé. Nem visz előre.</div>
-      <div class="objclue" id="clue-frame">🖼️ Régi családi fotó — most zsákutca.</div>
+      <p>A szemetesből előkerült térkép szerint öt helyszín jöhet szóba:</p>
+      <table class="loctable">
+        <tr><th>Helyszín</th><th>Van víz?</th><th>Fedett?</th><th>Látszik a főkapuból?</th></tr>
+        <tr><td>Menza</td><td>igen</td><td>igen</td><td>nem</td></tr>
+        <tr><td>Kút</td><td>igen</td><td>nem</td><td>nem</td></tr>
+        <tr><td>Sportpálya</td><td>nem</td><td>nem</td><td>igen</td></tr>
+        <tr><td>Tantermi épület</td><td>nem</td><td>igen</td><td>nem</td></tr>
+        <tr><td>Meditációs szoba</td><td>nem</td><td>igen</td><td>nem</td></tr>
+      </table>
+      <p><b>Melyik helyszín felel meg mind a három feltételnek?</b></p>
     </div>
+    <input class="txt" type="text" placeholder="A helyszín…">
+    <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('adv-b')">Ellenőrzés</button>
+    <button class="hintbtn" onclick="togglePHint('adv-b')">tipp</button>
+    <div class="hinttext" id="phint-adv-b">Menjetek soronként: húzzátok ki azokat, ahol nincs víz. A maradékból húzzátok ki a fedetteket. Ami marad, azt még a főkapu-feltétellel is vessétek össze.</div>
     <div class="pfb"></div>
-    <div class="reward"><div class="rt">🔑 „B" kulcsbizonyíték · a HOL és MIKOR</div>
-      <div class="frag">A tárgyak elárulják a helyszínt és az időt: a merénylet a <b>KÚTNÁL</b>, <b>július 15-én</b> hajnalban történne.</div></div>
+    <div class="reward"><div class="rt">🔑 „B" kulcsbizonyíték · a HOL</div>
+      <div class="frag">Csak egyetlen hely felel meg mindháromnak: a <b>KÚT</b>. Bőven van benne víz, a szabad ég alatt áll, és a főkapuból nem látni. Itt fog megtörténni — a fiók kódja pedig elárulja, <b>mikor</b>.</div></div>
   </div>
   <div class="puzzle" data-puzzle="x-roman" data-pkey="gaimi_x_roman" data-answer="2010">
-    <span class="ptype">Római számok</span>
-    <h4>Az alapkő</h4>
-    <div class="body"><p>Az igazgatói iroda falán bekeretezve az akadémia alapkövének fotója. Rajta egyetlen felirat:</p>
-      <div class="romanplate">M M X</div>
-      <p><b>Melyik évet jelenti?</b></p></div>
-    <input class="txt" type="text" placeholder="A válasz…">
+    <span class="ptype">Kettes számrendszer</span>
+    <h4>Az alapkő jelei</h4>
+    <div class="body">
+      <p>Az iroda falán bekeretezve az akadémia alapkövének fotója. A kőbe <b>tizenegy jelet</b> véstek egy sorba — teli és üres köröket:</p>
+      <div class="binrow">● ● ● ● ● ○ ● ● ○ ● ○</div>
+      <p>A teli kör <b>1</b>-est, az üres <b>0</b>-t jelöl, <b>kettes számrendszerben</b>, balról a legnagyobb helyi értékkel.</p>
+      <p><b>Melyik évszámot rejti?</b></p>
+    </div>
+    <input class="txt" type="text" placeholder="Az évszám…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-roman')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-roman')">tipp</button>
-    <div class="hinttext" id="phint-x-roman">M = 1000, X = 10. Adjátok össze a jeleket balról jobbra.</div>
+    <div class="hinttext" id="phint-x-roman">Írjátok le a jeleket 1-esként és 0-ként. A jobb szélső jel helyi értéke 1, tőle balra 2, majd 4, 8, 16… Adjátok össze azokat a helyi értékeket, ahol teli kör áll.</div>
     <div class="pfb"></div>
-    <div class="reward"><div class="rt">✔ Megfejtve</div><div class="frag">2010 — az alapítás éve. Ugyanez áll a Napilapban is: az akadémia 2010 óta működik. Vajon mi történt közvetlenül előtte a Reed családdal?</div></div>
+    <div class="reward"><div class="rt">✔ Megfejtve</div>
+      <div class="frag">2010 — az alapítás éve, ahogy az Ashford Napilap is írja. Vajon mi történt a Reed családdal közvetlenül ez előtt?</div></div>
   </div>
-  <div class="puzzle" data-puzzle="x-symbol" data-pkey="gaimi_x_symbol" data-answer="1005">
-    <span class="ptype">Szimbólum-kódtárcsa</span>
-    <h4>A széf jelei</h4>
-    <div class="body"><p>Az iroda falifülkéjében kis széf, mellette egy jelmagyarázat. A széf tárcsáján négy jel áll — fordítsátok számokra!</p>
-      <div class="symlegend"><span><b>★</b> = 1</span><span><b>●</b> = 0</span><span><b>▲</b> = 5</span><span><b>✚</b> = 7</span></div>
-      <div class="symcode">★ ● ● ▲</div>
-      <p><b>Mi a széf kódja?</b></p></div>
-    <input class="txt" type="text" placeholder="A válasz…">
-    <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-symbol')">Ellenőrzés</button>
+  <div class="puzzle" data-puzzle="x-symbol" data-pkey="gaimi_x_symbol" data-answer="8361">
+    <span class="ptype">Logikai fejtörő</span>
+    <h4>A falifülke széfje</h4>
+    <div class="body">
+      <p>A falifülkében egy kis széf, négyjegyű kóddal. Az igazgató a jegyzetébe firkálta, hogyan emlékezzen rá:</p>
+      <div class="clues">
+        <b>•</b> A kód négy <b>különböző</b> számjegyből áll.<br>
+        <b>•</b> Az <b>első</b> és az <b>utolsó</b> számjegy összege <b>9</b>.<br>
+        <b>•</b> A <b>második</b> számjegy a <b>negyediknek a háromszorosa</b>.<br>
+        <b>•</b> A négy számjegy <b>összege 18</b>.<br>
+        <b>•</b> Több szám is megfelel — a kód a <b>legnagyobb</b> közülük.
+      </div>
+      <p><b>Mi a széf kódja?</b></p>
+    </div>
+    <input class="txt code" type="text" maxlength="4" inputmode="numeric" placeholder="_ _ _ _">
+    <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-symbol')">Feloldás</button>
     <button class="hintbtn" onclick="togglePHint('x-symbol')">tipp</button>
-    <div class="hinttext" id="phint-x-symbol">★=1, ●=0, ●=0, ▲=5 — írjátok egymás után a négy számjegyet.</div>
+    <div class="hinttext" id="phint-x-symbol">Kezdjétek az utolsó számjeggyel: mivel a második a háromszorosa, az utolsó csak elég kicsi lehet. Próbáljátok végig 0-tól 3-ig — mindegyikhez adódik a többi számjegy, aztán nézzétek, melyik teljesíti az összes feltételt.</div>
     <div class="pfb"></div>
-    <div class="reward"><div class="rt">✔ Megfejtve</div><div class="frag">1005 → október 5. Ez <b>Ben Winter</b> születésnapja. Az igazgató a diákjai születésnapjait tartja a széfjében… miért gyűjti őket?</div></div>
+    <div class="reward"><div class="rt">✔ A széf kinyílik</div>
+      <div class="frag">Bent egy vékony füzet: minden diák neve mellett a <b>születésnapja</b> — néhány pirossal bekarikázva. Az igazgató nem véletlenül gyűjti a dátumokat…</div></div>
   </div>
 </section>
 <section class="page" data-page="5" data-evidence="ev-map">
@@ -1111,8 +1163,7 @@
 </section>
 <section class="page" data-page="10" data-evidence="ev-files,ev-staff">
   <div class="pagenum">10 / 12 oldal</div>
-  <h2></h2>
-
+  
   <h2>Kapcsolati háló</h2>
   <p class="lead">Kössétek össze a szereplőket! Válasszátok ki mindenkihez a helyes szerepet. Ha mind stimmel, közelebb kerültök az igazsághoz.</p>
 
@@ -1172,8 +1223,7 @@
 </section>
 <section class="page" data-page="11">
   <div class="pagenum">11 / 12 oldal</div>
-  <h2></h2>
-
+  
   <h2>Következtetés</h2>
   <p class="lead">Rakjátok össze a történetet! Ha mind az öt kérdésre helyesen válaszoltok, feltárul az igazság.</p>
 
@@ -1226,8 +1276,7 @@
 </section>
 <section class="page" data-page="12">
   <div class="pagenum">12 / 12 oldal</div>
-  <h2></h2>
-
+  
   <h2>Az igazság</h2>
   <p class="lead">A Ravenhill Akadémia teljes története</p>
 
@@ -1285,7 +1334,6 @@
         <div class="mini" id="keyslot-a">A</div><div class="mini" id="keyslot-b">B</div><div class="mini" id="keyslot-c">C</div>
       </div>
     </div>
-    <button class="restartbtn" onclick="restartGame()">🔄 Nyomozás újrakezdése</button>
   </aside>
 </div>
 
@@ -1718,8 +1766,13 @@
 </div>
 
 <footer>
-  RAVENHILL AKADÉMIA · Magánhasználatra készült magyar csapatos átdolgozás.<br>
-  Minden helyben töltődik be — internet és bejelentkezés nélkül is működik.
+  <div class="footwrap">
+    <div class="foottext">
+      RAVENHILL AKADÉMIA · Magánhasználatra készült magyar csapatos átdolgozás.<br>
+      Minden helyben töltődik be — internet és bejelentkezés nélkül is működik.
+    </div>
+    <button class="restartbtn" id="restartbtn" onclick="restartGame()">🔄 Nyomozás újrakezdése</button>
+  </div>
 </footer>
 
 <script>
@@ -2006,9 +2059,18 @@ function renderSolvedStates(){
 /* ---------- mentes-verzio: elavult haladas torlese ---------- */
 const SAVE_VERSION='2026-07-22-a';
 function wipeProgress(){ Object.keys(localStorage).filter(k=>k.startsWith('gaimi_')).forEach(k=>localStorage.removeItem(k)); }
+let restartArmed=false, restartTimer=null;
 function restartGame(){
-  if(!confirm('Biztosan újrakezditek? Minden eddigi megfejtés és haladás törlődik.')) return;
-  wipeProgress(); localStorage.setItem('gaimi_ver',SAVE_VERSION); location.reload();
+  const b=document.getElementById('restartbtn');
+  if(!restartArmed){
+    restartArmed=true;
+    if(b){ b.textContent='⚠ Biztos? Kattints újra a törléshez'; b.classList.add('arm'); }
+    restartTimer=setTimeout(()=>{ restartArmed=false; if(b){ b.textContent='🔄 Nyomozás újrakezdése'; b.classList.remove('arm'); } },5000);
+    return;
+  }
+  clearTimeout(restartTimer); restartArmed=false;
+  wipeProgress(); localStorage.setItem('gaimi_ver',SAVE_VERSION);
+  location.href = location.pathname + '?ujra=' + Date.now();
 }
 if(localStorage.getItem('gaimi_ver')!==SAVE_VERSION){ wipeProgress(); localStorage.setItem('gaimi_ver',SAVE_VERSION); }
 
