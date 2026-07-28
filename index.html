@@ -603,6 +603,39 @@
     border:1px solid var(--card-border)}
   .loctable td{border:1px solid var(--card-border);padding:7px 10px;color:#d8cdb8}
   .loctable tr:hover td{background:rgba(255,255,255,.03)}
+
+
+  /* ===== IRATCSIKOK (keresztdedukcio) ===== */
+  .docslip{background:var(--paper2);color:var(--ink);border-radius:6px;padding:16px 20px;margin:14px 0;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);position:relative}
+  .docslip::after{content:"";position:absolute;inset:0;border-radius:6px;pointer-events:none;
+    background:repeating-linear-gradient(180deg,transparent 0 25px,rgba(90,70,40,.05) 25px 26px)}
+  .docslip .dh{font-family:'Courier New',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--red-dark);border-bottom:1.5px solid rgba(70,50,30,.45);padding-bottom:7px;margin-bottom:12px;font-weight:bold}
+  .docslip .ledger{display:grid;grid-template-columns:1fr auto;gap:7px 16px;font-family:'Courier New',monospace;font-size:.92rem}
+  .docslip .ledger span{color:var(--ink);position:relative;overflow:hidden;white-space:nowrap}
+  .docslip .ledger span::after{content:" ...........................................";color:rgba(70,50,30,.4);letter-spacing:1px}
+  .docslip .ledger b{color:var(--ink);white-space:nowrap}
+  .docslip .dnote{margin-top:12px;padding-top:9px;border-top:1px dashed rgba(70,50,30,.4);
+    font-size:.83rem;font-style:italic;color:var(--ink-soft)}
+  .docslip .riddle{background:rgba(168,50,38,.07);border-left:3px solid var(--red-dark);color:var(--ink);
+    padding:12px 16px;margin:0;font-family:'Segoe Print','Bradley Hand',cursive;font-size:1.05rem;line-height:1.7}
+
+  /* ===== KOPOGOKOD + VESETT VERS ===== */
+  .tapcode{background:rgba(0,0,0,.32);border:1px solid var(--card-border);border-radius:8px;
+    padding:18px 20px;margin:14px 0;text-align:center}
+  .tapline{font-size:1.5rem;letter-spacing:.1em;color:var(--gold);line-height:2;font-family:'Courier New',monospace}
+  .tapline i{color:var(--muted);font-size:.9rem;margin:0 18px;font-style:normal;opacity:.6}
+  .tapgrid{border-collapse:collapse;margin:12px auto 6px;font-family:'Courier New',monospace}
+  .tapgrid th{background:rgba(201,162,75,.14);color:var(--gold);font-size:.85rem;
+    padding:7px 12px;border:1px solid var(--card-border);font-weight:bold}
+  .tapgrid td{padding:7px 12px;border:1px solid var(--card-border);text-align:center;
+    color:#d8cdb8;font-size:.95rem}
+  .carvedverse{background:linear-gradient(180deg,#2a2620,#231f1a);border:1px solid var(--card-border);
+    border-radius:8px;padding:22px 26px;margin:14px 0;
+    box-shadow:inset 0 2px 12px rgba(0,0,0,.6)}
+  .carvedverse div{font-family:'Courier New',monospace;font-size:1.02rem;line-height:2.1;
+    color:#b9ab90;text-shadow:0 1px 0 rgba(0,0,0,.9), 0 -1px 0 rgba(255,255,255,.06);letter-spacing:.03em}
 </style>
 </head>
 <body>
@@ -810,7 +843,6 @@
         <div class="codeline"><span class="cl">1.</span> U D Y H Q K L O O</div>
         <div class="codeline"><span class="cl">2.</span> D H R Q</div>
       </div>
-      <p>Az <b>első szó</b> egy nevet rejt, amit már jól ismertek — ebből kiderül, hány betűvel tolták el. Ugyanennyivel fejtsétek vissza a <b>másodikat</b> is.</p>
       <p><b>Mi a második szó?</b></p>
     </div>
     <input class="txt" type="text" placeholder="A megfejtett szó…">
@@ -840,33 +872,52 @@
   </div>
 
   <div class="puzzle" data-puzzle="adv-b" data-pkey="gaimi_key_b" data-answer="kut">
-    <span class="ptype">Logikai dedukció</span>
-    <h4>Hol lesz a szertartás?</h4>
+    <span class="ptype">Keresztdedukció</span>
+    <h4>Amit nem mérnek, és amit nem őriznek</h4>
     <div class="body">
-      <p>Az igazgató és a Mester üzenetváltásából három feltétel derül ki a helyszínről:</p>
-      <div class="clues">
-        <b>1.</b> „Ahol bőven van víz."<br>
-        <b>2.</b> „A szabad ég alatt — fedett helyiség nem felel meg."<br>
-        <b>3.</b> „A főkapuból ne lehessen látni."
+      <p>Az igazgató íróasztalán három papír hever egymáson. Külön-külön mindegyik unalmas hivatali irat — <b>együtt</b> viszont elárulják, hol fog megtörténni.</p>
+
+      <div class="docslip">
+        <div class="dh">① A gondnok havi vízóra-jelentése</div>
+        <div class="ledger">
+          <span>Menza</span><b>4 820 l</b>
+          <span>Mosdóblokk</span><b>3 150 l</b>
+          <span>Kertészeti csap</span><b>1 090 l</b>
+          <span>Tantermi épület</span><b>240 l</b>
+          <span>Meditációs szoba</span><b>0 l</b>
+        </div>
+        <div class="dnote">Megjegyzés: a régi, <i>hálózaton kívüli</i> vízvételi helyet továbbra sem mérjük — oda nem vezet cső.</div>
       </div>
-      <p>A szemetesből előkerült térkép szerint öt helyszín jöhet szóba:</p>
-      <table class="loctable">
-        <tr><th>Helyszín</th><th>Van víz?</th><th>Fedett?</th><th>Látszik a főkapuból?</th></tr>
-        <tr><td>Menza</td><td>igen</td><td>igen</td><td>nem</td></tr>
-        <tr><td>Kút</td><td>igen</td><td>nem</td><td>nem</td></tr>
-        <tr><td>Sportpálya</td><td>nem</td><td>nem</td><td>igen</td></tr>
-        <tr><td>Tantermi épület</td><td>nem</td><td>igen</td><td>nem</td></tr>
-        <tr><td>Meditációs szoba</td><td>nem</td><td>igen</td><td>nem</td></tr>
-      </table>
-      <p><b>Melyik helyszín felel meg mind a három feltételnek?</b></p>
+
+      <div class="docslip">
+        <div class="dh">② Shields őr éjszakai körjárat-naplója</div>
+        <div class="ledger">
+          <span>23:00</span><b>főkapu</b>
+          <span>23:40</span><b>tantermi épület</b>
+          <span>00:20</span><b>menza</b>
+          <span>01:00</span><b>sportpálya</b>
+          <span>01:40</span><b>meditációs szoba</b>
+          <span>02:20</span><b>főkapu — és a kör újraindul</b>
+        </div>
+        <div class="dnote">A pecsételőóra csak ezeken a pontokon van felszerelve. Ahol nincs óra, oda az őr nem is megy be.</div>
+      </div>
+
+      <div class="docslip">
+        <div class="dh">③ Az igazgató kézzel írt üzenete a Mesternek</div>
+        <div class="riddle">„Ahol bőven van víz, mégsem folyik számla.<br>
+        Ahol az őr lámpája sosem világít be.<br>
+        És ahol a hold akadálytalanul látja, mit teszek."</div>
+      </div>
+
+      <p><b>Hova viszik a gyermeket?</b></p>
     </div>
     <input class="txt" type="text" placeholder="A helyszín…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('adv-b')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('adv-b')">tipp</button>
-    <div class="hinttext" id="phint-adv-b">Menjetek soronként: húzzátok ki azokat, ahol nincs víz. A maradékból húzzátok ki a fedetteket. Ami marad, azt még a főkapu-feltétellel is vessétek össze.</div>
+    <div class="hinttext" id="phint-adv-b">Az üzenet három sora három szűrő — vegyétek őket egyesével, és húzzátok ki, ami nem felel meg. Két hely majdnem átmegy a rostán, de az egyiknél mégis „folyik számla", a másik pedig fedett. A megoldás olyan hely, ami <i>egyik listán sem</i> szerepel. Gondoljátok végig: miért nem?</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">🔑 „B" kulcsbizonyíték · a HOL</div>
-      <div class="frag">Csak egyetlen hely felel meg mindháromnak: a <b>KÚT</b>. Bőven van benne víz, a szabad ég alatt áll, és a főkapuból nem látni. Itt fog megtörténni — a fiók kódja pedig elárulja, <b>mikor</b>.</div></div>
+      <div class="frag">A <b>KÚT</b> — épp azért, mert egyik listán sem szerepel. Nem a vezetékhálózatról jön a víz, így nincs órája és nincs számlája; pecsételőóra sincs ott, tehát az őr éjjel felé sem néz; és a szabad ég alatt áll. Az akadémia egyetlen pontja, amit senki nem mér és senki nem őriz.</div></div>
   </div>
   <div class="puzzle" data-puzzle="x-roman" data-pkey="gaimi_x_roman" data-answer="2010">
     <span class="ptype">Kettes számrendszer</span>
@@ -924,32 +975,56 @@
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="checkEscape('boy')">Menekülés!</button>
     <div id="ending-boy" class="feedback"></div>
   </div>
-  <div class="puzzle" data-puzzle="x-morse" data-pkey="gaimi_x_morse" data-answer="sos">
-    <span class="ptype">Morse-kód</span>
-    <h4>Kopogás a falban</h4>
-    <div class="body"><p>A vérfoltos falon apró pontok és vonalak — valaki kopogással üzent. A jelmagyarázat a régi tanterv hátulján volt:</p>
-      <div class="symlegend"><span><b>S</b> = · · ·</span><span><b>O</b> = − − −</span><span><b>K</b> = − · −</span><span><b>T</b> = −</span></div>
-      <div class="morsecode">· · ·&nbsp;&nbsp;&nbsp;− − −&nbsp;&nbsp;&nbsp;· · ·</div>
-      <p><b>Milyen üzenetet kopogtak ki?</b></p></div>
-    <input class="txt" type="text" placeholder="A válasz…">
+  <div class="puzzle" data-puzzle="x-morse" data-pkey="gaimi_x_morse" data-answer="finn">
+    <span class="ptype">Kopogókód</span>
+    <h4>Kopogás a fal mögül</h4>
+    <div class="body">
+      <p>Éjjel kopogás hallatszik a szomszéd helyiség falából. Nem véletlenszerű: <b>rövid koppantás-csoportok</b>, közöttük apró szünettel, a csoportpárok között hosszabbal. Valaki üzenni próbál.</p>
+      <div class="tapcode">
+        <div class="tapline"><span>•&nbsp;•</span> <i>·</i> <span>•</span></div>
+        <div class="tapline"><span>•&nbsp;•</span> <i>·</i> <span>•&nbsp;•&nbsp;•&nbsp;•</span></div>
+        <div class="tapline"><span>•&nbsp;•&nbsp;•</span> <i>·</i> <span>•&nbsp;•&nbsp;•&nbsp;•</span></div>
+        <div class="tapline"><span>•&nbsp;•&nbsp;•</span> <i>·</i> <span>•&nbsp;•&nbsp;•&nbsp;•</span></div>
+      </div>
+      <p>A cella falába régen valaki egy betűrácsot karcolt — talán épp ehhez:</p>
+      <table class="tapgrid">
+        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        <tr><th>1</th><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
+        <tr><th>2</th><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td></tr>
+        <tr><th>3</th><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td></tr>
+        <tr><th>4</th><td>P</td><td>R</td><td>S</td><td>T</td><td>U</td></tr>
+        <tr><th>5</th><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
+      </table>
+      <p><b>Milyen szót kopogtak ki?</b></p>
+    </div>
+    <input class="txt" type="text" placeholder="A kikopogott szó…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-morse')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-morse')">tipp</button>
-    <div class="hinttext" id="phint-x-morse">Három rövid, három hosszú, három rövid. A világ legismertebb vészjelzése.</div>
+    <div class="hinttext" id="phint-x-morse">Minden sor egyetlen betűt jelent, és két koppantás-csoportból áll. Az elsőt olvassátok le a rács bal oldalán, a másodikat a tetején — a kettő metszéspontja adja a betűt.</div>
     <div class="pfb"></div>
-    <div class="reward"><div class="rt">✔ Megfejtve</div><div class="frag">„SOS”. Valaki segítséget kért innen — és soha nem kapott.</div></div>
+    <div class="reward"><div class="rt">✔ Megfejtve</div>
+      <div class="frag">A kikopogott név: <b>FINN</b>. Aki ezt a falba verte, tudta azt a nevet, amit az akadémián soha senki nem mond ki — a legidősebb Reed fivérét, aki a kútban végezte.</div></div>
   </div>
-  <div class="puzzle" data-puzzle="x-rebus" data-pkey="gaimi_x_rebus" data-answer="halal|halál">
-    <span class="ptype">Rebusz</span>
-    <h4>A kút peremén</h4>
-    <div class="body"><p>A kút kövébe vésett képrejtvény. Fejtsétek meg, mit jelent:</p>
-      <div class="rebus">🐟 &nbsp;+&nbsp; „ÁL” &nbsp;=&nbsp; ?</div>
-      <p><b>Milyen szó jön ki?</b></p></div>
-    <input class="txt" type="text" placeholder="A válasz…">
+  <div class="puzzle" data-puzzle="x-rebus" data-pkey="gaimi_x_rebus" data-answer="fuss">
+    <span class="ptype">Rejtett üzenet</span>
+    <h4>A kút kövébe vésett vers</h4>
+    <div class="body">
+      <p>A kút peremének kövébe négy sort véstek. Első olvasásra csak egy komor kis sírvers — de valaki nem azért faragta a kőbe, hogy szép legyen. <b>Nem az számít, mit mondanak a sorok.</b></p>
+      <div class="carvedverse">
+        <div>Fenéken alszik, kit a víz elnyelt,</div>
+        <div>Utána nem jött senki, nem kereste senki.</div>
+        <div>Sötét a mélye, jéghideg a szája,</div>
+        <div>Sose hajolj fölé, ha kedves az élted.</div>
+      </div>
+      <p><b>Milyen üzenetet rejtettek a versbe?</b></p>
+    </div>
+    <input class="txt" type="text" placeholder="A rejtett üzenet…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-rebus')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-rebus')">tipp</button>
-    <div class="hinttext" id="phint-x-rebus">A 🐟 magyarul HAL. Mi lesz belőle, ha mögé teszitek: ÁL?</div>
+    <div class="hinttext" id="phint-x-rebus">Ne a sorok tartalmát nézzétek, hanem a szélüket. Olvassátok össze fentről lefelé, amivel a sorok <i>kezdődnek</i>.</div>
     <div class="pfb"></div>
-    <div class="reward"><div class="rt">✔ Megfejtve</div><div class="frag">„HALÁL”. A kút nem véletlenül van bekarikázva a térképen…</div></div>
+    <div class="reward"><div class="rt">✔ Megfejtve</div>
+      <div class="frag">A négy sorkezdő betű: <b>F–U–S–S</b>. Aki a verset a kőbe véste, nem a halottakat siratta — <b>figyelmeztetni</b> akart. Ideje megfogadni a tanácsát.</div></div>
   </div>
 </section>
 <section class="page" data-page="6" data-evidence="ev-wml,ev-photos">
@@ -2057,7 +2132,7 @@ function renderSolvedStates(){
 
 /* ---------- init ---------- */
 /* ---------- mentes-verzio: elavult haladas torlese ---------- */
-const SAVE_VERSION='2026-07-22-a';
+const SAVE_VERSION='2026-07-24-a';
 function wipeProgress(){ Object.keys(localStorage).filter(k=>k.startsWith('gaimi_')).forEach(k=>localStorage.removeItem(k)); }
 let restartArmed=false, restartTimer=null;
 function restartGame(){
