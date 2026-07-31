@@ -959,14 +959,14 @@
         <b>•</b> Az <b>első</b> és az <b>utolsó</b> számjegy összege <b>9</b>.<br>
         <b>•</b> A <b>második</b> számjegy a <b>negyediknek a háromszorosa</b>.<br>
         <b>•</b> A négy számjegy <b>összege 18</b>.<br>
-        <b>•</b> Több szám is megfelel — a kód a <b>legnagyobb</b> közülük.
+        <b>•</b> A négy számjegy közül a <b>legkisebb pontosan 1</b>.
       </div>
       <p><b>Mi a széf kódja?</b></p>
     </div>
     <input class="txt code" type="text" maxlength="4" inputmode="numeric" placeholder="_ _ _ _">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-symbol')">Feloldás</button>
     <button class="hintbtn" onclick="togglePHint('x-symbol')">tipp</button>
-    <div class="hinttext" id="phint-x-symbol">Kezdjétek az utolsó számjeggyel: mivel a második a háromszorosa, az utolsó csak elég kicsi lehet. Próbáljátok végig 0-tól 3-ig — mindegyikhez adódik a többi számjegy, aztán nézzétek, melyik teljesíti az összes feltételt.</div>
+    <div class="hinttext" id="phint-x-symbol">Kezdjétek az utolsó számjeggyel: mivel a második a háromszorosa, az utolsó csak elég kicsi lehet. Próbáljátok végig 0-tól 3-ig — mindegyikhez adódik a többi számjegy. Az utolsó feltétel (a legkisebb számjegy 1) csak egyet hagy meg közülük.</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">✔ A széf kinyílik</div>
       <div class="frag">Bent egy vékony füzet: minden diák neve mellett a <b>születésnapja</b> — néhány pirossal bekarikázva. Az igazgató nem véletlenül gyűjti a dátumokat…</div></div>
@@ -1034,7 +1034,7 @@
     <input class="txt" type="text" placeholder="A rejtett üzenet…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-rebus')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-rebus')">tipp</button>
-    <div class="hinttext" id="phint-x-rebus">Ne a sorok tartalmát nézzétek, hanem a szélüket. Olvassátok össze fentről lefelé, amivel a sorok <i>kezdődnek</i>.</div>
+    <div class="hinttext" id="phint-x-rebus">Ne a sorok tartalmát nézzétek, hanem a szélüket. Nem az első <i>szót</i> kell néznetek soronként, csak az első <i>betűt</i> — azt a négyet olvassátok össze fentről lefelé.</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">✔ Megfejtve</div>
       <div class="frag">A négy sorkezdő betű: <b>F–U–S–S</b>. Aki a verset a kőbe véste, nem a halottakat siratta — <b>figyelmeztetni</b> akart. Ideje megfogadni a tanácsát.</div></div>
