@@ -1018,26 +1018,31 @@
     <div class="reward"><div class="rt">✔ Megfejtve</div>
       <div class="frag">A kikopogott név: <b>FINN</b>. Aki ezt a falba verte, tudta azt a nevet, amit az akadémián soha senki nem mond ki — a legidősebb Reed fivérét, aki a kútban végezte.</div></div>
   </div>
-  <div class="puzzle" data-puzzle="x-rebus" data-pkey="gaimi_x_rebus" data-answer="fuss">
-    <span class="ptype">Rejtett üzenet</span>
+  <div class="puzzle" data-puzzle="x-rebus" data-pkey="gaimi_x_rebus" data-answer="fuss most|fussmost">
+    <span class="ptype">Kódolt vers</span>
     <h4>A kút kövébe vésett vers</h4>
     <div class="body">
       <p>A kút peremének kövébe négy sort véstek. Első olvasásra csak egy komor kis sírvers — de valaki nem azért faragta a kőbe, hogy szép legyen. <b>Nem az számít, mit mondanak a sorok.</b></p>
       <div class="carvedverse">
-        <div>Fenéken alszik, kit a víz elnyelt,</div>
-        <div>Utána nem jött senki, nem kereste senki.</div>
-        <div>Sötét a mélye, jéghideg a szája,</div>
-        <div>Sose hajolj fölé, ha kedves az élted.</div>
+        <div>Fent a hold, lent a kő, közöttük csend.</div>
+        <div>Aki idelép, sokáig nem marad.</div>
+        <div>Ha kérdezed, mit rejt a mély torok,</div>
+        <div>Csak annyit mondok: menj, míg futhatsz.</div>
       </div>
+      <p>A vers alá, egy másik kéz, számjegyeket vágott a kőbe, párokban, per (/) jellel elválasztva:</p>
+      <div class="tapcode">
+        <div class="tapline">1/1&nbsp; 4/25&nbsp; 2/10&nbsp; 1/26&nbsp; 3/11&nbsp; 4/12&nbsp; 4/2&nbsp; 3/13</div>
+      </div>
+      <p>Minden pár első száma egy sor sorszáma, a második szám pedig az, hogy <b>abban a sorban hányadik betű</b> kell (a szóközök és a vessők, pontok nem számítanak bele). Például az <b>1/1</b> az első sor első betűje: <b>F</b>.</p>
       <p><b>Milyen üzenetet rejtettek a versbe?</b></p>
     </div>
     <input class="txt" type="text" placeholder="A rejtett üzenet…">
     <button class="btn" style="padding:10px 18px;margin-left:6px" onclick="solveX('x-rebus')">Ellenőrzés</button>
     <button class="hintbtn" onclick="togglePHint('x-rebus')">tipp</button>
-    <div class="hinttext" id="phint-x-rebus">Ne a sorok tartalmát nézzétek, hanem a szélüket. Nem az első <i>szót</i> kell néznetek soronként, csak az első <i>betűt</i> — azt a négyet olvassátok össze fentről lefelé.</div>
+    <div class="hinttext" id="phint-x-rebus">Számoljátok meg soronként a betűket balról jobbra, a szóközöket és a írásjeleket kihagyva. A 4/25 a negyedik sor 25. betűje, a 3/11 a harmadik sor 11. betűje — és így tovább mind a nyolc párra. Írjátok egymás után, amit kaptok.</div>
     <div class="pfb"></div>
     <div class="reward"><div class="rt">✔ Megfejtve</div>
-      <div class="frag">A négy sorkezdő betű: <b>F–U–S–S</b>. Aki a verset a kőbe véste, nem a halottakat siratta — <b>figyelmeztetni</b> akart. Ideje megfogadni a tanácsát.</div></div>
+      <div class="frag">A megfejtés: <b>FUSS MOST</b>. Aki a verset a kőbe véste, nem a halottakat siratta — <b>figyelmeztetni</b> akart. Ideje megfogadni a tanácsát.</div></div>
   </div>
 </section>
 <section class="page" data-page="6" data-evidence="ev-wml,ev-photos">
@@ -2148,7 +2153,7 @@ function renderSolvedStates(){
 
 /* ---------- init ---------- */
 /* ---------- mentes-verzio: elavult haladas torlese ---------- */
-const SAVE_VERSION='2026-07-24-a';
+const SAVE_VERSION='2026-07-31-a';
 function wipeProgress(){ Object.keys(localStorage).filter(k=>k.startsWith('gaimi_')).forEach(k=>localStorage.removeItem(k)); }
 let restartArmed=false, restartTimer=null;
 function restartGame(){
