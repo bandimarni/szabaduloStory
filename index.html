@@ -981,7 +981,7 @@
   </div>
   <div class="evhint">📁 A térkép a jobb oldali sávban →</div>
 
-  <div class="gatebox" data-gate="c1esc" data-pkey="gaimi_escape_boy" data-answer="hálóterem|haloterem|háló|halo|szoba|kollégium|kollegium|hálószoba">
+  <div class="gatebox" data-gate="c1esc" data-pkey="gaimi_escape_boy" data-answer="hálóterem|haloterem|hálótermek|hálószoba|kollégium|kollegium">
     <h4>🗝 Menekülési pont — Ben útvonala</h4>
     <div class="q">A kapu zárva, a falon nem juttok át — kifelé nincs út. <b>Segítséget kell hívnotok</b>, de a telefonotok nincs nálatok: a beköltözéskor elvették. <b>Hová menekültök először?</b></div>
     <input type="text" placeholder="Hová menekültök?">
@@ -2052,7 +2052,7 @@ function checkLie(){
 
 /* ---------- menekules ---------- */
 const endings={
-  boy:{accept:['haloterem','kollegium','halo','szoba','haloszoba'],
+  boy:{accept:['haloterm','halotere','haloszob','halo terem','halo szoba','kollegium'],
     good:`<div class="ending good"><h5>✔ Helyes menekülési pont — Ben útja</h5>
       <p>Visszatértek a hálótermetekbe csomagolni, közben a segélyhívót tárcsázzátok. Az asztalon ott a szemüveg; felteszitek — és a világ hirtelen <b>elmosódik</b>. Amikor leveszitek, tisztábban láttok. A nyilvántartásban Ben Winter neve mellett ott áll: <b>„eltűnt”</b>.</p>
       <p><b>Valójában a Szellemtanár vagytok — Adam Reed egyik személyisége.</b> A hálóteremben összeestek; egy sötét árny visszavonszol a kis sötét szobába.</p></div>`},
